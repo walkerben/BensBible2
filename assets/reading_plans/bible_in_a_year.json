@@ -1,0 +1,97 @@
+{
+  "name": "Bible in a Year",
+  "description": "Read through the entire Bible in 365 days with a balanced mix of Old Testament, New Testament, Psalms, and Proverbs each day.",
+  "durationDays": 365,
+  "planType": "canonical",
+  "difficulty": "medium",
+  "tags": ["complete", "year-long", "popular"],
+  "readings": [
+    {
+      "day": 1,
+      "references": [
+        {
+          "bookName": "Genesis",
+          "startChapter": 1,
+          "startVerse": 1,
+          "endChapter": 1,
+          "endVerse": 31,
+          "displayText": "Genesis 1"
+        },
+        {
+          "bookName": "Matthew",
+          "startChapter": 1,
+          "startVerse": 1,
+          "endChapter": 1,
+          "endVerse": 25,
+          "displayText": "Matthew 1"
+        },
+        {
+          "bookName": "Psalm",
+          "startChapter": 1,
+          "startVerse": 1,
+          "endChapter": 1,
+          "endVerse": 6,
+          "displayText": "Psalm 1"
+        }
+      ]
+    },
+    {
+      "day": 2,
+      "references": [
+        {
+          "bookName": "Genesis",
+          "startChapter": 2,
+          "startVerse": 1,
+          "endChapter": 2,
+          "endVerse": 25,
+          "displayText": "Genesis 2"
+        },
+        {
+          "bookName": "Matthew",
+          "startChapter": 2,
+          "startVerse": 1,
+          "endChapter": 2,
+          "endVerse": 23,
+          "displayText": "Matthew 2"
+        },
+        {
+          "bookName": "Psalm",
+          "startChapter": 2,
+          "startVerse": 1,
+          "endChapter": 2,
+          "endVerse": 12,
+          "displayText": "Psalm 2"
+        }
+      ]
+    },
+    {
+      "day": 3,
+      "references": [
+        {
+          "bookName": "Genesis",
+          "startChapter": 3,
+          "startVerse": 1,
+          "endChapter": 3,
+          "endVerse": 24,
+          "displayText": "Genesis 3"
+        },
+        {
+          "bookName": "Matthew",
+          "startChapter": 3,
+          "startVerse": 1,
+          "endChapter": 3,
+          "endVerse": 17,
+          "displayText": "Matthew 3"
+        },
+        {
+          "bookName": "Proverbs",
+          "startChapter": 1,
+          "startVerse": 1,
+          "endChapter": 1,
+          "endVerse": 7,
+          "displayText": "Proverbs 1:1-7"
+        }
+      ]
+    }
+  ]
+}

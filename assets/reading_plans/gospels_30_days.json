@@ -1,0 +1,49 @@
+{
+  "name": "Gospels in 30 Days",
+  "description": "Read through all four Gospels (Matthew, Mark, Luke, and John) in 30 days to experience the life and teachings of Jesus.",
+  "durationDays": 30,
+  "planType": "topical",
+  "difficulty": "easy",
+  "tags": ["gospels", "jesus", "beginner-friendly"],
+  "readings": [
+    {
+      "day": 1,
+      "references": [
+        {
+          "bookName": "Matthew",
+          "startChapter": 1,
+          "startVerse": 1,
+          "endChapter": 4,
+          "endVerse": 25,
+          "displayText": "Matthew 1-4"
+        }
+      ]
+    },
+    {
+      "day": 2,
+      "references": [
+        {
+          "bookName": "Matthew",
+          "startChapter": 5,
+          "startVerse": 1,
+          "endChapter": 7,
+          "endVerse": 29,
+          "displayText": "Matthew 5-7 (Sermon on the Mount)"
+        }
+      ]
+    },
+    {
+      "day": 3,
+      "references": [
+        {
+          "bookName": "Matthew",
+          "startChapter": 8,
+          "startVerse": 1,
+          "endChapter": 10,
+          "endVerse": 42,
+          "displayText": "Matthew 8-10"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,455 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		9B54D43279C64D7A /* BensBible2App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 584BF0E0CBC54FAF /* BensBible2App.swift */; };
+		DBC7DC7A293142C6 /* Book.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED6623A9510441C7 /* Book.swift */; };
+		A39BF78DE0BD48EF /* Chapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62F3E13C180946D2 /* Chapter.swift */; };
+		33866E9F223D43BF /* Verse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D04D11B3C3B47AF /* Verse.swift */; };
+		CC393954304C4039 /* BibleLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480D0BC130D74A78 /* BibleLocation.swift */; };
+		7A62810595684BBB /* BibleDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F15E948B4DB4000 /* BibleDataService.swift */; };
+		31A69F705279477E /* LocalBibleDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F28456EB274C33 /* LocalBibleDataService.swift */; };
+		A2C7D11B55314FA2 /* ReaderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B49CA8B8FC914934 /* ReaderViewModel.swift */; };
+		80DBA882F70C44C6 /* ReaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DB1514E3A644001 /* ReaderView.swift */; };
+		3EFDABDDC45147B1 /* BookChapterPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B756C349402D47B6 /* BookChapterPickerView.swift */; };
+		9A918A15E9F84698 /* VerseRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1B7C40895654399 /* VerseRow.swift */; };
+		65918DF45009408B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8E32BACD7C044136 /* Assets.xcassets */; };
+		A6099542AADE431E /* assets in Resources */ = {isa = PBXBuildFile; fileRef = D7640F2F37304249 /* assets */; };
+		AA110001AA110001 /* VerseID.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB110001BB110001 /* VerseID.swift */; };
+		AA110002AA110002 /* HighlightColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB110002BB110002 /* HighlightColor.swift */; };
+		AA110003AA110003 /* VerseAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB110003BB110003 /* VerseAnnotation.swift */; };
+		AA110004AA110004 /* AnnotationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB110004BB110004 /* AnnotationService.swift */; };
+		AA110005AA110005 /* VerseActionBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB110005BB110005 /* VerseActionBar.swift */; };
+		AA110006AA110006 /* HighlightColorPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB110006BB110006 /* HighlightColorPicker.swift */; };
+		AA110007AA110007 /* NoteEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB110007BB110007 /* NoteEditorView.swift */; };
+		CC220001CC220001 /* NavigationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD220001DD220001 /* NavigationCoordinator.swift */; };
+		CC220002CC220002 /* BookmarksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD220002DD220002 /* BookmarksViewModel.swift */; };
+		CC220003CC220003 /* NotesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD220003DD220003 /* NotesViewModel.swift */; };
+		CC220004CC220004 /* BookmarksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD220004DD220004 /* BookmarksView.swift */; };
+		CC220005CC220005 /* NotesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD220005DD220005 /* NotesView.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		915FC181840A4477 /* BensBible2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BensBible2.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		584BF0E0CBC54FAF /* BensBible2App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BensBible2App.swift; sourceTree = "<group>"; };
+		ED6623A9510441C7 /* Book.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Book.swift; sourceTree = "<group>"; };
+		62F3E13C180946D2 /* Chapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chapter.swift; sourceTree = "<group>"; };
+		9D04D11B3C3B47AF /* Verse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Verse.swift; sourceTree = "<group>"; };
+		480D0BC130D74A78 /* BibleLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BibleLocation.swift; sourceTree = "<group>"; };
+		5F15E948B4DB4000 /* BibleDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BibleDataService.swift; sourceTree = "<group>"; };
+		99F28456EB274C33 /* LocalBibleDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalBibleDataService.swift; sourceTree = "<group>"; };
+		B49CA8B8FC914934 /* ReaderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReaderViewModel.swift; sourceTree = "<group>"; };
+		2DB1514E3A644001 /* ReaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReaderView.swift; sourceTree = "<group>"; };
+		B756C349402D47B6 /* BookChapterPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookChapterPickerView.swift; sourceTree = "<group>"; };
+		D1B7C40895654399 /* VerseRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerseRow.swift; sourceTree = "<group>"; };
+		8E32BACD7C044136 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		D7640F2F37304249 /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = assets; sourceTree = SOURCE_ROOT; };
+		BB110001BB110001 /* VerseID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerseID.swift; sourceTree = "<group>"; };
+		BB110002BB110002 /* HighlightColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlightColor.swift; sourceTree = "<group>"; };
+		BB110003BB110003 /* VerseAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerseAnnotation.swift; sourceTree = "<group>"; };
+		BB110004BB110004 /* AnnotationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationService.swift; sourceTree = "<group>"; };
+		BB110005BB110005 /* VerseActionBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerseActionBar.swift; sourceTree = "<group>"; };
+		BB110006BB110006 /* HighlightColorPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlightColorPicker.swift; sourceTree = "<group>"; };
+		BB110007BB110007 /* NoteEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteEditorView.swift; sourceTree = "<group>"; };
+		DD220001DD220001 /* NavigationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationCoordinator.swift; sourceTree = "<group>"; };
+		DD220002DD220002 /* BookmarksViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksViewModel.swift; sourceTree = "<group>"; };
+		DD220003DD220003 /* NotesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesViewModel.swift; sourceTree = "<group>"; };
+		DD220004DD220004 /* BookmarksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksView.swift; sourceTree = "<group>"; };
+		DD220005DD220005 /* NotesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesView.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		AA24E63D9FCD449A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		3AECB21B51A843CB /* = */ = {
+			isa = PBXGroup;
+			children = (
+				575D4AA81345408E /* BensBible2 */,
+				D7640F2F37304249 /* assets */,
+				39B4B89D5C4C4C30 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		39B4B89D5C4C4C30 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				915FC181840A4477 /* BensBible2.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		575D4AA81345408E /* BensBible2 */ = {
+			isa = PBXGroup;
+			children = (
+				584BF0E0CBC54FAF /* BensBible2App.swift */,
+				01FD494FFF364B81 /* Models */,
+				D63F9C9477ED458D /* Services */,
+				0033289B1BE442F1 /* ViewModels */,
+				641FA357A9664AFD /* Views */,
+				8E32BACD7C044136 /* Assets.xcassets */,
+			);
+			path = BensBible2;
+			sourceTree = "<group>";
+		};
+		01FD494FFF364B81 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				ED6623A9510441C7 /* Book.swift */,
+				62F3E13C180946D2 /* Chapter.swift */,
+				9D04D11B3C3B47AF /* Verse.swift */,
+				480D0BC130D74A78 /* BibleLocation.swift */,
+				BB110001BB110001 /* VerseID.swift */,
+				BB110002BB110002 /* HighlightColor.swift */,
+				BB110003BB110003 /* VerseAnnotation.swift */,
+				DD220001DD220001 /* NavigationCoordinator.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		D63F9C9477ED458D /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				5F15E948B4DB4000 /* BibleDataService.swift */,
+				99F28456EB274C33 /* LocalBibleDataService.swift */,
+				BB110004BB110004 /* AnnotationService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		0033289B1BE442F1 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				B49CA8B8FC914934 /* ReaderViewModel.swift */,
+				DD220002DD220002 /* BookmarksViewModel.swift */,
+				DD220003DD220003 /* NotesViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		641FA357A9664AFD /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				2DB1514E3A644001 /* ReaderView.swift */,
+				B756C349402D47B6 /* BookChapterPickerView.swift */,
+				D1B7C40895654399 /* VerseRow.swift */,
+				BB110005BB110005 /* VerseActionBar.swift */,
+				BB110006BB110006 /* HighlightColorPicker.swift */,
+				BB110007BB110007 /* NoteEditorView.swift */,
+				DD220004DD220004 /* BookmarksView.swift */,
+				DD220005DD220005 /* NotesView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		F892296823A04645 /* BensBible2 */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6CC59F8A1A944190 /* Build configuration list for PBXNativeTarget "BensBible2" */;
+			buildPhases = (
+				812F5D5665914662 /* Sources */,
+				AA24E63D9FCD449A /* Frameworks */,
+				AA2EBA34B87F413D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = BensBible2;
+			productName = BensBible2;
+			productReference = 915FC181840A4477 /* BensBible2.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		42C1C643322D47A9 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1500;
+				LastUpgradeCheck = 1500;
+				TargetAttributes = {
+					F892296823A04645 = {
+						CreatedOnToolsVersion = 15.0;
+					};
+				};
+			};
+			buildConfigurationList = AAAA000000000001 /* Build configuration list for PBXProject "BensBible2" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 3AECB21B51A843CB;
+			productRefGroup = 39B4B89D5C4C4C30 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				F892296823A04645 /* BensBible2 */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		AA2EBA34B87F413D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				65918DF45009408B /* Assets.xcassets in Resources */,
+				A6099542AADE431E /* assets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		812F5D5665914662 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9B54D43279C64D7A /* BensBible2App.swift in Sources */,
+				DBC7DC7A293142C6 /* Book.swift in Sources */,
+				A39BF78DE0BD48EF /* Chapter.swift in Sources */,
+				33866E9F223D43BF /* Verse.swift in Sources */,
+				CC393954304C4039 /* BibleLocation.swift in Sources */,
+				7A62810595684BBB /* BibleDataService.swift in Sources */,
+				31A69F705279477E /* LocalBibleDataService.swift in Sources */,
+				A2C7D11B55314FA2 /* ReaderViewModel.swift in Sources */,
+				80DBA882F70C44C6 /* ReaderView.swift in Sources */,
+				3EFDABDDC45147B1 /* BookChapterPickerView.swift in Sources */,
+				9A918A15E9F84698 /* VerseRow.swift in Sources */,
+				AA110001AA110001 /* VerseID.swift in Sources */,
+				AA110002AA110002 /* HighlightColor.swift in Sources */,
+				AA110003AA110003 /* VerseAnnotation.swift in Sources */,
+				AA110004AA110004 /* AnnotationService.swift in Sources */,
+				AA110005AA110005 /* VerseActionBar.swift in Sources */,
+				AA110006AA110006 /* HighlightColorPicker.swift in Sources */,
+				AA110007AA110007 /* NoteEditorView.swift in Sources */,
+				CC220001CC220001 /* NavigationCoordinator.swift in Sources */,
+				CC220002CC220002 /* BookmarksViewModel.swift in Sources */,
+				CC220003CC220003 /* NotesViewModel.swift in Sources */,
+				CC220004CC220004 /* BookmarksView.swift in Sources */,
+				CC220005CC220005 /* NotesView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		BBBB000000000001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		BBBB000000000002 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		CCCC000000000001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.benwalker.BensBible2;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		CCCC000000000002 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.benwalker.BensBible2;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		AAAA000000000001 /* Build configuration list for PBXProject "BensBible2" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BBBB000000000001 /* Debug */,
+				BBBB000000000002 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6CC59F8A1A944190 /* Build configuration list for PBXNativeTarget "BensBible2" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CCCC000000000001 /* Debug */,
+				CCCC000000000002 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 42C1C643322D47A9 /* Project object */;
+}

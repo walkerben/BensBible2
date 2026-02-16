@@ -1,0 +1,49 @@
+{
+  "name": "Chronological Bible in a Year",
+  "description": "Read through the Bible in chronological order, following the timeline of biblical events as they occurred in history.",
+  "durationDays": 365,
+  "planType": "chronological",
+  "difficulty": "medium",
+  "tags": ["complete", "chronological", "historical-order"],
+  "readings": [
+    {
+      "day": 1,
+      "references": [
+        {
+          "bookName": "Genesis",
+          "startChapter": 1,
+          "startVerse": 1,
+          "endChapter": 2,
+          "endVerse": 25,
+          "displayText": "Genesis 1-2"
+        }
+      ]
+    },
+    {
+      "day": 2,
+      "references": [
+        {
+          "bookName": "Genesis",
+          "startChapter": 3,
+          "startVerse": 1,
+          "endChapter": 4,
+          "endVerse": 26,
+          "displayText": "Genesis 3-4"
+        }
+      ]
+    },
+    {
+      "day": 3,
+      "references": [
+        {
+          "bookName": "Genesis",
+          "startChapter": 5,
+          "startVerse": 1,
+          "endChapter": 6,
+          "endVerse": 22,
+          "displayText": "Genesis 5-6"
+        }
+      ]
+    }
+  ]
+}

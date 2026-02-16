@@ -1,0 +1,73 @@
+{
+  "name": "Psalms & Proverbs in 150 Days",
+  "description": "Read through Psalms and Proverbs in 150 days, focusing on wisdom literature and worship. One Psalm and one Proverbs chapter per day.",
+  "durationDays": 150,
+  "planType": "topical",
+  "difficulty": "easy",
+  "tags": ["wisdom", "psalms", "proverbs", "devotional"],
+  "readings": [
+    {
+      "day": 1,
+      "references": [
+        {
+          "bookName": "Psalm",
+          "startChapter": 1,
+          "startVerse": 1,
+          "endChapter": 1,
+          "endVerse": 6,
+          "displayText": "Psalm 1"
+        },
+        {
+          "bookName": "Proverbs",
+          "startChapter": 1,
+          "startVerse": 1,
+          "endChapter": 1,
+          "endVerse": 33,
+          "displayText": "Proverbs 1"
+        }
+      ]
+    },
+    {
+      "day": 2,
+      "references": [
+        {
+          "bookName": "Psalm",
+          "startChapter": 2,
+          "startVerse": 1,
+          "endChapter": 2,
+          "endVerse": 12,
+          "displayText": "Psalm 2"
+        },
+        {
+          "bookName": "Proverbs",
+          "startChapter": 2,
+          "startVerse": 1,
+          "endChapter": 2,
+          "endVerse": 22,
+          "displayText": "Proverbs 2"
+        }
+      ]
+    },
+    {
+      "day": 3,
+      "references": [
+        {
+          "bookName": "Psalm",
+          "startChapter": 3,
+          "startVerse": 1,
+          "endChapter": 3,
+          "endVerse": 8,
+          "displayText": "Psalm 3"
+        },
+        {
+          "bookName": "Proverbs",
+          "startChapter": 3,
+          "startVerse": 1,
+          "endChapter": 3,
+          "endVerse": 35,
+          "displayText": "Proverbs 3"
+        }
+      ]
+    }
+  ]
+}
