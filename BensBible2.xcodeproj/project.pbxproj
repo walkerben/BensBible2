@@ -7,18 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9B54D43279C64D7A /* BensBible2App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 584BF0E0CBC54FAF /* BensBible2App.swift */; };
-		DBC7DC7A293142C6 /* Book.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED6623A9510441C7 /* Book.swift */; };
-		A39BF78DE0BD48EF /* Chapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62F3E13C180946D2 /* Chapter.swift */; };
-		33866E9F223D43BF /* Verse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D04D11B3C3B47AF /* Verse.swift */; };
-		CC393954304C4039 /* BibleLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480D0BC130D74A78 /* BibleLocation.swift */; };
-		7A62810595684BBB /* BibleDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F15E948B4DB4000 /* BibleDataService.swift */; };
 		31A69F705279477E /* LocalBibleDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F28456EB274C33 /* LocalBibleDataService.swift */; };
-		A2C7D11B55314FA2 /* ReaderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B49CA8B8FC914934 /* ReaderViewModel.swift */; };
-		80DBA882F70C44C6 /* ReaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DB1514E3A644001 /* ReaderView.swift */; };
+		33866E9F223D43BF /* Verse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D04D11B3C3B47AF /* Verse.swift */; };
 		3EFDABDDC45147B1 /* BookChapterPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B756C349402D47B6 /* BookChapterPickerView.swift */; };
-		9A918A15E9F84698 /* VerseRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1B7C40895654399 /* VerseRow.swift */; };
 		65918DF45009408B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8E32BACD7C044136 /* Assets.xcassets */; };
+		7A62810595684BBB /* BibleDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F15E948B4DB4000 /* BibleDataService.swift */; };
+		80DBA882F70C44C6 /* ReaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DB1514E3A644001 /* ReaderView.swift */; };
+		9A918A15E9F84698 /* VerseRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1B7C40895654399 /* VerseRow.swift */; };
+		9B54D43279C64D7A /* BensBible2App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 584BF0E0CBC54FAF /* BensBible2App.swift */; };
+		A2C7D11B55314FA2 /* ReaderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B49CA8B8FC914934 /* ReaderViewModel.swift */; };
+		A39BF78DE0BD48EF /* Chapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62F3E13C180946D2 /* Chapter.swift */; };
 		A6099542AADE431E /* assets in Resources */ = {isa = PBXBuildFile; fileRef = D7640F2F37304249 /* assets */; };
 		AA110001AA110001 /* VerseID.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB110001BB110001 /* VerseID.swift */; };
 		AA110002AA110002 /* HighlightColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB110002BB110002 /* HighlightColor.swift */; };
@@ -32,23 +30,23 @@
 		CC220003CC220003 /* NotesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD220003DD220003 /* NotesViewModel.swift */; };
 		CC220004CC220004 /* BookmarksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD220004DD220004 /* BookmarksView.swift */; };
 		CC220005CC220005 /* NotesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD220005DD220005 /* NotesView.swift */; };
+		CC393954304C4039 /* BibleLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480D0BC130D74A78 /* BibleLocation.swift */; };
+		DBC7DC7A293142C6 /* Book.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED6623A9510441C7 /* Book.swift */; };
+		EE330001EE330001 /* SplashScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF330001FF330001 /* SplashScreenView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		915FC181840A4477 /* BensBible2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BensBible2.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		584BF0E0CBC54FAF /* BensBible2App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BensBible2App.swift; sourceTree = "<group>"; };
-		ED6623A9510441C7 /* Book.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Book.swift; sourceTree = "<group>"; };
-		62F3E13C180946D2 /* Chapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chapter.swift; sourceTree = "<group>"; };
-		9D04D11B3C3B47AF /* Verse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Verse.swift; sourceTree = "<group>"; };
-		480D0BC130D74A78 /* BibleLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BibleLocation.swift; sourceTree = "<group>"; };
-		5F15E948B4DB4000 /* BibleDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BibleDataService.swift; sourceTree = "<group>"; };
-		99F28456EB274C33 /* LocalBibleDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalBibleDataService.swift; sourceTree = "<group>"; };
-		B49CA8B8FC914934 /* ReaderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReaderViewModel.swift; sourceTree = "<group>"; };
 		2DB1514E3A644001 /* ReaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReaderView.swift; sourceTree = "<group>"; };
-		B756C349402D47B6 /* BookChapterPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookChapterPickerView.swift; sourceTree = "<group>"; };
-		D1B7C40895654399 /* VerseRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerseRow.swift; sourceTree = "<group>"; };
+		480D0BC130D74A78 /* BibleLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BibleLocation.swift; sourceTree = "<group>"; };
+		584BF0E0CBC54FAF /* BensBible2App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BensBible2App.swift; sourceTree = "<group>"; };
+		5F15E948B4DB4000 /* BibleDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BibleDataService.swift; sourceTree = "<group>"; };
+		62F3E13C180946D2 /* Chapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chapter.swift; sourceTree = "<group>"; };
 		8E32BACD7C044136 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		D7640F2F37304249 /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = assets; sourceTree = SOURCE_ROOT; };
+		915FC181840A4477 /* BensBible2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BensBible2.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		99F28456EB274C33 /* LocalBibleDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalBibleDataService.swift; sourceTree = "<group>"; };
+		9D04D11B3C3B47AF /* Verse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Verse.swift; sourceTree = "<group>"; };
+		B49CA8B8FC914934 /* ReaderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReaderViewModel.swift; sourceTree = "<group>"; };
+		B756C349402D47B6 /* BookChapterPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookChapterPickerView.swift; sourceTree = "<group>"; };
 		BB110001BB110001 /* VerseID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerseID.swift; sourceTree = "<group>"; };
 		BB110002BB110002 /* HighlightColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlightColor.swift; sourceTree = "<group>"; };
 		BB110003BB110003 /* VerseAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerseAnnotation.swift; sourceTree = "<group>"; };
@@ -56,11 +54,15 @@
 		BB110005BB110005 /* VerseActionBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerseActionBar.swift; sourceTree = "<group>"; };
 		BB110006BB110006 /* HighlightColorPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlightColorPicker.swift; sourceTree = "<group>"; };
 		BB110007BB110007 /* NoteEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteEditorView.swift; sourceTree = "<group>"; };
+		D1B7C40895654399 /* VerseRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerseRow.swift; sourceTree = "<group>"; };
+		D7640F2F37304249 /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = assets; sourceTree = SOURCE_ROOT; };
 		DD220001DD220001 /* NavigationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationCoordinator.swift; sourceTree = "<group>"; };
 		DD220002DD220002 /* BookmarksViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksViewModel.swift; sourceTree = "<group>"; };
 		DD220003DD220003 /* NotesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesViewModel.swift; sourceTree = "<group>"; };
 		DD220004DD220004 /* BookmarksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksView.swift; sourceTree = "<group>"; };
 		DD220005DD220005 /* NotesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesView.swift; sourceTree = "<group>"; };
+		ED6623A9510441C7 /* Book.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Book.swift; sourceTree = "<group>"; };
+		FF330001FF330001 /* SplashScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,34 +76,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		3AECB21B51A843CB /* = */ = {
+		0033289B1BE442F1 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
-				575D4AA81345408E /* BensBible2 */,
-				D7640F2F37304249 /* assets */,
-				39B4B89D5C4C4C30 /* Products */,
+				B49CA8B8FC914934 /* ReaderViewModel.swift */,
+				DD220002DD220002 /* BookmarksViewModel.swift */,
+				DD220003DD220003 /* NotesViewModel.swift */,
 			);
-			sourceTree = "<group>";
-		};
-		39B4B89D5C4C4C30 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				915FC181840A4477 /* BensBible2.app */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		575D4AA81345408E /* BensBible2 */ = {
-			isa = PBXGroup;
-			children = (
-				584BF0E0CBC54FAF /* BensBible2App.swift */,
-				01FD494FFF364B81 /* Models */,
-				D63F9C9477ED458D /* Services */,
-				0033289B1BE442F1 /* ViewModels */,
-				641FA357A9664AFD /* Views */,
-				8E32BACD7C044136 /* Assets.xcassets */,
-			);
-			path = BensBible2;
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
 		01FD494FFF364B81 /* Models */ = {
@@ -119,24 +101,34 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
-		D63F9C9477ED458D /* Services */ = {
+		39B4B89D5C4C4C30 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				5F15E948B4DB4000 /* BibleDataService.swift */,
-				99F28456EB274C33 /* LocalBibleDataService.swift */,
-				BB110004BB110004 /* AnnotationService.swift */,
+				915FC181840A4477 /* BensBible2.app */,
 			);
-			path = Services;
+			name = Products;
 			sourceTree = "<group>";
 		};
-		0033289B1BE442F1 /* ViewModels */ = {
+		3AECB21B51A843CB = {
 			isa = PBXGroup;
 			children = (
-				B49CA8B8FC914934 /* ReaderViewModel.swift */,
-				DD220002DD220002 /* BookmarksViewModel.swift */,
-				DD220003DD220003 /* NotesViewModel.swift */,
+				575D4AA81345408E /* BensBible2 */,
+				D7640F2F37304249 /* assets */,
+				39B4B89D5C4C4C30 /* Products */,
 			);
-			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		575D4AA81345408E /* BensBible2 */ = {
+			isa = PBXGroup;
+			children = (
+				584BF0E0CBC54FAF /* BensBible2App.swift */,
+				01FD494FFF364B81 /* Models */,
+				D63F9C9477ED458D /* Services */,
+				0033289B1BE442F1 /* ViewModels */,
+				641FA357A9664AFD /* Views */,
+				8E32BACD7C044136 /* Assets.xcassets */,
+			);
+			path = BensBible2;
 			sourceTree = "<group>";
 		};
 		641FA357A9664AFD /* Views */ = {
@@ -150,8 +142,19 @@
 				BB110007BB110007 /* NoteEditorView.swift */,
 				DD220004DD220004 /* BookmarksView.swift */,
 				DD220005DD220005 /* NotesView.swift */,
+				FF330001FF330001 /* SplashScreenView.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		D63F9C9477ED458D /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				5F15E948B4DB4000 /* BibleDataService.swift */,
+				99F28456EB274C33 /* LocalBibleDataService.swift */,
+				BB110004BB110004 /* AnnotationService.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -247,6 +250,7 @@
 				CC220003CC220003 /* NotesViewModel.swift in Sources */,
 				CC220004CC220004 /* BookmarksView.swift in Sources */,
 				CC220005CC220005 /* NotesView.swift in Sources */,
+				EE330001EE330001 /* SplashScreenView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -379,7 +383,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = WJF3LRH867;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -407,7 +411,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = WJF3LRH867;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -431,20 +435,20 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		AAAA000000000001 /* Build configuration list for PBXProject "BensBible2" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				BBBB000000000001 /* Debug */,
-				BBBB000000000002 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		6CC59F8A1A944190 /* Build configuration list for PBXNativeTarget "BensBible2" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				CCCC000000000001 /* Debug */,
 				CCCC000000000002 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AAAA000000000001 /* Build configuration list for PBXProject "BensBible2" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BBBB000000000001 /* Debug */,
+				BBBB000000000002 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
