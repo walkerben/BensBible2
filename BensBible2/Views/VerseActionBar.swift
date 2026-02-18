@@ -5,6 +5,7 @@ struct VerseActionBar: View {
     let onHighlight: () -> Void
     let onNote: () -> Void
     let onBookmark: () -> Void
+    let onShare: () -> Void
     let onDeselectAll: () -> Void
 
     var body: some View {
@@ -21,6 +22,11 @@ struct VerseActionBar: View {
 
             Button(action: onBookmark) {
                 Label("Bookmark", systemImage: "bookmark")
+                    .labelStyle(.iconOnly)
+            }
+
+            Button(action: onShare) {
+                Label("Share", systemImage: "square.and.arrow.up")
                     .labelStyle(.iconOnly)
             }
 

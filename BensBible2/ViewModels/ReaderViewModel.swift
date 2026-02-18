@@ -21,11 +21,25 @@ final class ReaderViewModel {
 
     var isHighlightPickerPresented = false
     var isNoteEditorPresented = false
+    var isShareSheetPresented = false
     var noteEditingVerseID: VerseID?
     var noteEditingText: String = ""
 
     var hasSelection: Bool { !selectedVerseIDs.isEmpty }
     var selectedCount: Int { selectedVerseIDs.count }
+
+    var selectedVerseTexts: [(number: Int, text: String)] {
+        guard let chapter = currentChapter else { return [] }
+        let selectedNumbers = selectedVerseIDs.map(\.verse)
+        return chapter.verses
+            .filter { selectedNumbers.contains($0.number) }
+            .sorted { $0.number < $1.number }
+            .map { (number: $0.number, text: $0.text) }
+    }
+
+    var selectedVerseReference: String {
+        VerseID.displayRange(from: selectedVerseIDs)
+    }
 
     init(dataService: BibleDataService = LocalBibleDataService()) {
         self.dataService = dataService

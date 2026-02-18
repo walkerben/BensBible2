@@ -46,6 +46,7 @@ struct ReaderView: View {
                         onHighlight: { viewModel.isHighlightPickerPresented = true },
                         onNote: { viewModel.beginNoteEditing() },
                         onBookmark: { viewModel.bookmarkSelectedVerses() },
+                        onShare: { viewModel.isShareSheetPresented = true },
                         onDeselectAll: { viewModel.deselectAll() }
                     )
                     .transition(.move(edge: .bottom).combined(with: .opacity))
@@ -94,6 +95,12 @@ struct ReaderView: View {
                     viewModel.applyHighlight(color)
                     viewModel.isHighlightPickerPresented = false
                 }
+            }
+            .sheet(isPresented: $viewModel.isShareSheetPresented) {
+                VerseShareSheet(
+                    verses: viewModel.selectedVerseTexts,
+                    reference: viewModel.selectedVerseReference
+                )
             }
             .sheet(isPresented: $viewModel.isNoteEditorPresented) {
                 NoteEditorView(

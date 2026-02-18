@@ -33,6 +33,10 @@
 		CC393954304C4039 /* BibleLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480D0BC130D74A78 /* BibleLocation.swift */; };
 		DBC7DC7A293142C6 /* Book.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED6623A9510441C7 /* Book.swift */; };
 		EE330001EE330001 /* SplashScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF330001FF330001 /* SplashScreenView.swift */; };
+		FF440001FF440001 /* ShareGradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE440001EE440001 /* ShareGradient.swift */; };
+		FF440004FF440004 /* ShareFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE440004EE440004 /* ShareFont.swift */; };
+		FF440002FF440002 /* VerseShareImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE440002EE440002 /* VerseShareImageView.swift */; };
+		FF440003FF440003 /* VerseShareSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE440003EE440003 /* VerseShareSheet.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -63,6 +67,10 @@
 		DD220005DD220005 /* NotesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesView.swift; sourceTree = "<group>"; };
 		ED6623A9510441C7 /* Book.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Book.swift; sourceTree = "<group>"; };
 		FF330001FF330001 /* SplashScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenView.swift; sourceTree = "<group>"; };
+		EE440001EE440001 /* ShareGradient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareGradient.swift; sourceTree = "<group>"; };
+		EE440004EE440004 /* ShareFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareFont.swift; sourceTree = "<group>"; };
+		EE440002EE440002 /* VerseShareImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerseShareImageView.swift; sourceTree = "<group>"; };
+		EE440003EE440003 /* VerseShareSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerseShareSheet.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +105,8 @@
 				BB110002BB110002 /* HighlightColor.swift */,
 				BB110003BB110003 /* VerseAnnotation.swift */,
 				DD220001DD220001 /* NavigationCoordinator.swift */,
+				EE440001EE440001 /* ShareGradient.swift */,
+				EE440004EE440004 /* ShareFont.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -143,6 +153,8 @@
 				DD220004DD220004 /* BookmarksView.swift */,
 				DD220005DD220005 /* NotesView.swift */,
 				FF330001FF330001 /* SplashScreenView.swift */,
+				EE440002EE440002 /* VerseShareImageView.swift */,
+				EE440003EE440003 /* VerseShareSheet.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -251,6 +263,10 @@
 				CC220004CC220004 /* BookmarksView.swift in Sources */,
 				CC220005CC220005 /* NotesView.swift in Sources */,
 				EE330001EE330001 /* SplashScreenView.swift in Sources */,
+				FF440001FF440001 /* ShareGradient.swift in Sources */,
+				FF440004FF440004 /* ShareFont.swift in Sources */,
+				FF440002FF440002 /* VerseShareImageView.swift in Sources */,
+				FF440003FF440003 /* VerseShareSheet.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
