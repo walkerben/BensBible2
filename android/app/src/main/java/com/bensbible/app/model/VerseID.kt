@@ -27,5 +27,31 @@ data class VerseID(
             val verse = parts[2].toIntOrNull() ?: return null
             return VerseID(book = parts[0], chapter = chapter, verse = verse)
         }
+
+        fun displayRange(verseIDs: Set<VerseID>): String {
+            if (verseIDs.isEmpty()) return ""
+            val sorted = verseIDs.sorted()
+            val first = sorted.first()
+            val book = first.book
+            val chapter = first.chapter
+
+            val verses = sorted.map { it.verse }
+            val ranges = mutableListOf<String>()
+            var rangeStart = verses[0]
+            var rangeEnd = verses[0]
+
+            for (i in 1 until verses.size) {
+                if (verses[i] == rangeEnd + 1) {
+                    rangeEnd = verses[i]
+                } else {
+                    ranges.add(if (rangeStart == rangeEnd) "$rangeStart" else "$rangeStart-$rangeEnd")
+                    rangeStart = verses[i]
+                    rangeEnd = verses[i]
+                }
+            }
+            ranges.add(if (rangeStart == rangeEnd) "$rangeStart" else "$rangeStart-$rangeEnd")
+
+            return "$book $chapter:${ranges.joinToString(", ")}"
+        }
     }
 }

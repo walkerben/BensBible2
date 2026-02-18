@@ -9,6 +9,7 @@ import androidx.compose.material.icons.filled.Bookmark
 import androidx.compose.material.icons.filled.Cancel
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.FormatColorFill
+import androidx.compose.material.icons.filled.Share
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -25,6 +26,7 @@ fun VerseActionBar(
     onHighlight: () -> Unit,
     onNote: () -> Unit,
     onBookmark: () -> Unit,
+    onShare: () -> Unit,
     onDeselectAll: () -> Unit
 ) {
     Surface(
@@ -47,6 +49,10 @@ fun VerseActionBar(
 
             IconButton(onClick = onBookmark) {
                 Icon(Icons.Default.Bookmark, contentDescription = "Bookmark")
+            }
+
+            IconButton(onClick = onShare) {
+                Icon(Icons.Default.Share, contentDescription = "Share")
             }
 
             Spacer(modifier = Modifier.weight(1f))

@@ -41,6 +41,7 @@ class ReaderViewModel(
 
     var isPickerPresented by mutableStateOf(false)
     var isHighlightPickerPresented by mutableStateOf(false)
+    var isShareSheetPresented by mutableStateOf(false)
     var isNoteEditorPresented by mutableStateOf(false)
     var noteEditingVerseID by mutableStateOf<VerseID?>(null)
         private set
@@ -49,6 +50,20 @@ class ReaderViewModel(
 
     val hasSelection: Boolean get() = selectedVerseIDs.isNotEmpty()
     val selectedCount: Int get() = selectedVerseIDs.size
+
+    val selectedVerseTexts: List<Pair<Int, String>>
+        get() {
+            val chapter = currentChapter ?: return emptyList()
+            val sorted = selectedVerseIDs.sorted()
+            return sorted.mapNotNull { id ->
+                chapter.verses.find { it.number == id.verse }?.let { verse ->
+                    verse.number to verse.text
+                }
+            }
+        }
+
+    val selectedVerseReference: String
+        get() = VerseID.displayRange(selectedVerseIDs)
 
     val canGoNext: Boolean
         get() {

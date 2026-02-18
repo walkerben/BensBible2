@@ -147,6 +147,7 @@ fun ReaderScreen(
                     onHighlight = { viewModel.isHighlightPickerPresented = true },
                     onNote = { viewModel.beginNoteEditing() },
                     onBookmark = { viewModel.bookmarkSelectedVerses() },
+                    onShare = { viewModel.isShareSheetPresented = true },
                     onDeselectAll = { viewModel.deselectAll() }
                 )
             }
@@ -203,6 +204,20 @@ fun ReaderScreen(
                     viewModel.cancelNoteEditing()
                     viewModel.isNoteEditorPresented = false
                 }
+            )
+        }
+    }
+
+    // Share sheet
+    if (viewModel.isShareSheetPresented) {
+        ModalBottomSheet(
+            onDismissRequest = { viewModel.isShareSheetPresented = false },
+            sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
+        ) {
+            VerseShareSheet(
+                verses = viewModel.selectedVerseTexts,
+                reference = viewModel.selectedVerseReference,
+                onDismiss = { viewModel.isShareSheetPresented = false }
             )
         }
     }
