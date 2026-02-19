@@ -180,8 +180,12 @@ class ReaderViewModel(
 
     fun beginNoteEditing() {
         val firstID = selectedVerseIDs.minByOrNull { it.verse } ?: return
-        noteEditingVerseID = firstID
-        noteEditingText = chapterAnnotations[firstID.key]?.noteText ?: ""
+        beginNoteEditing(firstID)
+    }
+
+    fun beginNoteEditing(verseID: VerseID) {
+        noteEditingVerseID = verseID
+        noteEditingText = chapterAnnotations[verseID.key]?.noteText ?: ""
         isNoteEditorPresented = true
     }
 

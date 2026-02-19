@@ -156,8 +156,12 @@ final class ReaderViewModel {
 
     func beginNoteEditing() {
         guard let firstID = selectedVerseIDs.sorted(by: { $0.verse < $1.verse }).first else { return }
-        noteEditingVerseID = firstID
-        noteEditingText = chapterAnnotations[firstID.key]?.noteText ?? ""
+        beginNoteEditing(for: firstID)
+    }
+
+    func beginNoteEditing(for verseID: VerseID) {
+        noteEditingVerseID = verseID
+        noteEditingText = chapterAnnotations[verseID.key]?.noteText ?? ""
         isNoteEditorPresented = true
     }
 

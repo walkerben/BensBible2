@@ -6,6 +6,7 @@ struct VerseRow: View {
     var annotation: VerseAnnotation?
     var isHighlighted: Bool = false
     var onTap: (() -> Void)?
+    var onNoteTap: (() -> Void)?
 
     var body: some View {
         HStack(alignment: .top, spacing: 0) {
@@ -22,11 +23,16 @@ struct VerseRow: View {
             }
 
             if let annotation, annotation.noteText != nil {
-                Image(systemName: "note.text")
-                    .font(.caption)
-                    .foregroundStyle(.orange)
-                    .padding(.top, 4)
-                    .padding(.leading, 4)
+                Button {
+                    onNoteTap?()
+                } label: {
+                    Image(systemName: "note.text")
+                        .font(.caption)
+                        .foregroundStyle(.orange)
+                        .padding(.top, 4)
+                        .padding(.leading, 4)
+                }
+                .buttonStyle(.plain)
             }
         }
         .padding(.vertical, 2)

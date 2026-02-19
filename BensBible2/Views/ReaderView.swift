@@ -19,7 +19,13 @@ struct ReaderView: View {
                                         isSelected: viewModel.isSelected(verse),
                                         annotation: viewModel.annotation(for: verse),
                                         isHighlighted: viewModel.highlightedVerseID == verse.verse,
-                                        onTap: { viewModel.toggleVerseSelection(verse) }
+                                        onTap: { viewModel.toggleVerseSelection(verse) },
+                                        onNoteTap: {
+                                            let verseID = VerseID(book: viewModel.currentLocation.bookName,
+                                                                  chapter: viewModel.currentLocation.chapterNumber,
+                                                                  verse: verse.number)
+                                            viewModel.beginNoteEditing(for: verseID)
+                                        }
                                     )
                                 }
                             }

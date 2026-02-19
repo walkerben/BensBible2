@@ -40,7 +40,8 @@ fun VerseRow(
     isSelected: Boolean,
     annotation: VerseAnnotationEntity?,
     isHighlighted: Boolean = false,
-    onTap: () -> Unit
+    onTap: () -> Unit,
+    onNoteTap: (() -> Unit)? = null
 ) {
     val targetColor = when {
         isHighlighted -> Color(0x66FFEB3B)
@@ -105,7 +106,9 @@ fun VerseRow(
                 Icons.Default.StickyNote2,
                 contentDescription = "Has note",
                 tint = NoteIconColor,
-                modifier = Modifier.padding(top = 4.dp)
+                modifier = Modifier
+                    .padding(top = 4.dp)
+                    .clickable { onNoteTap?.invoke() }
             )
         }
     }

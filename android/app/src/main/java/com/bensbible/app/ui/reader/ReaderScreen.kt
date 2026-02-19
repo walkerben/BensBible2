@@ -144,7 +144,15 @@ fun ReaderScreen(
                             isSelected = viewModel.isSelected(verse),
                             annotation = viewModel.annotation(verse),
                             isHighlighted = viewModel.highlightedVerseID == verse.verse,
-                            onTap = { viewModel.toggleVerseSelection(verse) }
+                            onTap = { viewModel.toggleVerseSelection(verse) },
+                            onNoteTap = {
+                                val verseID = com.bensbible.app.model.VerseID(
+                                    book = viewModel.currentLocation.bookName,
+                                    chapter = viewModel.currentLocation.chapterNumber,
+                                    verse = verse.number
+                                )
+                                viewModel.beginNoteEditing(verseID)
+                            }
                         )
                     }
                 }
