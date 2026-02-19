@@ -6,7 +6,33 @@ struct SearchView: View {
 
     var body: some View {
         NavigationStack {
-            Group {
+            VStack(spacing: 0) {
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(spacing: 8) {
+                        ForEach(BookGroup.searchFilters) { group in
+                            Button {
+                                viewModel.selectGroup(group)
+                            } label: {
+                                Text(group.displayName)
+                                    .font(.subheadline)
+                                    .padding(.horizontal, 12)
+                                    .padding(.vertical, 6)
+                                    .background(
+                                        Capsule()
+                                            .fill(viewModel.selectedGroup == group
+                                                  ? Color.accentColor
+                                                  : Color(.systemGray5))
+                                    )
+                                    .foregroundStyle(viewModel.selectedGroup == group
+                                                     ? .white
+                                                     : .primary)
+                            }
+                        }
+                    }
+                    .padding(.horizontal)
+                    .padding(.vertical, 8)
+                }
+                Group {
                 if viewModel.query.trimmingCharacters(in: .whitespaces).isEmpty {
                     ContentUnavailableView(
                         "Search the Bible",
@@ -44,6 +70,7 @@ struct SearchView: View {
                             }
                         }
                     }
+                }
                 }
             }
             .navigationTitle("Search")

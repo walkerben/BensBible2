@@ -1,6 +1,7 @@
 package com.bensbible.app.ui.reader
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -11,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
@@ -22,6 +24,7 @@ import androidx.compose.material.icons.filled.Check
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CenterAlignedTopAppBar
+import androidx.compose.material3.FilterChip
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -40,8 +43,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import com.bensbible.app.model.BibleLocation
-
-private const val OLD_TESTAMENT_COUNT = 39
+import com.bensbible.app.model.BookGroup
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -53,6 +55,7 @@ fun BookChapterPickerDialog(
     onDismiss: () -> Unit
 ) {
     var selectedBook by remember { mutableStateOf<String?>(null) }
+    var selectedGroup by remember { mutableStateOf(BookGroup.ALL) }
 
     Dialog(
         onDismissRequest = onDismiss,
@@ -92,6 +95,8 @@ fun BookChapterPickerDialog(
                 BookList(
                     bookNames = bookNames,
                     currentBookName = currentLocation.bookName,
+                    selectedGroup = selectedGroup,
+                    onGroupChange = { selectedGroup = it },
                     onSelect = { selectedBook = it },
                     modifier = Modifier.padding(innerPadding)
                 )
@@ -104,32 +109,50 @@ fun BookChapterPickerDialog(
 private fun BookList(
     bookNames: List<String>,
     currentBookName: String,
+    selectedGroup: BookGroup,
+    onGroupChange: (BookGroup) -> Unit,
     onSelect: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val otBooks = bookNames.take(OLD_TESTAMENT_COUNT)
-    val ntBooks = bookNames.drop(OLD_TESTAMENT_COUNT)
-
-    LazyColumn(modifier = modifier) {
-        item {
-            SectionHeader("Old Testament")
+    Column(modifier = modifier) {
+        Row(
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+            modifier = Modifier
+                .horizontalScroll(rememberScrollState())
+                .padding(horizontal = 16.dp, vertical = 4.dp)
+        ) {
+            BookGroup.searchFilters.forEach { group ->
+                FilterChip(
+                    selected = selectedGroup == group,
+                    onClick = { onGroupChange(group) },
+                    label = { Text(group.displayName) }
+                )
+            }
         }
-        items(otBooks) { name ->
-            BookRow(
-                name = name,
-                isCurrent = name == currentBookName,
-                onClick = { onSelect(name) }
-            )
-        }
-        item {
-            SectionHeader("New Testament")
-        }
-        items(ntBooks) { name ->
-            BookRow(
-                name = name,
-                isCurrent = name == currentBookName,
-                onClick = { onSelect(name) }
-            )
+        LazyColumn(modifier = Modifier.weight(1f)) {
+            if (selectedGroup == BookGroup.ALL) {
+                BookGroup.pickerSections.forEach { group ->
+                    val groupBooks = group.filterBooks(bookNames)
+                    item {
+                        SectionHeader(group.displayName)
+                    }
+                    items(groupBooks) { name ->
+                        BookRow(
+                            name = name,
+                            isCurrent = name == currentBookName,
+                            onClick = { onSelect(name) }
+                        )
+                    }
+                }
+            } else {
+                items(selectedGroup.filterBooks(bookNames)) { name ->
+                    BookRow(
+                        name = name,
+                        isCurrent = name == currentBookName,
+                        onClick = { onSelect(name) }
+                    )
+                }
+            }
         }
     }
 }

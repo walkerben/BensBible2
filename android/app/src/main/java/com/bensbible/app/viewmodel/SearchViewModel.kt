@@ -6,6 +6,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.bensbible.app.data.BibleDataService
+import com.bensbible.app.model.BookGroup
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -34,7 +35,21 @@ class SearchViewModel(
     var isSearching by mutableStateOf(false)
         private set
 
+    var selectedGroup by mutableStateOf(BookGroup.ALL)
+        private set
+
     private var searchJob: Job? = null
+
+    fun onGroupChange(group: BookGroup) {
+        selectedGroup = group
+        searchJob?.cancel()
+        val trimmed = query.trim()
+        if (trimmed.isEmpty()) return
+        isSearching = true
+        searchJob = viewModelScope.launch {
+            performSearch(trimmed)
+        }
+    }
 
     fun onQueryChange(newQuery: String) {
         query = newQuery
@@ -56,7 +71,8 @@ class SearchViewModel(
 
     private suspend fun performSearch(query: String) {
         val matches = withContext(Dispatchers.Default) {
-            val bookNames = dataService.loadBookNames()
+            val allBooks = dataService.loadBookNames()
+            val bookNames = selectedGroup.filterBooks(allBooks)
             val found = mutableListOf<SearchResult>()
             for (bookName in bookNames) {
                 val book = dataService.loadBook(bookName)

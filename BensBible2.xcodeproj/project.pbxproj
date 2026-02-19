@@ -39,6 +39,7 @@
 		FF440003FF440003 /* VerseShareSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE440003EE440003 /* VerseShareSheet.swift */; };
 		AA550001AA550001 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB550001BB550001 /* SearchViewModel.swift */; };
 		AA550002AA550002 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB550002BB550002 /* SearchView.swift */; };
+		B7F00001B7F00001 /* BookGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F00002B7F00002 /* BookGroup.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -75,6 +76,7 @@
 		EE440003EE440003 /* VerseShareSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerseShareSheet.swift; sourceTree = "<group>"; };
 		BB550001BB550001 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 		BB550002BB550002 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
+		B7F00002B7F00002 /* BookGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookGroup.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +114,7 @@
 				DD220001DD220001 /* NavigationCoordinator.swift */,
 				EE440001EE440001 /* ShareGradient.swift */,
 				EE440004EE440004 /* ShareFont.swift */,
+				B7F00002B7F00002 /* BookGroup.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -275,6 +278,7 @@
 				FF440003FF440003 /* VerseShareSheet.swift in Sources */,
 				AA550001AA550001 /* SearchViewModel.swift in Sources */,
 				AA550002AA550002 /* SearchView.swift in Sources */,
+				B7F00001B7F00001 /* BookGroup.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

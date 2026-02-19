@@ -20,9 +20,21 @@ final class SearchViewModel {
     }
     var results: [SearchResult] = []
     var isSearching: Bool = false
+    var selectedGroup: BookGroup = .all
 
     init(dataService: BibleDataService = LocalBibleDataService()) {
         self.dataService = dataService
+    }
+
+    func selectGroup(_ group: BookGroup) {
+        selectedGroup = group
+        searchTask?.cancel()
+        let currentQuery = query.trimmingCharacters(in: .whitespaces)
+        guard !currentQuery.isEmpty else { return }
+        isSearching = true
+        searchTask = Task {
+            await performSearch(query: currentQuery)
+        }
     }
 
     private func debounceSearch() {
@@ -45,7 +57,8 @@ final class SearchViewModel {
 
     private func performSearch(query: String) async {
         do {
-            let bookNames = try dataService.loadBookNames()
+            let allBooks = try dataService.loadBookNames()
+            let bookNames = selectedGroup.filterBooks(from: allBooks)
             var matches: [SearchResult] = []
 
             for bookName in bookNames {

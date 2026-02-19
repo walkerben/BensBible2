@@ -3,9 +3,8 @@ import SwiftUI
 struct BookChapterPickerView: View {
     @Bindable var viewModel: ReaderViewModel
     @State private var selectedBook: String?
+    @State private var selectedGroup: BookGroup = .all
     @Environment(\.dismiss) private var dismiss
-
-    private let oldTestamentCount = 39
 
     var body: some View {
         NavigationStack {
@@ -35,15 +34,45 @@ struct BookChapterPickerView: View {
     }
 
     private var bookList: some View {
-        List {
-            Section("Old Testament") {
-                ForEach(Array(viewModel.bookNames.prefix(oldTestamentCount)), id: \.self) { name in
-                    bookRow(name)
+        VStack(spacing: 0) {
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack(spacing: 8) {
+                    ForEach(BookGroup.searchFilters) { group in
+                        Button {
+                            selectedGroup = group
+                        } label: {
+                            Text(group.displayName)
+                                .font(.subheadline)
+                                .padding(.horizontal, 12)
+                                .padding(.vertical, 6)
+                                .background(
+                                    Capsule()
+                                        .fill(selectedGroup == group
+                                              ? Color.accentColor
+                                              : Color(.systemGray5))
+                                )
+                                .foregroundStyle(selectedGroup == group
+                                                 ? .white
+                                                 : .primary)
+                        }
+                    }
                 }
+                .padding(.horizontal)
+                .padding(.vertical, 8)
             }
-            Section("New Testament") {
-                ForEach(Array(viewModel.bookNames.dropFirst(oldTestamentCount)), id: \.self) { name in
-                    bookRow(name)
+            List {
+                if selectedGroup == .all {
+                    ForEach(BookGroup.pickerSections) { group in
+                        Section(group.displayName) {
+                            ForEach(group.filterBooks(from: viewModel.bookNames), id: \.self) { name in
+                                bookRow(name)
+                            }
+                        }
+                    }
+                } else {
+                    ForEach(selectedGroup.filterBooks(from: viewModel.bookNames), id: \.self) { name in
+                        bookRow(name)
+                    }
                 }
             }
         }
