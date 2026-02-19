@@ -1,5 +1,7 @@
 package com.bensbible.app.ui.reader
 
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
@@ -14,6 +16,7 @@ import androidx.compose.material.icons.filled.StickyNote2
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -36,13 +39,20 @@ fun VerseRow(
     verse: Verse,
     isSelected: Boolean,
     annotation: VerseAnnotationEntity?,
+    isHighlighted: Boolean = false,
     onTap: () -> Unit
 ) {
-    val backgroundColor = when {
+    val targetColor = when {
+        isHighlighted -> Color(0x66FFEB3B)
         isSelected -> SelectedVerseBackground
         annotation?.highlightColor != null -> annotation.highlightColor!!.color
         else -> Color.Transparent
     }
+    val backgroundColor by animateColorAsState(
+        targetValue = targetColor,
+        animationSpec = tween(durationMillis = 500),
+        label = "verseHighlight"
+    )
 
     val annotatedText = buildAnnotatedString {
         withStyle(

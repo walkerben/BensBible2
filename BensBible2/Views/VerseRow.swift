@@ -4,6 +4,7 @@ struct VerseRow: View {
     let verse: Verse
     var isSelected: Bool = false
     var annotation: VerseAnnotation?
+    var isHighlighted: Bool = false
     var onTap: (() -> Void)?
 
     var body: some View {
@@ -31,6 +32,7 @@ struct VerseRow: View {
         .padding(.vertical, 2)
         .padding(.horizontal, 4)
         .background(backgroundColor)
+        .animation(.easeInOut(duration: 0.5), value: isHighlighted)
         .clipShape(RoundedRectangle(cornerRadius: 4))
         .contentShape(Rectangle())
         .onTapGesture {
@@ -40,6 +42,9 @@ struct VerseRow: View {
     }
 
     private var backgroundColor: Color {
+        if isHighlighted {
+            return Color.yellow.opacity(0.4)
+        }
         if isSelected {
             return Color.blue.opacity(0.15)
         }

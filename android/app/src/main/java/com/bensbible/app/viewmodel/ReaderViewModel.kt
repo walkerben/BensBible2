@@ -47,6 +47,7 @@ class ReaderViewModel(
         private set
     var noteEditingText by mutableStateOf("")
     var scrollToVerseID by mutableStateOf<String?>(null)
+    var highlightedVerseID by mutableStateOf<String?>(null)
 
     val hasSelection: Boolean get() = selectedVerseIDs.isNotEmpty()
     val selectedCount: Int get() = selectedVerseIDs.size
@@ -94,6 +95,7 @@ class ReaderViewModel(
             loadCurrentChapter()
             if (verse != null) {
                 scrollToVerseID = verse.toString()
+                highlightedVerseID = verse.toString()
             }
         } catch (e: Exception) {
             // Log error

@@ -2,6 +2,7 @@ import Foundation
 
 enum AppTab: Hashable {
     case read
+    case search
     case bookmarks
     case notes
 }

@@ -5,6 +5,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Book
 import androidx.compose.material.icons.filled.Bookmark
 import androidx.compose.material.icons.filled.Notes
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -19,10 +20,12 @@ import com.bensbible.app.model.AppTab
 import com.bensbible.app.ui.bookmarks.BookmarksScreen
 import com.bensbible.app.ui.notes.NotesScreen
 import com.bensbible.app.ui.reader.ReaderScreen
+import com.bensbible.app.ui.search.SearchScreen
 import com.bensbible.app.viewmodel.BookmarksViewModel
 import com.bensbible.app.viewmodel.NavigationCoordinator
 import com.bensbible.app.viewmodel.NotesViewModel
 import com.bensbible.app.viewmodel.ReaderViewModel
+import com.bensbible.app.viewmodel.SearchViewModel
 
 @Composable
 fun MainScreen(
@@ -31,6 +34,7 @@ fun MainScreen(
 ) {
     val coordinator = remember { NavigationCoordinator() }
     val readerViewModel = remember { ReaderViewModel(bibleDataService, annotationRepository) }
+    val searchViewModel = remember { SearchViewModel(bibleDataService) }
     val bookmarksViewModel = remember { BookmarksViewModel(annotationRepository) }
     val notesViewModel = remember { NotesViewModel(annotationRepository) }
 
@@ -42,6 +46,12 @@ fun MainScreen(
                     onClick = { coordinator.selectedTab = AppTab.READ },
                     icon = { Icon(Icons.Default.Book, contentDescription = "Read") },
                     label = { Text("Read") }
+                )
+                NavigationBarItem(
+                    selected = coordinator.selectedTab == AppTab.SEARCH,
+                    onClick = { coordinator.selectedTab = AppTab.SEARCH },
+                    icon = { Icon(Icons.Default.Search, contentDescription = "Search") },
+                    label = { Text("Search") }
                 )
                 NavigationBarItem(
                     selected = coordinator.selectedTab == AppTab.BOOKMARKS,
@@ -61,6 +71,11 @@ fun MainScreen(
         when (coordinator.selectedTab) {
             AppTab.READ -> ReaderScreen(
                 viewModel = readerViewModel,
+                coordinator = coordinator,
+                modifier = Modifier.padding(innerPadding)
+            )
+            AppTab.SEARCH -> SearchScreen(
+                viewModel = searchViewModel,
                 coordinator = coordinator,
                 modifier = Modifier.padding(innerPadding)
             )

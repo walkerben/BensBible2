@@ -11,6 +11,7 @@ final class ReaderViewModel {
     var currentBookChapterCount: Int = 0
     var isPickerPresented = false
     var scrollToVerseID: String?
+    var highlightedVerseID: String?
     var errorMessage: String?
 
     // MARK: - Selection & Annotations
@@ -66,6 +67,7 @@ final class ReaderViewModel {
             try loadCurrentChapter()
             if let verse {
                 scrollToVerseID = String(verse)
+                highlightedVerseID = String(verse)
             }
         } catch {
             errorMessage = error.localizedDescription

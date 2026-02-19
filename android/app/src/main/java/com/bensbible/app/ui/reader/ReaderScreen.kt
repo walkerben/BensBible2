@@ -32,6 +32,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.bensbible.app.viewmodel.NavigationCoordinator
 import com.bensbible.app.viewmodel.ReaderViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -59,6 +60,8 @@ fun ReaderScreen(
     // Handle scroll-to-verse
     LaunchedEffect(viewModel.scrollToVerseID) {
         viewModel.scrollToVerseID?.let { verseID ->
+            // Small delay to let the chapter content render
+            delay(100)
             val chapter = viewModel.currentChapter ?: return@let
             val index = chapter.verses.indexOfFirst { it.verse == verseID }
             if (index >= 0) {
@@ -68,9 +71,19 @@ fun ReaderScreen(
         }
     }
 
-    // Scroll to top on chapter change
+    // Clear highlight after delay
+    LaunchedEffect(viewModel.highlightedVerseID) {
+        if (viewModel.highlightedVerseID != null) {
+            delay(1500)
+            viewModel.highlightedVerseID = null
+        }
+    }
+
+    // Scroll to top on chapter change (skip if navigating to a specific verse)
     LaunchedEffect(viewModel.currentLocation) {
-        listState.scrollToItem(0)
+        if (viewModel.scrollToVerseID == null) {
+            listState.scrollToItem(0)
+        }
     }
 
     Scaffold(
@@ -130,6 +143,7 @@ fun ReaderScreen(
                             verse = verse,
                             isSelected = viewModel.isSelected(verse),
                             annotation = viewModel.annotation(verse),
+                            isHighlighted = viewModel.highlightedVerseID == verse.verse,
                             onTap = { viewModel.toggleVerseSelection(verse) }
                         )
                     }

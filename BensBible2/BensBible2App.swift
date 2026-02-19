@@ -19,6 +19,12 @@ struct BensBible2App: App {
                         }
                         .tag(AppTab.read)
 
+                    SearchView()
+                        .tabItem {
+                            Label("Search", systemImage: "magnifyingglass")
+                        }
+                        .tag(AppTab.search)
+
                     BookmarksView()
                         .tabItem {
                             Label("Bookmarks", systemImage: "bookmark")

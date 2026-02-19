@@ -18,6 +18,7 @@ struct ReaderView: View {
                                         verse: verse,
                                         isSelected: viewModel.isSelected(verse),
                                         annotation: viewModel.annotation(for: verse),
+                                        isHighlighted: viewModel.highlightedVerseID == verse.verse,
                                         onTap: { viewModel.toggleVerseSelection(verse) }
                                     )
                                 }
@@ -29,14 +30,27 @@ struct ReaderView: View {
                     }
                     .onChange(of: viewModel.scrollToVerseID) { _, verseID in
                         if let verseID {
-                            withAnimation {
-                                proxy.scrollTo(verseID, anchor: .top)
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                                withAnimation {
+                                    proxy.scrollTo(verseID, anchor: .top)
+                                }
+                                viewModel.scrollToVerseID = nil
                             }
-                            viewModel.scrollToVerseID = nil
+                        }
+                    }
+                    .onChange(of: viewModel.highlightedVerseID) { _, verseID in
+                        if verseID != nil {
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                                withAnimation(.easeOut(duration: 0.6)) {
+                                    viewModel.highlightedVerseID = nil
+                                }
+                            }
                         }
                     }
                     .onChange(of: viewModel.currentLocation) { _, _ in
-                        proxy.scrollTo(viewModel.currentChapter?.verses.first?.verse, anchor: .top)
+                        if viewModel.scrollToVerseID == nil {
+                            proxy.scrollTo(viewModel.currentChapter?.verses.first?.verse, anchor: .top)
+                        }
                     }
                 }
 

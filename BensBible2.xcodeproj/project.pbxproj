@@ -37,6 +37,8 @@
 		FF440004FF440004 /* ShareFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE440004EE440004 /* ShareFont.swift */; };
 		FF440002FF440002 /* VerseShareImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE440002EE440002 /* VerseShareImageView.swift */; };
 		FF440003FF440003 /* VerseShareSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE440003EE440003 /* VerseShareSheet.swift */; };
+		AA550001AA550001 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB550001BB550001 /* SearchViewModel.swift */; };
+		AA550002AA550002 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB550002BB550002 /* SearchView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -71,6 +73,8 @@
 		EE440004EE440004 /* ShareFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareFont.swift; sourceTree = "<group>"; };
 		EE440002EE440002 /* VerseShareImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerseShareImageView.swift; sourceTree = "<group>"; };
 		EE440003EE440003 /* VerseShareSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerseShareSheet.swift; sourceTree = "<group>"; };
+		BB550001BB550001 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
+		BB550002BB550002 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +94,7 @@
 				B49CA8B8FC914934 /* ReaderViewModel.swift */,
 				DD220002DD220002 /* BookmarksViewModel.swift */,
 				DD220003DD220003 /* NotesViewModel.swift */,
+				BB550001BB550001 /* SearchViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -155,6 +160,7 @@
 				FF330001FF330001 /* SplashScreenView.swift */,
 				EE440002EE440002 /* VerseShareImageView.swift */,
 				EE440003EE440003 /* VerseShareSheet.swift */,
+				BB550002BB550002 /* SearchView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -267,6 +273,8 @@
 				FF440004FF440004 /* ShareFont.swift in Sources */,
 				FF440002FF440002 /* VerseShareImageView.swift in Sources */,
 				FF440003FF440003 /* VerseShareSheet.swift in Sources */,
+				AA550001AA550001 /* SearchViewModel.swift in Sources */,
+				AA550002AA550002 /* SearchView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
