@@ -57,6 +57,18 @@ struct NotesView: View {
                                     Label("Delete", systemImage: "trash")
                                 }
                             }
+                            .contextMenu {
+                                Button {
+                                    viewModel.beginEditing(annotation)
+                                } label: {
+                                    Label("Edit Note", systemImage: "pencil")
+                                }
+                                Button(role: .destructive) {
+                                    viewModel.deleteNote(annotation)
+                                } label: {
+                                    Label("Delete Note", systemImage: "trash")
+                                }
+                            }
                         }
                     }
                 }

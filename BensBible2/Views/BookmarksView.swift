@@ -39,6 +39,13 @@ struct BookmarksView: View {
                                             Label("Remove", systemImage: "bookmark.slash")
                                         }
                                     }
+                                    .contextMenu {
+                                        Button(role: .destructive) {
+                                            viewModel.removeBookmark(annotation)
+                                        } label: {
+                                            Label("Remove Bookmark", systemImage: "bookmark.slash")
+                                        }
+                                    }
                                 }
                             }
                         }
