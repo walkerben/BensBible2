@@ -32,6 +32,7 @@ import androidx.compose.ui.unit.dp
 import com.bensbible.app.model.BibleLocation
 import com.bensbible.app.model.BookGroup
 import com.bensbible.app.viewmodel.NavigationCoordinator
+import com.bensbible.app.viewmodel.SearchMode
 import com.bensbible.app.viewmodel.SearchResult
 import com.bensbible.app.viewmodel.SearchViewModel
 
@@ -52,6 +53,22 @@ fun SearchScreen(
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp, vertical = 8.dp)
         )
+
+        Row(
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+            modifier = Modifier.padding(horizontal = 16.dp, vertical = 4.dp)
+        ) {
+            FilterChip(
+                selected = viewModel.searchMode == SearchMode.PHRASE,
+                onClick = { viewModel.onSearchModeChange(SearchMode.PHRASE) },
+                label = { Text("Phrase") }
+            )
+            FilterChip(
+                selected = viewModel.searchMode == SearchMode.ALL_WORDS,
+                onClick = { viewModel.onSearchModeChange(SearchMode.ALL_WORDS) },
+                label = { Text("All Words") }
+            )
+        }
 
         Row(
             horizontalArrangement = Arrangement.spacedBy(8.dp),

@@ -13,6 +13,8 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
+enum class SearchMode { PHRASE, ALL_WORDS }
+
 data class SearchResult(
     val bookName: String,
     val chapter: Int,
@@ -38,7 +40,21 @@ class SearchViewModel(
     var selectedGroup by mutableStateOf(BookGroup.ALL)
         private set
 
+    var searchMode by mutableStateOf(SearchMode.PHRASE)
+        private set
+
     private var searchJob: Job? = null
+
+    fun onSearchModeChange(mode: SearchMode) {
+        searchMode = mode
+        searchJob?.cancel()
+        val trimmed = query.trim()
+        if (trimmed.isEmpty()) return
+        isSearching = true
+        searchJob = viewModelScope.launch {
+            performSearch(trimmed)
+        }
+    }
 
     fun onGroupChange(group: BookGroup) {
         selectedGroup = group
@@ -78,7 +94,12 @@ class SearchViewModel(
                 val book = dataService.loadBook(bookName)
                 for (chapter in book.chapters) {
                     for (verse in chapter.verses) {
-                        if (verse.text.contains(query, ignoreCase = true)) {
+                        val matched = when (searchMode) {
+                            SearchMode.PHRASE -> verse.text.contains(query, ignoreCase = true)
+                            SearchMode.ALL_WORDS -> query.trim().split("\\s+".toRegex())
+                                .all { word -> verse.text.contains(word, ignoreCase = true) }
+                        }
+                        if (matched) {
                             found.add(
                                 SearchResult(
                                     bookName = bookName,

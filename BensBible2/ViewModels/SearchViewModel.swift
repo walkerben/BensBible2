@@ -1,5 +1,10 @@
 import Foundation
 
+enum SearchMode: String, CaseIterable {
+    case phrase = "Phrase"
+    case allWords = "All Words"
+}
+
 struct SearchResult: Identifiable {
     let id = UUID()
     let bookName: String
@@ -21,6 +26,9 @@ final class SearchViewModel {
     var results: [SearchResult] = []
     var isSearching: Bool = false
     var selectedGroup: BookGroup = .all
+    var searchMode: SearchMode = .phrase {
+        didSet { triggerSearch() }
+    }
 
     init(dataService: BibleDataService = LocalBibleDataService()) {
         self.dataService = dataService
@@ -28,6 +36,16 @@ final class SearchViewModel {
 
     func selectGroup(_ group: BookGroup) {
         selectedGroup = group
+        searchTask?.cancel()
+        let currentQuery = query.trimmingCharacters(in: .whitespaces)
+        guard !currentQuery.isEmpty else { return }
+        isSearching = true
+        searchTask = Task {
+            await performSearch(query: currentQuery)
+        }
+    }
+
+    private func triggerSearch() {
         searchTask?.cancel()
         let currentQuery = query.trimmingCharacters(in: .whitespaces)
         guard !currentQuery.isEmpty else { return }
@@ -66,7 +84,15 @@ final class SearchViewModel {
                 let book = try dataService.loadBook(named: bookName)
                 for chapter in book.chapters {
                     for verse in chapter.verses {
-                        if verse.text.localizedCaseInsensitiveContains(query) {
+                        let matched: Bool
+                        switch searchMode {
+                        case .phrase:
+                            matched = verse.text.localizedCaseInsensitiveContains(query)
+                        case .allWords:
+                            let words = query.split(separator: " ").map(String.init)
+                            matched = words.allSatisfy { verse.text.localizedCaseInsensitiveContains($0) }
+                        }
+                        if matched {
                             matches.append(SearchResult(
                                 bookName: bookName,
                                 chapter: chapter.number,
