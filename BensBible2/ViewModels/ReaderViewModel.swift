@@ -23,6 +23,7 @@ final class ReaderViewModel {
     var isHighlightPickerPresented = false
     var isNoteEditorPresented = false
     var isShareSheetPresented = false
+    var isAddToPresentationSheetPresented = false
     var noteEditingVerseID: VerseID?
     var noteEditingText: String = ""
 
@@ -36,6 +37,15 @@ final class ReaderViewModel {
             .filter { selectedNumbers.contains($0.number) }
             .sorted { $0.number < $1.number }
             .map { (number: $0.number, text: $0.text) }
+    }
+
+    var selectedVersesForPresentation: [(bookName: String, chapterNumber: Int, verseNumber: Int, text: String)] {
+        guard let chapter = currentChapter else { return [] }
+        let selectedNumbers = selectedVerseIDs.map(\.verse)
+        return chapter.verses
+            .filter { selectedNumbers.contains($0.number) }
+            .sorted { $0.number < $1.number }
+            .map { (bookName: currentLocation.bookName, chapterNumber: currentLocation.chapterNumber, verseNumber: $0.number, text: $0.text) }
     }
 
     var selectedVerseReference: String {
@@ -177,6 +187,10 @@ final class ReaderViewModel {
     func cancelNoteEditing() {
         noteEditingVerseID = nil
         noteEditingText = ""
+    }
+
+    func beginAddToPresentation() {
+        isAddToPresentationSheetPresented = true
     }
 
     // MARK: - Private

@@ -66,6 +66,7 @@ struct ReaderView: View {
                         onHighlight: { viewModel.isHighlightPickerPresented = true },
                         onNote: { viewModel.beginNoteEditing() },
                         onBookmark: { viewModel.bookmarkSelectedVerses() },
+                        onAddToPresentation: { viewModel.beginAddToPresentation() },
                         onShare: { viewModel.isShareSheetPresented = true },
                         onDeselectAll: { viewModel.deselectAll() }
                     )
@@ -134,6 +135,12 @@ struct ReaderView: View {
                         viewModel.cancelNoteEditing()
                         viewModel.isNoteEditorPresented = false
                     }
+                )
+            }
+            .sheet(isPresented: $viewModel.isAddToPresentationSheetPresented) {
+                AddToPresentationSheet(
+                    verseTexts: viewModel.selectedVersesForPresentation,
+                    onDone: { viewModel.deselectAll() }
                 )
             }
         }

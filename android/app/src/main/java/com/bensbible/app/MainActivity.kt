@@ -16,7 +16,8 @@ class MainActivity : ComponentActivity() {
             BensBibleTheme {
                 MainScreen(
                     bibleDataService = app.bibleDataService,
-                    annotationRepository = app.annotationRepository
+                    annotationRepository = app.annotationRepository,
+                    presentationRepository = app.presentationRepository
                 )
             }
         }

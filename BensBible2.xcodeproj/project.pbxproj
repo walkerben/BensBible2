@@ -42,6 +42,13 @@
 		B7F00001B7F00001 /* BookGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F00002B7F00002 /* BookGroup.swift */; };
 		AA770001AA770001 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = BB770001BB770001 /* PrivacyInfo.xcprivacy */; };
 		SC110001SC110001 /* ScreenshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = SC110002SC110002 /* ScreenshotTests.swift */; };
+		QQ110001QQ110001 /* Presentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = PP110001PP110001 /* Presentation.swift */; };
+		QQ110002QQ110002 /* PresentationSlide.swift in Sources */ = {isa = PBXBuildFile; fileRef = PP110002PP110002 /* PresentationSlide.swift */; };
+		QQ220001QQ220001 /* PresentationsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = PP220001PP220001 /* PresentationsViewModel.swift */; };
+		QQ330001QQ330001 /* PresentationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = PP330001PP330001 /* PresentationsView.swift */; };
+		QQ330002QQ330002 /* PresentationDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = PP330002PP330002 /* PresentationDetailView.swift */; };
+		QQ330003QQ330003 /* PresentationSlideshowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = PP330003PP330003 /* PresentationSlideshowView.swift */; };
+		QQ330004QQ330004 /* AddToPresentationSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = PP330004PP330004 /* AddToPresentationSheet.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -82,6 +89,13 @@
 		BB770001BB770001 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		SC110002SC110002 /* ScreenshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotTests.swift; sourceTree = "<group>"; };
 		SC110003SC110003 /* BensBible2UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BensBible2UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		PP110001PP110001 /* Presentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Presentation.swift; sourceTree = "<group>"; };
+		PP110002PP110002 /* PresentationSlide.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentationSlide.swift; sourceTree = "<group>"; };
+		PP220001PP220001 /* PresentationsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentationsViewModel.swift; sourceTree = "<group>"; };
+		PP330001PP330001 /* PresentationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentationsView.swift; sourceTree = "<group>"; };
+		PP330002PP330002 /* PresentationDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentationDetailView.swift; sourceTree = "<group>"; };
+		PP330003PP330003 /* PresentationSlideshowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentationSlideshowView.swift; sourceTree = "<group>"; };
+		PP330004PP330004 /* AddToPresentationSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddToPresentationSheet.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXContainerItemProxy section */
@@ -119,6 +133,7 @@
 				DD220002DD220002 /* BookmarksViewModel.swift */,
 				DD220003DD220003 /* NotesViewModel.swift */,
 				BB550001BB550001 /* SearchViewModel.swift */,
+				PP220001PP220001 /* PresentationsViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -137,6 +152,8 @@
 				EE440001EE440001 /* ShareGradient.swift */,
 				EE440004EE440004 /* ShareFont.swift */,
 				B7F00002B7F00002 /* BookGroup.swift */,
+				PP110001PP110001 /* Presentation.swift */,
+				PP110002PP110002 /* PresentationSlide.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -197,6 +214,10 @@
 				EE440002EE440002 /* VerseShareImageView.swift */,
 				EE440003EE440003 /* VerseShareSheet.swift */,
 				BB550002BB550002 /* SearchView.swift */,
+				PP330001PP330001 /* PresentationsView.swift */,
+				PP330002PP330002 /* PresentationDetailView.swift */,
+				PP330003PP330003 /* PresentationSlideshowView.swift */,
+				PP330004PP330004 /* AddToPresentationSheet.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -355,6 +376,13 @@
 				AA550001AA550001 /* SearchViewModel.swift in Sources */,
 				AA550002AA550002 /* SearchView.swift in Sources */,
 				B7F00001B7F00001 /* BookGroup.swift in Sources */,
+				QQ110001QQ110001 /* Presentation.swift in Sources */,
+				QQ110002QQ110002 /* PresentationSlide.swift in Sources */,
+				QQ220001QQ220001 /* PresentationsViewModel.swift in Sources */,
+				QQ330001QQ330001 /* PresentationsView.swift in Sources */,
+				QQ330002QQ330002 /* PresentationDetailView.swift in Sources */,
+				QQ330003QQ330003 /* PresentationSlideshowView.swift in Sources */,
+				QQ330004QQ330004 /* AddToPresentationSheet.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

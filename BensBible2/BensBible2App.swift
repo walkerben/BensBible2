@@ -36,6 +36,12 @@ struct BensBible2App: App {
                             Label("Notes", systemImage: "note.text")
                         }
                         .tag(AppTab.notes)
+
+                    PresentationsView()
+                        .tabItem {
+                            Label("Present", systemImage: "play.rectangle")
+                        }
+                        .tag(AppTab.present)
                 }
                 .environment(coordinator)
 
@@ -53,6 +59,7 @@ struct BensBible2App: App {
                 }
             }
         }
-        .modelContainer(for: VerseAnnotation.self)
+        .modelContainer(for: [VerseAnnotation.self, Presentation.self, PresentationSlide.self])
     }
+
 }

@@ -30,6 +30,9 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.bensbible.app.data.PresentationRepository
+import com.bensbible.app.ui.presentations.AddToPresentationSheet
+import com.bensbible.app.ui.presentations.VerseEntry
 import com.bensbible.app.viewmodel.NavigationCoordinator
 import com.bensbible.app.viewmodel.ReaderViewModel
 import kotlinx.coroutines.delay
@@ -40,6 +43,7 @@ import kotlinx.coroutines.launch
 fun ReaderScreen(
     viewModel: ReaderViewModel,
     coordinator: NavigationCoordinator,
+    presentationRepository: PresentationRepository? = null,
     modifier: Modifier = Modifier
 ) {
     val listState = rememberLazyListState()
@@ -169,6 +173,7 @@ fun ReaderScreen(
                     onHighlight = { viewModel.isHighlightPickerPresented = true },
                     onNote = { viewModel.beginNoteEditing() },
                     onBookmark = { viewModel.bookmarkSelectedVerses() },
+                    onAddToPresentation = { viewModel.beginAddToPresentation() },
                     onShare = { viewModel.isShareSheetPresented = true },
                     onDeselectAll = { viewModel.deselectAll() }
                 )
@@ -240,6 +245,33 @@ fun ReaderScreen(
                 verses = viewModel.selectedVerseTexts,
                 reference = viewModel.selectedVerseReference,
                 onDismiss = { viewModel.isShareSheetPresented = false }
+            )
+        }
+    }
+
+    // Add to Presentation sheet
+    if (viewModel.isAddToPresentationSheetPresented && presentationRepository != null) {
+        val verses = viewModel.selectedVersesForPresentation
+        val texts = viewModel.selectedVerseTextsForPresentation
+        val verseEntries = verses.mapIndexed { i, (book, chapter, verse) ->
+            VerseEntry(
+                bookName = book,
+                chapterNumber = chapter,
+                verseNumber = verse,
+                text = texts.getOrElse(i) { "" }
+            )
+        }
+        ModalBottomSheet(
+            onDismissRequest = { viewModel.isAddToPresentationSheetPresented = false },
+            sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
+        ) {
+            AddToPresentationSheet(
+                verses = verseEntries,
+                repository = presentationRepository,
+                onDone = {
+                    viewModel.deselectAll()
+                    viewModel.isAddToPresentationSheetPresented = false
+                }
             )
         }
     }

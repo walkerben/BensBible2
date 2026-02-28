@@ -4,5 +4,6 @@ enum class AppTab {
     READ,
     SEARCH,
     BOOKMARKS,
-    NOTES
+    NOTES,
+    PRESENT
 }

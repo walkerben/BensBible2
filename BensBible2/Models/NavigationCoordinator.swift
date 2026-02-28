@@ -5,6 +5,7 @@ enum AppTab: Hashable {
     case search
     case bookmarks
     case notes
+    case present
 }
 
 @Observable

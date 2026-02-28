@@ -5,6 +5,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Book
 import androidx.compose.material.icons.filled.Bookmark
 import androidx.compose.material.icons.filled.Notes
+import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
@@ -16,27 +17,32 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import com.bensbible.app.data.AnnotationRepository
 import com.bensbible.app.data.BibleDataService
+import com.bensbible.app.data.PresentationRepository
 import com.bensbible.app.model.AppTab
 import com.bensbible.app.ui.bookmarks.BookmarksScreen
 import com.bensbible.app.ui.notes.NotesScreen
+import com.bensbible.app.ui.presentations.PresentationsScreen
 import com.bensbible.app.ui.reader.ReaderScreen
 import com.bensbible.app.ui.search.SearchScreen
 import com.bensbible.app.viewmodel.BookmarksViewModel
 import com.bensbible.app.viewmodel.NavigationCoordinator
 import com.bensbible.app.viewmodel.NotesViewModel
+import com.bensbible.app.viewmodel.PresentationsViewModel
 import com.bensbible.app.viewmodel.ReaderViewModel
 import com.bensbible.app.viewmodel.SearchViewModel
 
 @Composable
 fun MainScreen(
     bibleDataService: BibleDataService,
-    annotationRepository: AnnotationRepository
+    annotationRepository: AnnotationRepository,
+    presentationRepository: PresentationRepository
 ) {
     val coordinator = remember { NavigationCoordinator() }
     val readerViewModel = remember { ReaderViewModel(bibleDataService, annotationRepository) }
     val searchViewModel = remember { SearchViewModel(bibleDataService) }
     val bookmarksViewModel = remember { BookmarksViewModel(annotationRepository) }
     val notesViewModel = remember { NotesViewModel(annotationRepository) }
+    val presentationsViewModel = remember { PresentationsViewModel(presentationRepository) }
 
     Scaffold(
         bottomBar = {
@@ -65,6 +71,12 @@ fun MainScreen(
                     icon = { Icon(Icons.Default.Notes, contentDescription = "Notes") },
                     label = { Text("Notes") }
                 )
+                NavigationBarItem(
+                    selected = coordinator.selectedTab == AppTab.PRESENT,
+                    onClick = { coordinator.selectedTab = AppTab.PRESENT },
+                    icon = { Icon(Icons.Default.PlayArrow, contentDescription = "Present") },
+                    label = { Text("Present") }
+                )
             }
         }
     ) { innerPadding ->
@@ -72,6 +84,7 @@ fun MainScreen(
             AppTab.READ -> ReaderScreen(
                 viewModel = readerViewModel,
                 coordinator = coordinator,
+                presentationRepository = presentationRepository,
                 modifier = Modifier.padding(innerPadding)
             )
             AppTab.SEARCH -> SearchScreen(
@@ -88,6 +101,11 @@ fun MainScreen(
                 viewModel = notesViewModel,
                 coordinator = coordinator,
                 annotationRepository = annotationRepository,
+                modifier = Modifier.padding(innerPadding)
+            )
+            AppTab.PRESENT -> PresentationsScreen(
+                viewModel = presentationsViewModel,
+                repository = presentationRepository,
                 modifier = Modifier.padding(innerPadding)
             )
         }

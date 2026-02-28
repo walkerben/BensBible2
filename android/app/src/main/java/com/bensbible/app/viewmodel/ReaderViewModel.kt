@@ -43,6 +43,7 @@ class ReaderViewModel(
     var isHighlightPickerPresented by mutableStateOf(false)
     var isShareSheetPresented by mutableStateOf(false)
     var isNoteEditorPresented by mutableStateOf(false)
+    var isAddToPresentationSheetPresented by mutableStateOf(false)
     var noteEditingVerseID by mutableStateOf<VerseID?>(null)
         private set
     var noteEditingText by mutableStateOf("")
@@ -205,6 +206,28 @@ class ReaderViewModel(
         noteEditingVerseID = null
         noteEditingText = ""
     }
+
+    fun beginAddToPresentation() {
+        isAddToPresentationSheetPresented = true
+    }
+
+    val selectedVersesForPresentation: List<Triple<String, Int, Int>>
+        get() {
+            val chapter = currentChapter ?: return emptyList()
+            return selectedVerseIDs.sorted().mapNotNull { id ->
+                chapter.verses.find { it.number == id.verse }?.let {
+                    Triple(currentLocation.bookName, currentLocation.chapterNumber, it.number)
+                }
+            }
+        }
+
+    val selectedVerseTextsForPresentation: List<String>
+        get() {
+            val chapter = currentChapter ?: return emptyList()
+            return selectedVerseIDs.sorted().mapNotNull { id ->
+                chapter.verses.find { it.number == id.verse }?.text
+            }
+        }
 
     fun loadAnnotationsForCurrentChapter() {
         viewModelScope.launch {
