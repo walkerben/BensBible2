@@ -27,6 +27,7 @@ import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -46,11 +47,23 @@ fun ReaderScreen(
     presentationRepository: PresentationRepository? = null,
     modifier: Modifier = Modifier
 ) {
-    val listState = rememberLazyListState()
+    val listState = rememberLazyListState(
+        initialFirstVisibleItemIndex = viewModel.savedScrollIndex,
+        initialFirstVisibleItemScrollOffset = viewModel.savedScrollOffset
+    )
     val scope = rememberCoroutineScope()
 
     LaunchedEffect(Unit) {
         viewModel.onAppear()
+    }
+
+    // Persist scroll position into ViewModel as the user scrolls
+    LaunchedEffect(listState) {
+        snapshotFlow { listState.firstVisibleItemIndex to listState.firstVisibleItemScrollOffset }
+            .collect { (index, offset) ->
+                viewModel.savedScrollIndex = index
+                viewModel.savedScrollOffset = offset
+            }
     }
 
     // Handle cross-tab navigation
@@ -83,11 +96,13 @@ fun ReaderScreen(
         }
     }
 
-    // Scroll to top on chapter change (skip if navigating to a specific verse)
+    // Scroll to top on chapter change, but not on tab re-entry
     LaunchedEffect(viewModel.currentLocation) {
-        if (viewModel.scrollToVerseID == null) {
+        if (viewModel.scrollToVerseID == null &&
+            viewModel.currentLocation != viewModel.lastScrolledLocation) {
             listState.scrollToItem(0)
         }
+        viewModel.lastScrolledLocation = viewModel.currentLocation
     }
 
     Scaffold(

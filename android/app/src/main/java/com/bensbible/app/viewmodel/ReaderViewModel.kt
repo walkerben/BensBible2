@@ -50,6 +50,11 @@ class ReaderViewModel(
     var scrollToVerseID by mutableStateOf<String?>(null)
     var highlightedVerseID by mutableStateOf<String?>(null)
 
+    // Scroll position preservation across tab switches
+    var savedScrollIndex: Int = 0
+    var savedScrollOffset: Int = 0
+    var lastScrolledLocation: BibleLocation? = null
+
     val hasSelection: Boolean get() = selectedVerseIDs.isNotEmpty()
     val selectedCount: Int get() = selectedVerseIDs.size
 
