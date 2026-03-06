@@ -7,6 +7,7 @@ final class ReaderViewModel {
 
     var bookNames: [String] = []
     var currentLocation: BibleLocation = .genesis1
+    private static let lastLocationKey = "lastReadLocation"
     var currentChapter: Chapter?
     var currentBookChapterCount: Int = 0
     var isPickerPresented = false
@@ -64,6 +65,7 @@ final class ReaderViewModel {
         guard bookNames.isEmpty else { return }
         do {
             bookNames = try dataService.loadBookNames()
+            currentLocation = loadSavedLocation()
             try loadCurrentChapter()
         } catch {
             errorMessage = error.localizedDescription
@@ -72,6 +74,7 @@ final class ReaderViewModel {
 
     func navigateTo(book: String, chapter: Int, verse: Int? = nil) {
         currentLocation = BibleLocation(bookName: book, chapterNumber: chapter, verseNumber: verse)
+        saveLocation(currentLocation)
         deselectAll()
         do {
             try loadCurrentChapter()
@@ -194,6 +197,19 @@ final class ReaderViewModel {
     }
 
     // MARK: - Private
+
+    private func saveLocation(_ location: BibleLocation) {
+        if let data = try? JSONEncoder().encode(location) {
+            UserDefaults.standard.set(data, forKey: Self.lastLocationKey)
+        }
+    }
+
+    private func loadSavedLocation() -> BibleLocation {
+        guard let data = UserDefaults.standard.data(forKey: Self.lastLocationKey),
+              let location = try? JSONDecoder().decode(BibleLocation.self, from: data)
+        else { return .genesis1 }
+        return location
+    }
 
     private func loadCurrentChapter() throws {
         let chapter = try dataService.loadChapter(

@@ -58,6 +58,19 @@ struct ReaderView: View {
                             proxy.scrollTo(viewModel.currentChapter?.verses.first?.verse, anchor: .top)
                         }
                     }
+                    .simultaneousGesture(
+                        DragGesture(minimumDistance: 30, coordinateSpace: .local)
+                            .onEnded { value in
+                                let h = abs(value.translation.width)
+                                let v = abs(value.translation.height)
+                                guard h > v, h > 50 else { return }
+                                if value.translation.width > 0 {
+                                    viewModel.previousChapter()
+                                } else {
+                                    viewModel.nextChapter()
+                                }
+                            }
+                    )
                 }
 
                 if viewModel.hasSelection {

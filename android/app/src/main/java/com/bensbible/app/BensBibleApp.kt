@@ -4,6 +4,7 @@ import android.app.Application
 import com.bensbible.app.data.AppDatabase
 import com.bensbible.app.data.AnnotationRepository
 import com.bensbible.app.data.BibleDataService
+import com.bensbible.app.data.LocationPreferences
 import com.bensbible.app.data.PresentationRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -26,12 +27,16 @@ class BensBibleApp : Application() {
     lateinit var bibleDataService: BibleDataService
         private set
 
+    lateinit var locationPreferences: LocationPreferences
+        private set
+
     override fun onCreate() {
         super.onCreate()
         database = AppDatabase.create(this)
         annotationRepository = AnnotationRepository(database.verseAnnotationDao())
         presentationRepository = PresentationRepository(database.presentationDao())
         bibleDataService = BibleDataService(assets)
+        locationPreferences = LocationPreferences(this)
 
         applicationScope.launch {
             presentationRepository.seedRomanRoadIfNeeded()

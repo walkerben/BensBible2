@@ -17,6 +17,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import com.bensbible.app.data.AnnotationRepository
 import com.bensbible.app.data.BibleDataService
+import com.bensbible.app.data.LocationPreferences
 import com.bensbible.app.data.PresentationRepository
 import com.bensbible.app.model.AppTab
 import com.bensbible.app.ui.bookmarks.BookmarksScreen
@@ -35,10 +36,11 @@ import com.bensbible.app.viewmodel.SearchViewModel
 fun MainScreen(
     bibleDataService: BibleDataService,
     annotationRepository: AnnotationRepository,
-    presentationRepository: PresentationRepository
+    presentationRepository: PresentationRepository,
+    locationPreferences: LocationPreferences
 ) {
     val coordinator = remember { NavigationCoordinator() }
-    val readerViewModel = remember { ReaderViewModel(bibleDataService, annotationRepository) }
+    val readerViewModel = remember { ReaderViewModel(bibleDataService, annotationRepository, locationPreferences) }
     val searchViewModel = remember { SearchViewModel(bibleDataService) }
     val bookmarksViewModel = remember { BookmarksViewModel(annotationRepository) }
     val notesViewModel = remember { NotesViewModel(annotationRepository) }

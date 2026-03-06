@@ -17,7 +17,8 @@ class MainActivity : ComponentActivity() {
                 MainScreen(
                     bibleDataService = app.bibleDataService,
                     annotationRepository = app.annotationRepository,
-                    presentationRepository = app.presentationRepository
+                    presentationRepository = app.presentationRepository,
+                    locationPreferences = app.locationPreferences
                 )
             }
         }

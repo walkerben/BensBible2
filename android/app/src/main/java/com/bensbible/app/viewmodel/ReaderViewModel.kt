@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.bensbible.app.data.AnnotationRepository
 import com.bensbible.app.data.BibleDataService
+import com.bensbible.app.data.LocationPreferences
 import com.bensbible.app.data.VerseAnnotationEntity
 import com.bensbible.app.model.BibleLocation
 import com.bensbible.app.model.Chapter
@@ -19,13 +20,14 @@ import kotlinx.coroutines.launch
 
 class ReaderViewModel(
     private val dataService: BibleDataService,
-    private val repository: AnnotationRepository
+    private val repository: AnnotationRepository,
+    private val locationPreferences: LocationPreferences
 ) : ViewModel() {
 
     var bookNames by mutableStateOf<List<String>>(emptyList())
         private set
 
-    var currentLocation by mutableStateOf(BibleLocation.genesis1)
+    var currentLocation by mutableStateOf(locationPreferences.load())
         private set
 
     var currentChapter by mutableStateOf<Chapter?>(null)
@@ -96,6 +98,7 @@ class ReaderViewModel(
 
     fun navigateTo(book: String, chapter: Int, verse: Int? = null) {
         currentLocation = BibleLocation(bookName = book, chapterNumber = chapter, verseNumber = verse)
+        locationPreferences.save(currentLocation)
         deselectAll()
         try {
             loadCurrentChapter()

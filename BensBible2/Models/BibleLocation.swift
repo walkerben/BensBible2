@@ -1,6 +1,6 @@
 import Foundation
 
-struct BibleLocation: Equatable {
+struct BibleLocation: Equatable, Codable {
     var bookName: String
     var chapterNumber: Int
     var verseNumber: Int?

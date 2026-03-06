@@ -28,8 +28,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.snapshotFlow
+import androidx.compose.foundation.gestures.detectHorizontalDragGestures
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.unit.dp
 import com.bensbible.app.data.PresentationRepository
 import com.bensbible.app.ui.presentations.AddToPresentationSheet
@@ -141,10 +143,29 @@ fun ReaderScreen(
         },
         modifier = modifier
     ) { innerPadding ->
+        var swipeDeltaX = 0f
+
         Box(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(innerPadding)
+                .pointerInput(viewModel.canGoNext, viewModel.canGoPrevious) {
+                    detectHorizontalDragGestures(
+                        onDragStart = { swipeDeltaX = 0f },
+                        onDragEnd = {
+                            val threshold = 60.dp.toPx()
+                            if (swipeDeltaX > threshold && viewModel.canGoPrevious) {
+                                viewModel.previousChapter()
+                            } else if (swipeDeltaX < -threshold && viewModel.canGoNext) {
+                                viewModel.nextChapter()
+                            }
+                        },
+                        onDragCancel = { swipeDeltaX = 0f }
+                    ) { change, dragAmount ->
+                        change.consume()
+                        swipeDeltaX += dragAmount
+                    }
+                }
         ) {
             LazyColumn(
                 state = listState,
