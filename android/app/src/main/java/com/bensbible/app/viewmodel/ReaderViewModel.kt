@@ -219,6 +219,17 @@ class ReaderViewModel(
         isAddToPresentationSheetPresented = true
     }
 
+    val selectedVersesClipboardText: String
+        get() {
+            val texts = selectedVerseTexts
+            val verseLines = if (texts.size == 1) {
+                texts[0].second
+            } else {
+                texts.joinToString("\n") { (num, text) -> "$num $text" }
+            }
+            return "$verseLines\n\n— $selectedVerseReference"
+        }
+
     val selectedVersesForPresentation: List<Triple<String, Int, Int>>
         get() {
             val chapter = currentChapter ?: return emptyList()

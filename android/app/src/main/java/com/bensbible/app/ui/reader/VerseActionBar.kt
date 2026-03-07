@@ -9,6 +9,7 @@ import androidx.compose.material.icons.filled.Bookmark
 import androidx.compose.material.icons.filled.Cancel
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.FormatColorFill
+import androidx.compose.material.icons.filled.ContentCopy
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.Share
 import androidx.compose.material3.Icon
@@ -28,6 +29,7 @@ fun VerseActionBar(
     onNote: () -> Unit,
     onBookmark: () -> Unit,
     onAddToPresentation: () -> Unit,
+    onCopy: () -> Unit,
     onShare: () -> Unit,
     onDeselectAll: () -> Unit
 ) {
@@ -55,6 +57,10 @@ fun VerseActionBar(
 
             IconButton(onClick = onAddToPresentation) {
                 Icon(Icons.Default.PlayArrow, contentDescription = "Add to Presentation")
+            }
+
+            IconButton(onClick = onCopy) {
+                Icon(Icons.Default.ContentCopy, contentDescription = "Copy")
             }
 
             IconButton(onClick = onShare) {

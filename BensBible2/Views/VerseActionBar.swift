@@ -6,11 +6,12 @@ struct VerseActionBar: View {
     let onNote: () -> Void
     let onBookmark: () -> Void
     let onAddToPresentation: () -> Void
+    let onCopy: () -> Void
     let onShare: () -> Void
     let onDeselectAll: () -> Void
 
     var body: some View {
-        HStack(spacing: 20) {
+        HStack(spacing: 12) {
             Button(action: onHighlight) {
                 Label("Highlight", systemImage: "highlighter")
                     .labelStyle(.iconOnly)
@@ -31,6 +32,11 @@ struct VerseActionBar: View {
                     .labelStyle(.iconOnly)
             }
 
+            Button(action: onCopy) {
+                Label("Copy", systemImage: "doc.on.doc")
+                    .labelStyle(.iconOnly)
+            }
+
             Button(action: onShare) {
                 Label("Share", systemImage: "square.and.arrow.up")
                     .labelStyle(.iconOnly)
@@ -41,6 +47,8 @@ struct VerseActionBar: View {
             Text("\(selectedCount) selected")
                 .font(.caption)
                 .foregroundStyle(.secondary)
+                .lineLimit(1)
+                .fixedSize(horizontal: true, vertical: false)
 
             Button(action: onDeselectAll) {
                 Label("Deselect", systemImage: "xmark.circle.fill")

@@ -80,6 +80,7 @@ struct ReaderView: View {
                         onNote: { viewModel.beginNoteEditing() },
                         onBookmark: { viewModel.bookmarkSelectedVerses() },
                         onAddToPresentation: { viewModel.beginAddToPresentation() },
+                        onCopy: { viewModel.copySelectedVersesToClipboard() },
                         onShare: { viewModel.isShareSheetPresented = true },
                         onDeselectAll: { viewModel.deselectAll() }
                     )

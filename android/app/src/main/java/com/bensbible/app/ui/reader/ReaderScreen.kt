@@ -32,6 +32,8 @@ import androidx.compose.foundation.gestures.detectHorizontalDragGestures
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.platform.LocalClipboardManager
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.unit.dp
 import com.bensbible.app.data.PresentationRepository
 import com.bensbible.app.ui.presentations.AddToPresentationSheet
@@ -49,6 +51,7 @@ fun ReaderScreen(
     presentationRepository: PresentationRepository? = null,
     modifier: Modifier = Modifier
 ) {
+    val clipboardManager = LocalClipboardManager.current
     val listState = rememberLazyListState(
         initialFirstVisibleItemIndex = viewModel.savedScrollIndex,
         initialFirstVisibleItemScrollOffset = viewModel.savedScrollOffset
@@ -210,6 +213,7 @@ fun ReaderScreen(
                     onNote = { viewModel.beginNoteEditing() },
                     onBookmark = { viewModel.bookmarkSelectedVerses() },
                     onAddToPresentation = { viewModel.beginAddToPresentation() },
+                    onCopy = { clipboardManager.setText(AnnotatedString(viewModel.selectedVersesClipboardText)) },
                     onShare = { viewModel.isShareSheetPresented = true },
                     onDeselectAll = { viewModel.deselectAll() }
                 )

@@ -196,6 +196,17 @@ final class ReaderViewModel {
         isAddToPresentationSheetPresented = true
     }
 
+    func copySelectedVersesToClipboard() {
+        let texts = selectedVerseTexts
+        let verseLines: String
+        if texts.count == 1 {
+            verseLines = texts[0].text
+        } else {
+            verseLines = texts.map { "\($0.number) \($0.text)" }.joined(separator: "\n")
+        }
+        UIPasteboard.general.string = "\(verseLines)\n\n— \(selectedVerseReference)"
+    }
+
     // MARK: - Private
 
     private func saveLocation(_ location: BibleLocation) {
