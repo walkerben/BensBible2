@@ -6,6 +6,7 @@ struct VerseActionBar: View {
     let onNote: () -> Void
     let onBookmark: () -> Void
     let onAddToPresentation: () -> Void
+    let onAddToMemorize: () -> Void
     let onCopy: () -> Void
     let onShare: () -> Void
     let onDeselectAll: () -> Void
@@ -29,6 +30,11 @@ struct VerseActionBar: View {
 
             Button(action: onAddToPresentation) {
                 Label("Present", systemImage: "play.rectangle")
+                    .labelStyle(.iconOnly)
+            }
+
+            Button(action: onAddToMemorize) {
+                Label("Memorize", systemImage: "brain")
                     .labelStyle(.iconOnly)
             }
 

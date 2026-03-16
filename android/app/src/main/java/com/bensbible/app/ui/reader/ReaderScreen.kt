@@ -35,7 +35,10 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalClipboardManager
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.unit.dp
+import com.bensbible.app.data.MemorizeRepository
 import com.bensbible.app.data.PresentationRepository
+import com.bensbible.app.ui.memorize.AddToMemorizeSheet
+import com.bensbible.app.ui.memorize.MemorizeVerseEntry
 import com.bensbible.app.ui.presentations.AddToPresentationSheet
 import com.bensbible.app.ui.presentations.VerseEntry
 import com.bensbible.app.viewmodel.NavigationCoordinator
@@ -49,6 +52,7 @@ fun ReaderScreen(
     viewModel: ReaderViewModel,
     coordinator: NavigationCoordinator,
     presentationRepository: PresentationRepository? = null,
+    memorizeRepository: MemorizeRepository? = null,
     modifier: Modifier = Modifier
 ) {
     val clipboardManager = LocalClipboardManager.current
@@ -213,6 +217,7 @@ fun ReaderScreen(
                     onNote = { viewModel.beginNoteEditing() },
                     onBookmark = { viewModel.bookmarkSelectedVerses() },
                     onAddToPresentation = { viewModel.beginAddToPresentation() },
+                    onAddToMemorize = { viewModel.beginAddToMemorize() },
                     onCopy = { clipboardManager.setText(AnnotatedString(viewModel.selectedVersesClipboardText)) },
                     onShare = { viewModel.isShareSheetPresented = true },
                     onDeselectAll = { viewModel.deselectAll() }
@@ -311,6 +316,33 @@ fun ReaderScreen(
                 onDone = {
                     viewModel.deselectAll()
                     viewModel.isAddToPresentationSheetPresented = false
+                }
+            )
+        }
+    }
+
+    // Add to Memorize sheet
+    if (viewModel.isAddToMemorizeSheetPresented && memorizeRepository != null) {
+        val verses = viewModel.selectedVersesForPresentation
+        val texts = viewModel.selectedVerseTextsForPresentation
+        val memorizeEntries = verses.mapIndexed { i, (book, chapter, verse) ->
+            MemorizeVerseEntry(
+                bookName = book,
+                chapterNumber = chapter,
+                verseNumber = verse,
+                text = texts.getOrElse(i) { "" }
+            )
+        }
+        ModalBottomSheet(
+            onDismissRequest = { viewModel.isAddToMemorizeSheetPresented = false },
+            sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
+        ) {
+            AddToMemorizeSheet(
+                verses = memorizeEntries,
+                repository = memorizeRepository,
+                onDone = {
+                    viewModel.deselectAll()
+                    viewModel.isAddToMemorizeSheetPresented = false
                 }
             )
         }

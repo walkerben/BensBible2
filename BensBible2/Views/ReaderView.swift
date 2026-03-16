@@ -80,6 +80,7 @@ struct ReaderView: View {
                         onNote: { viewModel.beginNoteEditing() },
                         onBookmark: { viewModel.bookmarkSelectedVerses() },
                         onAddToPresentation: { viewModel.beginAddToPresentation() },
+                        onAddToMemorize: { viewModel.beginAddToMemorize() },
                         onCopy: { viewModel.copySelectedVersesToClipboard() },
                         onShare: { viewModel.isShareSheetPresented = true },
                         onDeselectAll: { viewModel.deselectAll() }
@@ -155,6 +156,15 @@ struct ReaderView: View {
                 AddToPresentationSheet(
                     verseTexts: viewModel.selectedVersesForPresentation,
                     onDone: { viewModel.deselectAll() }
+                )
+            }
+            .sheet(isPresented: $viewModel.isAddToMemorizeSheetPresented) {
+                AddToMemorizeSheet(
+                    verses: viewModel.selectedVersesForPresentation,
+                    onDone: {
+                        viewModel.deselectAll()
+                        viewModel.isAddToMemorizeSheetPresented = false
+                    }
                 )
             }
         }

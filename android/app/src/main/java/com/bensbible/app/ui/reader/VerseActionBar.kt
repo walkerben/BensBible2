@@ -11,6 +11,7 @@ import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.FormatColorFill
 import androidx.compose.material.icons.filled.ContentCopy
 import androidx.compose.material.icons.filled.PlayArrow
+import androidx.compose.material.icons.filled.Psychology
 import androidx.compose.material.icons.filled.Share
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -29,6 +30,7 @@ fun VerseActionBar(
     onNote: () -> Unit,
     onBookmark: () -> Unit,
     onAddToPresentation: () -> Unit,
+    onAddToMemorize: () -> Unit,
     onCopy: () -> Unit,
     onShare: () -> Unit,
     onDeselectAll: () -> Unit
@@ -57,6 +59,10 @@ fun VerseActionBar(
 
             IconButton(onClick = onAddToPresentation) {
                 Icon(Icons.Default.PlayArrow, contentDescription = "Add to Presentation")
+            }
+
+            IconButton(onClick = onAddToMemorize) {
+                Icon(Icons.Default.Psychology, contentDescription = "Add to Memorize")
             }
 
             IconButton(onClick = onCopy) {

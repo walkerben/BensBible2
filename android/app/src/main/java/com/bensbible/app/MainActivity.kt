@@ -18,6 +18,7 @@ class MainActivity : ComponentActivity() {
                     bibleDataService = app.bibleDataService,
                     annotationRepository = app.annotationRepository,
                     presentationRepository = app.presentationRepository,
+                    memorizeRepository = app.memorizeRepository,
                     locationPreferences = app.locationPreferences
                 )
             }

@@ -6,6 +6,7 @@ import androidx.compose.material.icons.filled.Book
 import androidx.compose.material.icons.filled.Bookmark
 import androidx.compose.material.icons.filled.Notes
 import androidx.compose.material.icons.filled.PlayArrow
+import androidx.compose.material.icons.filled.Psychology
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
@@ -18,14 +19,17 @@ import androidx.compose.ui.Modifier
 import com.bensbible.app.data.AnnotationRepository
 import com.bensbible.app.data.BibleDataService
 import com.bensbible.app.data.LocationPreferences
+import com.bensbible.app.data.MemorizeRepository
 import com.bensbible.app.data.PresentationRepository
 import com.bensbible.app.model.AppTab
 import com.bensbible.app.ui.bookmarks.BookmarksScreen
+import com.bensbible.app.ui.memorize.MemorizeScreen
 import com.bensbible.app.ui.notes.NotesScreen
 import com.bensbible.app.ui.presentations.PresentationsScreen
 import com.bensbible.app.ui.reader.ReaderScreen
 import com.bensbible.app.ui.search.SearchScreen
 import com.bensbible.app.viewmodel.BookmarksViewModel
+import com.bensbible.app.viewmodel.MemorizeViewModel
 import com.bensbible.app.viewmodel.NavigationCoordinator
 import com.bensbible.app.viewmodel.NotesViewModel
 import com.bensbible.app.viewmodel.PresentationsViewModel
@@ -37,6 +41,7 @@ fun MainScreen(
     bibleDataService: BibleDataService,
     annotationRepository: AnnotationRepository,
     presentationRepository: PresentationRepository,
+    memorizeRepository: MemorizeRepository,
     locationPreferences: LocationPreferences
 ) {
     val coordinator = remember { NavigationCoordinator() }
@@ -45,6 +50,7 @@ fun MainScreen(
     val bookmarksViewModel = remember { BookmarksViewModel(annotationRepository) }
     val notesViewModel = remember { NotesViewModel(annotationRepository) }
     val presentationsViewModel = remember { PresentationsViewModel(presentationRepository) }
+    val memorizeViewModel = remember { MemorizeViewModel(memorizeRepository) }
 
     Scaffold(
         bottomBar = {
@@ -79,6 +85,12 @@ fun MainScreen(
                     icon = { Icon(Icons.Default.PlayArrow, contentDescription = "Present") },
                     label = { Text("Present") }
                 )
+                NavigationBarItem(
+                    selected = coordinator.selectedTab == AppTab.MEMORIZE,
+                    onClick = { coordinator.selectedTab = AppTab.MEMORIZE },
+                    icon = { Icon(Icons.Default.Psychology, contentDescription = "Memorize") },
+                    label = { Text("Memorize") }
+                )
             }
         }
     ) { innerPadding ->
@@ -87,6 +99,7 @@ fun MainScreen(
                 viewModel = readerViewModel,
                 coordinator = coordinator,
                 presentationRepository = presentationRepository,
+                memorizeRepository = memorizeRepository,
                 modifier = Modifier.padding(innerPadding)
             )
             AppTab.SEARCH -> SearchScreen(
@@ -108,6 +121,10 @@ fun MainScreen(
             AppTab.PRESENT -> PresentationsScreen(
                 viewModel = presentationsViewModel,
                 repository = presentationRepository,
+                modifier = Modifier.padding(innerPadding)
+            )
+            AppTab.MEMORIZE -> MemorizeScreen(
+                viewModel = memorizeViewModel,
                 modifier = Modifier.padding(innerPadding)
             )
         }

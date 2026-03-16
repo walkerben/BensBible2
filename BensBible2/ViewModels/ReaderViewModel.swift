@@ -25,6 +25,7 @@ final class ReaderViewModel {
     var isNoteEditorPresented = false
     var isShareSheetPresented = false
     var isAddToPresentationSheetPresented = false
+    var isAddToMemorizeSheetPresented = false
     var noteEditingVerseID: VerseID?
     var noteEditingText: String = ""
 
@@ -194,6 +195,10 @@ final class ReaderViewModel {
 
     func beginAddToPresentation() {
         isAddToPresentationSheetPresented = true
+    }
+
+    func beginAddToMemorize() {
+        isAddToMemorizeSheetPresented = true
     }
 
     func copySelectedVersesToClipboard() {

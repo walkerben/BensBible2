@@ -46,6 +46,7 @@ class ReaderViewModel(
     var isShareSheetPresented by mutableStateOf(false)
     var isNoteEditorPresented by mutableStateOf(false)
     var isAddToPresentationSheetPresented by mutableStateOf(false)
+    var isAddToMemorizeSheetPresented by mutableStateOf(false)
     var noteEditingVerseID by mutableStateOf<VerseID?>(null)
         private set
     var noteEditingText by mutableStateOf("")
@@ -217,6 +218,10 @@ class ReaderViewModel(
 
     fun beginAddToPresentation() {
         isAddToPresentationSheetPresented = true
+    }
+
+    fun beginAddToMemorize() {
+        isAddToMemorizeSheetPresented = true
     }
 
     val selectedVersesClipboardText: String

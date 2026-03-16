@@ -42,6 +42,12 @@ struct BensBible2App: App {
                             Label("Present", systemImage: "play.rectangle")
                         }
                         .tag(AppTab.present)
+
+                    MemorizeView()
+                        .tabItem {
+                            Label("Memorize", systemImage: "brain")
+                        }
+                        .tag(AppTab.memorize)
                 }
                 .environment(coordinator)
 
@@ -59,7 +65,7 @@ struct BensBible2App: App {
                 }
             }
         }
-        .modelContainer(for: [VerseAnnotation.self, Presentation.self, PresentationSlide.self])
+        .modelContainer(for: [VerseAnnotation.self, Presentation.self, PresentationSlide.self, MemorizedVerse.self, MemoryReviewLog.self])
     }
 
 }
