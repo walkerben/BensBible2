@@ -56,14 +56,17 @@ struct MemorizeSessionView: View {
             FillBlankExerciseView(verse: verse, segments: segments) { quality in
                 viewModel.submitAnswer(quality: quality)
             }
+            .id(verse.id)
         case .wordDrag(let verse, let shuffled, let correct):
             WordDragExerciseView(verse: verse, shuffledWords: shuffled, correctOrder: correct) { quality in
                 viewModel.submitAnswer(quality: quality)
             }
+            .id(verse.id)
         case .multipleChoice(let verse, let options):
             MultipleChoiceExerciseView(verse: verse, options: options) { quality in
                 viewModel.submitAnswer(quality: quality)
             }
+            .id(verse.id)
         }
     }
 

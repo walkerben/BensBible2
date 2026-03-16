@@ -81,23 +81,26 @@ fun MemorizeSessionScreen(
                         )
                     }
                     viewModel.currentExercise != null -> {
-                        when (val exercise = viewModel.currentExercise!!) {
-                            is ExerciseState.FillBlank -> FillBlankExercise(
-                                verse = exercise.verse,
-                                segments = exercise.segments,
-                                onSubmit = { quality -> viewModel.submitAnswer(quality) }
-                            )
-                            is ExerciseState.WordDrag -> WordDragExercise(
-                                verse = exercise.verse,
-                                shuffledWords = exercise.shuffledWords,
-                                correctOrder = exercise.correctOrder,
-                                onSubmit = { quality -> viewModel.submitAnswer(quality) }
-                            )
-                            is ExerciseState.MultipleChoice -> MultipleChoiceExercise(
-                                verse = exercise.verse,
-                                options = exercise.options,
-                                onSubmit = { quality -> viewModel.submitAnswer(quality) }
-                            )
+                        val exercise = viewModel.currentExercise!!
+                        androidx.compose.runtime.key(exercise.verse.id) {
+                            when (exercise) {
+                                is ExerciseState.FillBlank -> FillBlankExercise(
+                                    verse = exercise.verse,
+                                    segments = exercise.segments,
+                                    onSubmit = { quality -> viewModel.submitAnswer(quality) }
+                                )
+                                is ExerciseState.WordDrag -> WordDragExercise(
+                                    verse = exercise.verse,
+                                    shuffledWords = exercise.shuffledWords,
+                                    correctOrder = exercise.correctOrder,
+                                    onSubmit = { quality -> viewModel.submitAnswer(quality) }
+                                )
+                                is ExerciseState.MultipleChoice -> MultipleChoiceExercise(
+                                    verse = exercise.verse,
+                                    options = exercise.options,
+                                    onSubmit = { quality -> viewModel.submitAnswer(quality) }
+                                )
+                            }
                         }
                     }
                 }
