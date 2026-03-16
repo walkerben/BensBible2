@@ -4,17 +4,25 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Book
 import androidx.compose.material.icons.filled.Bookmark
+import androidx.compose.material.icons.filled.MoreHoriz
 import androidx.compose.material.icons.filled.Notes
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.Psychology
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.NavigationDrawerItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import com.bensbible.app.data.AnnotationRepository
 import com.bensbible.app.data.BibleDataService
@@ -36,6 +44,7 @@ import com.bensbible.app.viewmodel.PresentationsViewModel
 import com.bensbible.app.viewmodel.ReaderViewModel
 import com.bensbible.app.viewmodel.SearchViewModel
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainScreen(
     bibleDataService: BibleDataService,
@@ -51,6 +60,37 @@ fun MainScreen(
     val notesViewModel = remember { NotesViewModel(annotationRepository) }
     val presentationsViewModel = remember { PresentationsViewModel(presentationRepository) }
     val memorizeViewModel = remember { MemorizeViewModel(memorizeRepository) }
+
+    val overflowTabs = setOf(AppTab.PRESENT, AppTab.MEMORIZE)
+    val isMoreSelected = coordinator.selectedTab in overflowTabs
+    var showMoreSheet by remember { mutableStateOf(false) }
+    val sheetState = rememberModalBottomSheetState()
+
+    if (showMoreSheet) {
+        ModalBottomSheet(
+            onDismissRequest = { showMoreSheet = false },
+            sheetState = sheetState
+        ) {
+            NavigationDrawerItem(
+                label = { Text("Present") },
+                icon = { Icon(Icons.Default.PlayArrow, contentDescription = "Present") },
+                selected = coordinator.selectedTab == AppTab.PRESENT,
+                onClick = {
+                    coordinator.selectedTab = AppTab.PRESENT
+                    showMoreSheet = false
+                }
+            )
+            NavigationDrawerItem(
+                label = { Text("Memorize") },
+                icon = { Icon(Icons.Default.Psychology, contentDescription = "Memorize") },
+                selected = coordinator.selectedTab == AppTab.MEMORIZE,
+                onClick = {
+                    coordinator.selectedTab = AppTab.MEMORIZE
+                    showMoreSheet = false
+                }
+            )
+        }
+    }
 
     Scaffold(
         bottomBar = {
@@ -80,16 +120,10 @@ fun MainScreen(
                     label = { Text("Notes") }
                 )
                 NavigationBarItem(
-                    selected = coordinator.selectedTab == AppTab.PRESENT,
-                    onClick = { coordinator.selectedTab = AppTab.PRESENT },
-                    icon = { Icon(Icons.Default.PlayArrow, contentDescription = "Present") },
-                    label = { Text("Present") }
-                )
-                NavigationBarItem(
-                    selected = coordinator.selectedTab == AppTab.MEMORIZE,
-                    onClick = { coordinator.selectedTab = AppTab.MEMORIZE },
-                    icon = { Icon(Icons.Default.Psychology, contentDescription = "Memorize") },
-                    label = { Text("Memorize") }
+                    selected = isMoreSelected,
+                    onClick = { showMoreSheet = true },
+                    icon = { Icon(Icons.Default.MoreHoriz, contentDescription = "More") },
+                    label = { Text("More") }
                 )
             }
         }
