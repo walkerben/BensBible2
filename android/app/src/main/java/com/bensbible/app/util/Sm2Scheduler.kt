@@ -30,8 +30,14 @@ object Sm2Scheduler {
             newInterval = 1
         }
 
-        val msPerDay = 24L * 60 * 60 * 1000
-        val nextDate = System.currentTimeMillis() + newInterval * msPerDay
+        val cal = java.util.Calendar.getInstance().apply {
+            set(java.util.Calendar.HOUR_OF_DAY, 0)
+            set(java.util.Calendar.MINUTE, 0)
+            set(java.util.Calendar.SECOND, 0)
+            set(java.util.Calendar.MILLISECOND, 0)
+            add(java.util.Calendar.DAY_OF_YEAR, newInterval)
+        }
+        val nextDate = cal.timeInMillis
         return Sm2Result(
             repetitions = newRepetitions,
             easeFactor = newEaseFactor,

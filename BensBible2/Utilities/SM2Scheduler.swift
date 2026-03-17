@@ -30,7 +30,8 @@ struct SM2Scheduler {
             newInterval = 1
         }
 
-        let nextDate = Calendar.current.date(byAdding: .day, value: newInterval, to: Date()) ?? Date()
+        let today = Calendar.current.startOfDay(for: Date())
+        let nextDate = Calendar.current.date(byAdding: .day, value: newInterval, to: today) ?? Date()
         return SM2Result(
             repetitions: newRepetitions,
             easeFactor: newEaseFactor,
