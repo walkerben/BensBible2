@@ -12,41 +12,44 @@ struct VerseActionBar: View {
     let onDeselectAll: () -> Void
 
     var body: some View {
-        HStack(spacing: 12) {
-            Button(action: onHighlight) {
-                Label("Highlight", systemImage: "highlighter")
-                    .labelStyle(.iconOnly)
-            }
+        HStack(spacing: 0) {
+            HStack(spacing: 4) {
+                Button(action: onHighlight) {
+                    Label("Highlight", systemImage: "highlighter")
+                        .labelStyle(.iconOnly)
+                }
 
-            Button(action: onNote) {
-                Label("Note", systemImage: "note.text.badge.plus")
-                    .labelStyle(.iconOnly)
-            }
+                Button(action: onNote) {
+                    Label("Note", systemImage: "note.text.badge.plus")
+                        .labelStyle(.iconOnly)
+                }
 
-            Button(action: onBookmark) {
-                Label("Bookmark", systemImage: "bookmark")
-                    .labelStyle(.iconOnly)
-            }
+                Button(action: onBookmark) {
+                    Label("Bookmark", systemImage: "bookmark")
+                        .labelStyle(.iconOnly)
+                }
 
-            Button(action: onAddToPresentation) {
-                Label("Present", systemImage: "play.rectangle")
-                    .labelStyle(.iconOnly)
-            }
+                Button(action: onAddToPresentation) {
+                    Label("Present", systemImage: "play.rectangle")
+                        .labelStyle(.iconOnly)
+                }
 
-            Button(action: onAddToMemorize) {
-                Label("Memorize", systemImage: "brain")
-                    .labelStyle(.iconOnly)
-            }
+                Button(action: onAddToMemorize) {
+                    Label("Memorize", systemImage: "brain")
+                        .labelStyle(.iconOnly)
+                }
 
-            Button(action: onCopy) {
-                Label("Copy", systemImage: "doc.on.doc")
-                    .labelStyle(.iconOnly)
-            }
+                Button(action: onCopy) {
+                    Label("Copy", systemImage: "doc.on.doc")
+                        .labelStyle(.iconOnly)
+                }
 
-            Button(action: onShare) {
-                Label("Share", systemImage: "square.and.arrow.up")
-                    .labelStyle(.iconOnly)
+                Button(action: onShare) {
+                    Label("Share", systemImage: "square.and.arrow.up")
+                        .labelStyle(.iconOnly)
+                }
             }
+            .font(.system(size: 20))
 
             Spacer()
 
@@ -54,13 +57,14 @@ struct VerseActionBar: View {
                 .font(.caption)
                 .foregroundStyle(.secondary)
                 .lineLimit(1)
-                .fixedSize(horizontal: true, vertical: false)
 
             Button(action: onDeselectAll) {
                 Label("Deselect", systemImage: "xmark.circle.fill")
                     .labelStyle(.iconOnly)
                     .foregroundStyle(.secondary)
             }
+            .font(.system(size: 20))
+            .padding(.leading, 8)
         }
         .padding(.horizontal, 20)
         .padding(.vertical, 12)
