@@ -18,6 +18,7 @@ import androidx.compose.material3.NavigationDrawerItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -99,31 +100,31 @@ fun MainScreen(
                     selected = coordinator.selectedTab == AppTab.READ,
                     onClick = { coordinator.selectedTab = AppTab.READ },
                     icon = { Icon(Icons.Default.Book, contentDescription = "Read") },
-                    label = { Text("Read") }
+                    label = { Text("Read", maxLines = 1, overflow = TextOverflow.Ellipsis) }
                 )
                 NavigationBarItem(
                     selected = coordinator.selectedTab == AppTab.SEARCH,
                     onClick = { coordinator.selectedTab = AppTab.SEARCH },
                     icon = { Icon(Icons.Default.Search, contentDescription = "Search") },
-                    label = { Text("Search") }
+                    label = { Text("Search", maxLines = 1, overflow = TextOverflow.Ellipsis) }
                 )
                 NavigationBarItem(
                     selected = coordinator.selectedTab == AppTab.BOOKMARKS,
                     onClick = { coordinator.selectedTab = AppTab.BOOKMARKS },
                     icon = { Icon(Icons.Default.Bookmark, contentDescription = "Bookmarks") },
-                    label = { Text("Bookmarks") }
+                    label = { Text("Bookmarks", maxLines = 1, overflow = TextOverflow.Ellipsis) }
                 )
                 NavigationBarItem(
                     selected = coordinator.selectedTab == AppTab.NOTES,
                     onClick = { coordinator.selectedTab = AppTab.NOTES },
                     icon = { Icon(Icons.Default.Notes, contentDescription = "Notes") },
-                    label = { Text("Notes") }
+                    label = { Text("Notes", maxLines = 1, overflow = TextOverflow.Ellipsis) }
                 )
                 NavigationBarItem(
                     selected = isMoreSelected,
                     onClick = { showMoreSheet = true },
                     icon = { Icon(Icons.Default.MoreHoriz, contentDescription = "More") },
-                    label = { Text("More") }
+                    label = { Text("More", maxLines = 1, overflow = TextOverflow.Ellipsis) }
                 )
             }
         }
