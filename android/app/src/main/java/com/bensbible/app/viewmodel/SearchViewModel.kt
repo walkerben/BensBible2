@@ -135,7 +135,7 @@ class SearchViewModel(
         if (chapter <= 0) return null
         val verse = if (cv.size > 1) cv[1].toIntOrNull() else null
 
-        val potentialBook = parts.dropLast().joinToString(" ")
+        val potentialBook = parts.dropLast(1).joinToString(" ")
         val aliases = mapOf("Psalm" to "Psalms")
         val resolvedBook = aliases[potentialBook] ?: potentialBook
 
