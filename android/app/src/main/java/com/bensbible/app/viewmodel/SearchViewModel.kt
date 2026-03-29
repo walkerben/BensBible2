@@ -6,6 +6,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.bensbible.app.data.BibleDataService
+import com.bensbible.app.model.BibleLocation
 import com.bensbible.app.model.BookGroup
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -32,6 +33,9 @@ class SearchViewModel(
         private set
 
     var results by mutableStateOf<List<SearchResult>>(emptyList())
+        private set
+
+    var navigationTarget by mutableStateOf<BibleLocation?>(null)
         private set
 
     var isSearching by mutableStateOf(false)
@@ -74,6 +78,7 @@ class SearchViewModel(
         val trimmed = newQuery.trim()
         if (trimmed.isEmpty()) {
             results = emptyList()
+            navigationTarget = null
             isSearching = false
             return
         }
@@ -86,8 +91,9 @@ class SearchViewModel(
     }
 
     private suspend fun performSearch(query: String) {
-        val matches = withContext(Dispatchers.Default) {
+        val (matches, navTarget) = withContext(Dispatchers.Default) {
             val allBooks = dataService.loadBookNames()
+            val parsedTarget = parseNavigationTarget(query, allBooks)
             val bookNames = selectedGroup.filterBooks(allBooks)
             val found = mutableListOf<SearchResult>()
             for (bookName in bookNames) {
@@ -112,9 +118,28 @@ class SearchViewModel(
                     }
                 }
             }
-            found
+            Pair(found, parsedTarget)
         }
         results = matches
+        navigationTarget = navTarget
         isSearching = false
+    }
+
+    private fun parseNavigationTarget(query: String, allBooks: List<String>): BibleLocation? {
+        val parts = query.trim().split("\\s+".toRegex()).filter { it.isNotEmpty() }
+        if (parts.size < 2) return null
+
+        val lastPart = parts.last()
+        val cv = lastPart.split(":")
+        val chapter = cv[0].toIntOrNull() ?: return null
+        if (chapter <= 0) return null
+        val verse = if (cv.size > 1) cv[1].toIntOrNull() else null
+
+        val potentialBook = parts.dropLast().joinToString(" ")
+        val aliases = mapOf("Psalm" to "Psalms")
+        val resolvedBook = aliases[potentialBook] ?: potentialBook
+
+        return allBooks.firstOrNull { it.equals(resolvedBook, ignoreCase = true) }
+            ?.let { BibleLocation(bookName = it, chapterNumber = chapter, verseNumber = verse) }
     }
 }

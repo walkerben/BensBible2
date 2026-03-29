@@ -42,7 +42,8 @@ struct SearchView: View {
                     .padding(.vertical, 8)
                 }
                 Group {
-                if viewModel.query.trimmingCharacters(in: .whitespaces).isEmpty {
+                let trimmedQuery = viewModel.query.trimmingCharacters(in: .whitespaces)
+                if trimmedQuery.isEmpty {
                     ContentUnavailableView(
                         "Search the Bible",
                         systemImage: "magnifyingglass",
@@ -50,32 +51,47 @@ struct SearchView: View {
                     )
                 } else if viewModel.isSearching {
                     ProgressView("Searching...")
-                } else if viewModel.results.isEmpty {
+                } else if viewModel.results.isEmpty && viewModel.navigationTarget == nil {
                     ContentUnavailableView(
                         "No Results",
                         systemImage: "magnifyingglass",
                         description: Text("No results for \"\(viewModel.query)\"")
                     )
                 } else {
-                    List(viewModel.results) { result in
-                        Button {
-                            coordinator.navigateToReader(
-                                location: BibleLocation(
-                                    bookName: result.bookName,
-                                    chapterNumber: result.chapter,
-                                    verseNumber: result.verse
-                                )
-                            )
-                        } label: {
-                            VStack(alignment: .leading, spacing: 4) {
-                                Text(result.reference)
-                                    .font(.subheadline)
-                                    .fontWeight(.bold)
-                                    .foregroundStyle(.primary)
-                                Text(result.text)
-                                    .font(.caption)
-                                    .foregroundStyle(.secondary)
-                                    .lineLimit(2)
+                    List {
+                        if let target = viewModel.navigationTarget {
+                            Section {
+                                Button {
+                                    coordinator.navigateToReader(location: target)
+                                } label: {
+                                    Label("Go to \(target.displayTitle)", systemImage: "arrow.right.circle.fill")
+                                        .font(.subheadline)
+                                        .fontWeight(.semibold)
+                                }
+                            }
+                        }
+                        Section {
+                            ForEach(viewModel.results) { result in
+                                Button {
+                                    coordinator.navigateToReader(
+                                        location: BibleLocation(
+                                            bookName: result.bookName,
+                                            chapterNumber: result.chapter,
+                                            verseNumber: result.verse
+                                        )
+                                    )
+                                } label: {
+                                    VStack(alignment: .leading, spacing: 4) {
+                                        Text(result.reference)
+                                            .font(.subheadline)
+                                            .fontWeight(.bold)
+                                            .foregroundStyle(.primary)
+                                        Text(result.text)
+                                            .font(.caption)
+                                            .foregroundStyle(.secondary)
+                                            .lineLimit(2)
+                                    }
+                                }
                             }
                         }
                     }

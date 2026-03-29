@@ -15,6 +15,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.FilterChip
@@ -121,7 +122,7 @@ fun SearchScreen(
                     CircularProgressIndicator()
                 }
             }
-            viewModel.results.isEmpty() -> {
+            viewModel.results.isEmpty() && viewModel.navigationTarget == null -> {
                 Box(
                     modifier = Modifier.fillMaxSize(),
                     contentAlignment = Alignment.Center
@@ -148,6 +149,31 @@ fun SearchScreen(
             }
             else -> {
                 LazyColumn(modifier = Modifier.fillMaxSize()) {
+                    viewModel.navigationTarget?.let { target ->
+                        item {
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .clickable { coordinator.navigateToReader(target) }
+                                    .padding(horizontal = 16.dp, vertical = 14.dp),
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.spacedBy(8.dp)
+                            ) {
+                                Icon(
+                                    Icons.Default.ArrowForward,
+                                    contentDescription = null,
+                                    tint = MaterialTheme.colorScheme.primary
+                                )
+                                Text(
+                                    "Go to ${target.displayTitle}",
+                                    style = MaterialTheme.typography.bodyMedium,
+                                    fontWeight = FontWeight.SemiBold,
+                                    color = MaterialTheme.colorScheme.primary
+                                )
+                            }
+                            HorizontalDivider()
+                        }
+                    }
                     items(viewModel.results) { result ->
                         SearchResultRow(result = result) {
                             coordinator.navigateToReader(

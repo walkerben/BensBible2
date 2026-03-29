@@ -24,6 +24,7 @@ final class SearchViewModel {
         didSet { debounceSearch() }
     }
     var results: [SearchResult] = []
+    var navigationTarget: BibleLocation? = nil
     var isSearching: Bool = false
     var selectedGroup: BookGroup = .all
     var searchMode: SearchMode = .phrase {
@@ -61,10 +62,12 @@ final class SearchViewModel {
 
         guard !currentQuery.isEmpty else {
             results = []
+            navigationTarget = nil
             isSearching = false
             return
         }
 
+        navigationTarget = nil
         isSearching = true
         searchTask = Task {
             try? await Task.sleep(nanoseconds: 300_000_000)
@@ -76,6 +79,7 @@ final class SearchViewModel {
     private func performSearch(query: String) async {
         do {
             let allBooks = try dataService.loadBookNames()
+            let navTarget = parseNavigationTarget(query: query, allBooks: allBooks)
             let bookNames = selectedGroup.filterBooks(from: allBooks)
             var matches: [SearchResult] = []
 
@@ -108,13 +112,36 @@ final class SearchViewModel {
             guard !Task.isCancelled else { return }
             await MainActor.run {
                 self.results = finalMatches
+                self.navigationTarget = navTarget
                 self.isSearching = false
             }
         } catch {
             await MainActor.run {
                 self.results = []
+                self.navigationTarget = nil
                 self.isSearching = false
             }
         }
+    }
+
+    private func parseNavigationTarget(query: String, allBooks: [String]) -> BibleLocation? {
+        let parts = query.trimmingCharacters(in: .whitespaces)
+            .components(separatedBy: .whitespaces).filter { !$0.isEmpty }
+        guard parts.count >= 2 else { return nil }
+
+        let lastPart = parts.last!
+        let cv = lastPart.components(separatedBy: ":")
+        guard let chapter = Int(cv[0]), chapter > 0 else { return nil }
+        let verse = cv.count > 1 ? Int(cv[1]) : nil
+
+        let potentialBook = parts.dropLast().joined(separator: " ")
+        let aliases = ["Psalm": "Psalms"]
+        let resolvedBook = aliases[potentialBook] ?? potentialBook
+
+        guard let book = allBooks.first(where: {
+            $0.localizedCaseInsensitiveCompare(resolvedBook) == .orderedSame
+        }) else { return nil }
+
+        return BibleLocation(bookName: book, chapterNumber: chapter, verseNumber: verse)
     }
 }
