@@ -6,5 +6,6 @@ enum class AppTab {
     BOOKMARKS,
     NOTES,
     PRESENT,
-    MEMORIZE
+    MEMORIZE,
+    SETTINGS
 }

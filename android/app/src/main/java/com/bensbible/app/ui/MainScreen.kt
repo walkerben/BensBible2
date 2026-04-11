@@ -9,6 +9,7 @@ import androidx.compose.material.icons.filled.Notes
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.Psychology
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.ModalBottomSheet
@@ -20,6 +21,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -30,13 +32,16 @@ import com.bensbible.app.data.BibleDataService
 import com.bensbible.app.data.LocationPreferences
 import com.bensbible.app.data.MemorizeRepository
 import com.bensbible.app.data.PresentationRepository
+import com.bensbible.app.data.VerseOfTheDayPreferences
 import com.bensbible.app.model.AppTab
+import com.bensbible.app.model.BibleLocation
 import com.bensbible.app.ui.bookmarks.BookmarksScreen
 import com.bensbible.app.ui.memorize.MemorizeScreen
 import com.bensbible.app.ui.notes.NotesScreen
 import com.bensbible.app.ui.presentations.PresentationsScreen
 import com.bensbible.app.ui.reader.ReaderScreen
 import com.bensbible.app.ui.search.SearchScreen
+import com.bensbible.app.ui.settings.SettingsScreen
 import com.bensbible.app.viewmodel.BookmarksViewModel
 import com.bensbible.app.viewmodel.MemorizeViewModel
 import com.bensbible.app.viewmodel.NavigationCoordinator
@@ -44,6 +49,7 @@ import com.bensbible.app.viewmodel.NotesViewModel
 import com.bensbible.app.viewmodel.PresentationsViewModel
 import com.bensbible.app.viewmodel.ReaderViewModel
 import com.bensbible.app.viewmodel.SearchViewModel
+import com.bensbible.app.viewmodel.SettingsViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -52,7 +58,10 @@ fun MainScreen(
     annotationRepository: AnnotationRepository,
     presentationRepository: PresentationRepository,
     memorizeRepository: MemorizeRepository,
-    locationPreferences: LocationPreferences
+    locationPreferences: LocationPreferences,
+    verseOfTheDayPreferences: VerseOfTheDayPreferences,
+    initialNavigation: BibleLocation? = null,
+    onInitialNavigationConsumed: () -> Unit = {}
 ) {
     val coordinator = remember { NavigationCoordinator() }
     val readerViewModel = remember { ReaderViewModel(bibleDataService, annotationRepository, locationPreferences) }
@@ -61,8 +70,17 @@ fun MainScreen(
     val notesViewModel = remember { NotesViewModel(annotationRepository) }
     val presentationsViewModel = remember { PresentationsViewModel(presentationRepository) }
     val memorizeViewModel = remember { MemorizeViewModel(memorizeRepository) }
+    val settingsViewModel = remember { SettingsViewModel(verseOfTheDayPreferences) }
 
-    val overflowTabs = setOf(AppTab.PRESENT, AppTab.MEMORIZE)
+    // Navigate to a verse when arriving from a Verse of the Day notification.
+    LaunchedEffect(initialNavigation) {
+        if (initialNavigation != null) {
+            coordinator.navigateToReader(initialNavigation)
+            onInitialNavigationConsumed()
+        }
+    }
+
+    val overflowTabs = setOf(AppTab.PRESENT, AppTab.MEMORIZE, AppTab.SETTINGS)
     val isMoreSelected = coordinator.selectedTab in overflowTabs
     var showMoreSheet by remember { mutableStateOf(false) }
     val sheetState = rememberModalBottomSheetState()
@@ -87,6 +105,15 @@ fun MainScreen(
                 selected = coordinator.selectedTab == AppTab.MEMORIZE,
                 onClick = {
                     coordinator.selectedTab = AppTab.MEMORIZE
+                    showMoreSheet = false
+                }
+            )
+            NavigationDrawerItem(
+                label = { Text("Settings") },
+                icon = { Icon(Icons.Default.Settings, contentDescription = "Settings") },
+                selected = coordinator.selectedTab == AppTab.SETTINGS,
+                onClick = {
+                    coordinator.selectedTab = AppTab.SETTINGS
                     showMoreSheet = false
                 }
             )
@@ -160,6 +187,10 @@ fun MainScreen(
             )
             AppTab.MEMORIZE -> MemorizeScreen(
                 viewModel = memorizeViewModel,
+                modifier = Modifier.padding(innerPadding)
+            )
+            AppTab.SETTINGS -> SettingsScreen(
+                viewModel = settingsViewModel,
                 modifier = Modifier.padding(innerPadding)
             )
         }

@@ -3,6 +3,7 @@ import SwiftData
 
 struct ReaderView: View {
     @State var viewModel = ReaderViewModel()
+    @State private var showSettings = false
     @Environment(\.modelContext) private var modelContext
     @Environment(NavigationCoordinator.self) private var coordinator
 
@@ -122,6 +123,17 @@ struct ReaderView: View {
                     }
                     .disabled(!viewModel.canGoNext)
                 }
+
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button {
+                        showSettings = true
+                    } label: {
+                        Image(systemName: "gearshape")
+                    }
+                }
+            }
+            .sheet(isPresented: $showSettings) {
+                SettingsView()
             }
             .sheet(isPresented: $viewModel.isPickerPresented) {
                 BookChapterPickerView(viewModel: viewModel)

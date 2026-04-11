@@ -60,6 +60,9 @@
 		MM440004MM440004 /* WordDragExerciseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = NN440004NN440004 /* WordDragExerciseView.swift */; };
 		MM440005MM440005 /* MultipleChoiceExerciseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = NN440005NN440005 /* MultipleChoiceExerciseView.swift */; };
 		MM440006MM440006 /* AddToMemorizeSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = NN440006NN440006 /* AddToMemorizeSheet.swift */; };
+		DD110001DD110001 /* VerseOfTheDayVerses.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC110001CC110001 /* VerseOfTheDayVerses.swift */; };
+		DD110002DD110002 /* VerseOfTheDayService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC110002CC110002 /* VerseOfTheDayService.swift */; };
+		DD110003DD110003 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC110003CC110003 /* SettingsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -118,6 +121,9 @@
 		NN440004NN440004 /* WordDragExerciseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordDragExerciseView.swift; sourceTree = "<group>"; };
 		NN440005NN440005 /* MultipleChoiceExerciseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleChoiceExerciseView.swift; sourceTree = "<group>"; };
 		NN440006NN440006 /* AddToMemorizeSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddToMemorizeSheet.swift; sourceTree = "<group>"; };
+		CC110001CC110001 /* VerseOfTheDayVerses.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerseOfTheDayVerses.swift; sourceTree = "<group>"; };
+		CC110002CC110002 /* VerseOfTheDayService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerseOfTheDayService.swift; sourceTree = "<group>"; };
+		CC110003CC110003 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXContainerItemProxy section */
@@ -238,6 +244,7 @@
 			isa = PBXGroup;
 			children = (
 				2DB1514E3A644001 /* ReaderView.swift */,
+				CC110003CC110003 /* SettingsView.swift */,
 				B756C349402D47B6 /* BookChapterPickerView.swift */,
 				D1B7C40895654399 /* VerseRow.swift */,
 				BB110005BB110005 /* VerseActionBar.swift */,
@@ -268,6 +275,8 @@
 			children = (
 				5F15E948B4DB4000 /* BibleDataService.swift */,
 				99F28456EB274C33 /* LocalBibleDataService.swift */,
+				CC110001CC110001 /* VerseOfTheDayVerses.swift */,
+				CC110002CC110002 /* VerseOfTheDayService.swift */,
 				BB110004BB110004 /* AnnotationService.swift */,
 			);
 			path = Services;
@@ -435,6 +444,9 @@
 				MM440004MM440004 /* WordDragExerciseView.swift in Sources */,
 				MM440005MM440005 /* MultipleChoiceExerciseView.swift in Sources */,
 				MM440006MM440006 /* AddToMemorizeSheet.swift in Sources */,
+				DD110001DD110001 /* VerseOfTheDayVerses.swift in Sources */,
+				DD110002DD110002 /* VerseOfTheDayService.swift in Sources */,
+				DD110003DD110003 /* SettingsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

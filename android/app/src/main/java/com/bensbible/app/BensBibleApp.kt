@@ -1,12 +1,17 @@
 package com.bensbible.app
 
 import android.app.Application
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.content.Context
 import com.bensbible.app.data.AppDatabase
 import com.bensbible.app.data.AnnotationRepository
 import com.bensbible.app.data.BibleDataService
 import com.bensbible.app.data.LocationPreferences
 import com.bensbible.app.data.MemorizeRepository
 import com.bensbible.app.data.PresentationRepository
+import com.bensbible.app.data.VerseOfTheDayPreferences
+import com.bensbible.app.workers.VerseOfTheDayWorker
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -34,6 +39,9 @@ class BensBibleApp : Application() {
     lateinit var locationPreferences: LocationPreferences
         private set
 
+    lateinit var verseOfTheDayPreferences: VerseOfTheDayPreferences
+        private set
+
     override fun onCreate() {
         super.onCreate()
         database = AppDatabase.create(this)
@@ -42,10 +50,25 @@ class BensBibleApp : Application() {
         memorizeRepository = MemorizeRepository(database.memorizeDao())
         bibleDataService = BibleDataService(assets)
         locationPreferences = LocationPreferences(this)
+        verseOfTheDayPreferences = VerseOfTheDayPreferences(this)
+
+        createNotificationChannels()
 
         applicationScope.launch {
             presentationRepository.seedRomanRoadIfNeeded()
             memorizeRepository.seedDefaultVersesIfNeeded()
         }
+    }
+
+    private fun createNotificationChannels() {
+        val channel = NotificationChannel(
+            VerseOfTheDayWorker.CHANNEL_ID,
+            "Verse of the Day",
+            NotificationManager.IMPORTANCE_DEFAULT
+        ).apply {
+            description = "Daily scripture verse notifications"
+        }
+        val manager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        manager.createNotificationChannel(channel)
     }
 }
