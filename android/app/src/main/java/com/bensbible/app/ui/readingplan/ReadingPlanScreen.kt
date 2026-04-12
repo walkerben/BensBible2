@@ -63,7 +63,8 @@ fun ReadingPlanScreen(
             annotationRepository = annotationRepository,
             presentationRepository = presentationRepository,
             memorizeRepository = memorizeRepository,
-            onBack = { selectedDay = null }
+            onBack = { selectedDay = null },
+            modifier = modifier
         )
         return
     }
@@ -77,7 +78,8 @@ fun ReadingPlanScreen(
             presentationRepository = presentationRepository,
             memorizeRepository = memorizeRepository,
             onBack = { selectedPlan = null },
-            onDaySelected = { day -> selectedDay = plan to day }
+            onDaySelected = { day -> selectedDay = plan to day },
+            modifier = modifier
         )
         return
     }
