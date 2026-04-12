@@ -11,8 +11,11 @@ import com.bensbible.app.data.LocationPreferences
 import com.bensbible.app.data.MemorizeRepository
 import com.bensbible.app.data.PresentationRepository
 import com.bensbible.app.data.MemorizeReminderPreferences
+import com.bensbible.app.data.ReadingPlanRepository
+import com.bensbible.app.data.ReadingPlanReminderPreferences
 import com.bensbible.app.data.VerseOfTheDayPreferences
 import com.bensbible.app.workers.MemorizeReminderWorker
+import com.bensbible.app.workers.ReadingPlanReminderWorker
 import com.bensbible.app.workers.VerseOfTheDayWorker
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -47,6 +50,12 @@ class BensBibleApp : Application() {
     lateinit var memorizeReminderPreferences: MemorizeReminderPreferences
         private set
 
+    lateinit var readingPlanRepository: ReadingPlanRepository
+        private set
+
+    lateinit var readingPlanReminderPreferences: ReadingPlanReminderPreferences
+        private set
+
     override fun onCreate() {
         super.onCreate()
         database = AppDatabase.create(this)
@@ -57,6 +66,8 @@ class BensBibleApp : Application() {
         locationPreferences = LocationPreferences(this)
         verseOfTheDayPreferences = VerseOfTheDayPreferences(this)
         memorizeReminderPreferences = MemorizeReminderPreferences(this)
+        readingPlanRepository = ReadingPlanRepository(database.readingPlanDao())
+        readingPlanReminderPreferences = ReadingPlanReminderPreferences(this)
 
         createNotificationChannels()
 
@@ -81,6 +92,13 @@ class BensBibleApp : Application() {
                 "Memorization Reminder",
                 NotificationManager.IMPORTANCE_DEFAULT
             ).apply { description = "Daily reminder to review memorization verses" }
+        )
+        manager.createNotificationChannel(
+            NotificationChannel(
+                ReadingPlanReminderWorker.CHANNEL_ID,
+                "Daily Reading Reminder",
+                NotificationManager.IMPORTANCE_DEFAULT
+            ).apply { description = "Daily reminder for your Bible reading plan" }
         )
     }
 }

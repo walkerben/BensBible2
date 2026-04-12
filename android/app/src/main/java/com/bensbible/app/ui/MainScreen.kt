@@ -27,12 +27,15 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.material.icons.filled.LibraryBooks
 import com.bensbible.app.data.AnnotationRepository
 import com.bensbible.app.data.BibleDataService
 import com.bensbible.app.data.LocationPreferences
 import com.bensbible.app.data.MemorizeRepository
 import com.bensbible.app.data.PresentationRepository
 import com.bensbible.app.data.MemorizeReminderPreferences
+import com.bensbible.app.data.ReadingPlanRepository
+import com.bensbible.app.data.ReadingPlanReminderPreferences
 import com.bensbible.app.data.VerseOfTheDayPreferences
 import com.bensbible.app.model.AppTab
 import com.bensbible.app.model.BibleLocation
@@ -41,6 +44,7 @@ import com.bensbible.app.ui.memorize.MemorizeScreen
 import com.bensbible.app.ui.notes.NotesScreen
 import com.bensbible.app.ui.presentations.PresentationsScreen
 import com.bensbible.app.ui.reader.ReaderScreen
+import com.bensbible.app.ui.readingplan.ReadingPlanScreen
 import com.bensbible.app.ui.search.SearchScreen
 import com.bensbible.app.ui.settings.SettingsScreen
 import com.bensbible.app.viewmodel.BookmarksViewModel
@@ -49,6 +53,7 @@ import com.bensbible.app.viewmodel.NavigationCoordinator
 import com.bensbible.app.viewmodel.NotesViewModel
 import com.bensbible.app.viewmodel.PresentationsViewModel
 import com.bensbible.app.viewmodel.ReaderViewModel
+import com.bensbible.app.viewmodel.ReadingPlanViewModel
 import com.bensbible.app.viewmodel.SearchViewModel
 import com.bensbible.app.viewmodel.SettingsViewModel
 
@@ -62,6 +67,8 @@ fun MainScreen(
     locationPreferences: LocationPreferences,
     verseOfTheDayPreferences: VerseOfTheDayPreferences,
     memorizeReminderPreferences: MemorizeReminderPreferences,
+    readingPlanRepository: ReadingPlanRepository,
+    readingPlanReminderPreferences: ReadingPlanReminderPreferences,
     initialNavigation: BibleLocation? = null,
     onInitialNavigationConsumed: () -> Unit = {},
     initialTabNavigation: AppTab? = null,
@@ -74,7 +81,8 @@ fun MainScreen(
     val notesViewModel = remember { NotesViewModel(annotationRepository) }
     val presentationsViewModel = remember { PresentationsViewModel(presentationRepository) }
     val memorizeViewModel = remember { MemorizeViewModel(memorizeRepository) }
-    val settingsViewModel = remember { SettingsViewModel(verseOfTheDayPreferences, memorizeReminderPreferences) }
+    val readingPlanViewModel = remember { ReadingPlanViewModel(readingPlanRepository) }
+    val settingsViewModel = remember { SettingsViewModel(verseOfTheDayPreferences, memorizeReminderPreferences, readingPlanReminderPreferences) }
 
     // Navigate to a verse when arriving from a Verse of the Day notification.
     LaunchedEffect(initialNavigation) {
@@ -92,7 +100,7 @@ fun MainScreen(
         }
     }
 
-    val overflowTabs = setOf(AppTab.PRESENT, AppTab.MEMORIZE, AppTab.SETTINGS)
+    val overflowTabs = setOf(AppTab.PRESENT, AppTab.MEMORIZE, AppTab.READING_PLAN, AppTab.SETTINGS)
     val isMoreSelected = coordinator.selectedTab in overflowTabs
     var showMoreSheet by remember { mutableStateOf(false) }
     val sheetState = rememberModalBottomSheetState()
@@ -117,6 +125,15 @@ fun MainScreen(
                 selected = coordinator.selectedTab == AppTab.MEMORIZE,
                 onClick = {
                     coordinator.selectedTab = AppTab.MEMORIZE
+                    showMoreSheet = false
+                }
+            )
+            NavigationDrawerItem(
+                label = { Text("Reading Plans") },
+                icon = { Icon(Icons.Default.LibraryBooks, contentDescription = "Reading Plans") },
+                selected = coordinator.selectedTab == AppTab.READING_PLAN,
+                onClick = {
+                    coordinator.selectedTab = AppTab.READING_PLAN
                     showMoreSheet = false
                 }
             )
@@ -199,6 +216,11 @@ fun MainScreen(
             )
             AppTab.MEMORIZE -> MemorizeScreen(
                 viewModel = memorizeViewModel,
+                modifier = Modifier.padding(innerPadding)
+            )
+            AppTab.READING_PLAN -> ReadingPlanScreen(
+                viewModel = readingPlanViewModel,
+                bibleDataService = bibleDataService,
                 modifier = Modifier.padding(innerPadding)
             )
             AppTab.SETTINGS -> SettingsScreen(

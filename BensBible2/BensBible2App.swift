@@ -8,6 +8,7 @@ import UserNotifications
 final class NotificationHandler: NSObject, UNUserNotificationCenterDelegate {
     var pendingVerseNavigation: BibleLocation?
     var pendingMemorizeNavigation = false
+    var pendingReadingPlanNavigation = false
 
     // Called when the user taps a notification (foreground or background).
     func userNotificationCenter(
@@ -20,6 +21,8 @@ final class NotificationHandler: NSObject, UNUserNotificationCenterDelegate {
 
         if identifier == "memorize_reminder" {
             DispatchQueue.main.async { self.pendingMemorizeNavigation = true }
+        } else if identifier == "reading_plan_reminder" {
+            DispatchQueue.main.async { self.pendingReadingPlanNavigation = true }
         } else if let book = info["book"] as? String,
                   let chapter = info["chapter"] as? Int,
                   let verse = info["verse"] as? Int {
@@ -41,6 +44,34 @@ final class NotificationHandler: NSObject, UNUserNotificationCenterDelegate {
         withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void
     ) {
         completionHandler([.banner, .sound])
+    }
+}
+
+// Reactively reschedules the reading plan reminder whenever active plans or preferences change.
+private struct ReadingPlanReminderScheduler: View {
+    @Query private var allProgress: [ReadingPlanProgress]
+    @AppStorage("reading_plan_reminder_enabled") private var enabled = false
+    @AppStorage("reading_plan_reminder_hour") private var hour = 7
+    @AppStorage("reading_plan_reminder_minute") private var minute = 0
+
+    private var hasActivePlan: Bool { allProgress.contains { !$0.isCompleted } }
+
+    var body: some View {
+        Color.clear
+            .onAppear { refresh() }
+            .onChange(of: hasActivePlan) { _, _ in refresh() }
+            .onChange(of: enabled) { _, _ in refresh() }
+            .onChange(of: hour) { _, _ in refresh() }
+            .onChange(of: minute) { _, _ in refresh() }
+    }
+
+    private func refresh() {
+        let service = ReadingPlanReminderService()
+        guard enabled else {
+            service.cancelNotification()
+            return
+        }
+        service.refreshSchedule(hasActivePlan: hasActivePlan, hour: hour, minute: minute)
     }
 }
 
@@ -78,6 +109,7 @@ struct BensBible2App: App {
     @State private var coordinator = NavigationCoordinator()
     @State private var showSplash = true
     @State private var notificationHandler = NotificationHandler()
+    @State private var bibleDataService = LocalBibleDataService()
     @AppStorage("verse_of_the_day_enabled") private var votdEnabled = false
     @AppStorage("verse_of_the_day_hour") private var votdHour = 8
     @AppStorage("verse_of_the_day_minute") private var votdMinute = 0
@@ -124,10 +156,17 @@ struct BensBible2App: App {
                             Label("Memorize", systemImage: "brain")
                         }
                         .tag(AppTab.memorize)
+
+                    ReadingPlanListView(bibleDataService: bibleDataService)
+                        .tabItem {
+                            Label("Plans", systemImage: "calendar")
+                        }
+                        .tag(AppTab.readingPlan)
                 }
                 .environment(coordinator)
 
                 MemorizeReminderScheduler()
+                ReadingPlanReminderScheduler()
 
                 if showSplash {
                     SplashScreenView()
@@ -164,7 +203,14 @@ struct BensBible2App: App {
                     notificationHandler.pendingMemorizeNavigation = false
                 }
             }
+            // Switch to Reading Plans tab when the user taps a reading plan reminder.
+            .onChange(of: notificationHandler.pendingReadingPlanNavigation) { _, pending in
+                if pending {
+                    coordinator.selectedTab = .readingPlan
+                    notificationHandler.pendingReadingPlanNavigation = false
+                }
+            }
         }
-        .modelContainer(for: [VerseAnnotation.self, Presentation.self, PresentationSlide.self, MemorizedVerse.self, MemoryReviewLog.self])
+        .modelContainer(for: [VerseAnnotation.self, Presentation.self, PresentationSlide.self, MemorizedVerse.self, MemoryReviewLog.self, ReadingPlanProgress.self])
     }
 }

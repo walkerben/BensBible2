@@ -201,6 +201,69 @@ fun SettingsScreen(
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 modifier = Modifier.padding(horizontal = 16.dp)
             )
+
+            Spacer(modifier = Modifier.height(24.dp))
+            Text(
+                text = "Daily Reading",
+                style = MaterialTheme.typography.labelMedium,
+                color = MaterialTheme.colorScheme.primary,
+                modifier = Modifier.padding(start = 16.dp, bottom = 4.dp)
+            )
+            HorizontalDivider()
+
+            ListItem(
+                headlineContent = { Text("Daily Reading Reminder") },
+                supportingContent = { Text("Daily reminder for your Bible reading plan") },
+                trailingContent = {
+                    Switch(
+                        checked = viewModel.isReadingPlanReminderEnabled,
+                        onCheckedChange = { enabled ->
+                            if (enabled) {
+                                withNotificationPermission(context) {
+                                    viewModel.setReadingPlanReminderEnabled(true, context)
+                                }
+                            } else {
+                                viewModel.setReadingPlanReminderEnabled(false, context)
+                            }
+                        }
+                    )
+                }
+            )
+
+            if (viewModel.isReadingPlanReminderEnabled) {
+                HorizontalDivider(modifier = Modifier.padding(horizontal = 16.dp))
+                ListItem(
+                    headlineContent = { Text("Reminder Time") },
+                    supportingContent = {
+                        Text(formatTime(viewModel.readingPlanReminderHour, viewModel.readingPlanReminderMinute))
+                    },
+                    leadingContent = {
+                        Icon(Icons.Default.AccessTime, contentDescription = null)
+                    },
+                    trailingContent = {
+                        TextButton(onClick = {
+                            showTimePicker(
+                                context = context,
+                                hour = viewModel.readingPlanReminderHour,
+                                minute = viewModel.readingPlanReminderMinute
+                            ) { h, m ->
+                                viewModel.setReadingPlanReminderTime(h, m, context)
+                            }
+                        }) {
+                            Text("Change")
+                        }
+                    }
+                )
+            }
+
+            HorizontalDivider()
+            Spacer(modifier = Modifier.height(8.dp))
+            Text(
+                text = "Only sent when you have an active reading plan.",
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                modifier = Modifier.padding(horizontal = 16.dp)
+            )
         }
     }
 }

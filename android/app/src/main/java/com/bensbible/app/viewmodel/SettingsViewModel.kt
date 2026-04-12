@@ -9,15 +9,18 @@ import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
 import com.bensbible.app.data.MemorizeReminderPreferences
+import com.bensbible.app.data.ReadingPlanReminderPreferences
 import com.bensbible.app.data.VerseOfTheDayPreferences
 import com.bensbible.app.workers.MemorizeReminderWorker
+import com.bensbible.app.workers.ReadingPlanReminderWorker
 import com.bensbible.app.workers.VerseOfTheDayWorker
 import java.util.Calendar
 import java.util.concurrent.TimeUnit
 
 class SettingsViewModel(
     private val votdPreferences: VerseOfTheDayPreferences,
-    private val memorizePreferences: MemorizeReminderPreferences
+    private val memorizePreferences: MemorizeReminderPreferences,
+    private val readingPlanPreferences: ReadingPlanReminderPreferences
 ) {
 
     // --- Verse of the Day ---
@@ -86,6 +89,39 @@ class SettingsViewModel(
         WorkManager.getInstance(context).cancelUniqueWork(MEMORIZE_WORK_NAME)
     }
 
+    // --- Reading Plan Reminder ---
+
+    var isReadingPlanReminderEnabled by mutableStateOf(readingPlanPreferences.isEnabled)
+        private set
+
+    var readingPlanReminderHour by mutableIntStateOf(readingPlanPreferences.notificationHour)
+        private set
+
+    var readingPlanReminderMinute by mutableIntStateOf(readingPlanPreferences.notificationMinute)
+        private set
+
+    fun setReadingPlanReminderEnabled(enabled: Boolean, context: Context) {
+        readingPlanPreferences.isEnabled = enabled
+        isReadingPlanReminderEnabled = enabled
+        if (enabled) scheduleReadingPlanReminder(context) else cancelReadingPlanReminder(context)
+    }
+
+    fun setReadingPlanReminderTime(hour: Int, minute: Int, context: Context) {
+        readingPlanPreferences.notificationHour = hour
+        readingPlanPreferences.notificationMinute = minute
+        readingPlanReminderHour = hour
+        readingPlanReminderMinute = minute
+        if (isReadingPlanReminderEnabled) scheduleReadingPlanReminder(context)
+    }
+
+    fun scheduleReadingPlanReminder(context: Context) {
+        schedulePeriodicWork<ReadingPlanReminderWorker>(context, readingPlanReminderHour, readingPlanReminderMinute, READING_PLAN_WORK_NAME)
+    }
+
+    fun cancelReadingPlanReminder(context: Context) {
+        WorkManager.getInstance(context).cancelUniqueWork(READING_PLAN_WORK_NAME)
+    }
+
     // --- Shared scheduling helper ---
 
     private inline fun <reified W : androidx.work.ListenableWorker> schedulePeriodicWork(
@@ -118,5 +154,6 @@ class SettingsViewModel(
     companion object {
         const val VOTD_WORK_NAME = "VerseOfTheDayWork"
         const val MEMORIZE_WORK_NAME = "MemorizeReminderWork"
+        const val READING_PLAN_WORK_NAME = "ReadingPlanReminderWork"
     }
 }

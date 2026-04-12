@@ -33,6 +33,8 @@ class MainActivity : ComponentActivity() {
                     locationPreferences = app.locationPreferences,
                     verseOfTheDayPreferences = app.verseOfTheDayPreferences,
                     memorizeReminderPreferences = app.memorizeReminderPreferences,
+                    readingPlanRepository = app.readingPlanRepository,
+                    readingPlanReminderPreferences = app.readingPlanReminderPreferences,
                     initialNavigation = pendingVerseNavigation,
                     onInitialNavigationConsumed = { pendingVerseNavigation = null },
                     initialTabNavigation = pendingTabNavigation,
@@ -50,6 +52,8 @@ class MainActivity : ComponentActivity() {
     private fun applyIntent(intent: Intent?) {
         if (intent?.getBooleanExtra("navigate_to_memorize", false) == true) {
             pendingTabNavigation = AppTab.MEMORIZE
+        } else if (intent?.getBooleanExtra("navigate_to_reading_plan", false) == true) {
+            pendingTabNavigation = AppTab.READING_PLAN
         } else {
             pendingVerseNavigation = extractVerseFromIntent(intent)
         }

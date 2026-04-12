@@ -7,5 +7,6 @@ enum class AppTab {
     NOTES,
     PRESENT,
     MEMORIZE,
+    READING_PLAN,
     SETTINGS
 }

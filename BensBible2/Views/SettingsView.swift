@@ -10,6 +10,10 @@ struct SettingsView: View {
     @AppStorage("memorize_reminder_hour") private var memorizeHour = 20
     @AppStorage("memorize_reminder_minute") private var memorizeMinute = 0
 
+    @AppStorage("reading_plan_reminder_enabled") private var readingPlanEnabled = false
+    @AppStorage("reading_plan_reminder_hour") private var readingPlanHour = 7
+    @AppStorage("reading_plan_reminder_minute") private var readingPlanMinute = 0
+
     @State private var showPermissionDeniedAlert = false
 
     private let service = VerseOfTheDayService()
@@ -30,6 +34,23 @@ struct SettingsView: View {
                 if isEnabled {
                     service.scheduleNotifications(hour: notificationHour, minute: notificationMinute)
                 }
+            }
+        )
+    }
+
+    private var readingPlanReminderTime: Binding<Date> {
+        Binding(
+            get: {
+                var components = Calendar.current.dateComponents([.year, .month, .day], from: Date())
+                components.hour = readingPlanHour
+                components.minute = readingPlanMinute
+                return Calendar.current.date(from: components) ?? Date()
+            },
+            set: { newDate in
+                let components = Calendar.current.dateComponents([.hour, .minute], from: newDate)
+                readingPlanHour = components.hour ?? 7
+                readingPlanMinute = components.minute ?? 0
+                // ReadingPlanReminderScheduler in BensBible2App reacts to @AppStorage changes.
             }
         )
     }
@@ -103,6 +124,22 @@ struct SettingsView: View {
                     Text("Memorization")
                 } footer: {
                     Text("Receive a daily reminder to review your memorization verses. Only sent when verses are due.")
+                }
+                Section {
+                    Toggle("Daily Reading Reminder", isOn: Binding(
+                        get: { readingPlanEnabled },
+                        set: { newValue in
+                            readingPlanEnabled = newValue
+                            if !newValue { ReadingPlanReminderService().cancelNotification() }
+                        }
+                    ))
+                    if readingPlanEnabled {
+                        DatePicker("Reminder Time", selection: readingPlanReminderTime, displayedComponents: .hourAndMinute)
+                    }
+                } header: {
+                    Text("Daily Reading")
+                } footer: {
+                    Text("Receive a daily reminder when you have an active reading plan.")
                 }
             }
             .navigationTitle("Settings")

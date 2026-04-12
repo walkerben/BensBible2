@@ -64,6 +64,13 @@
 		DD110002DD110002 /* VerseOfTheDayService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC110002CC110002 /* VerseOfTheDayService.swift */; };
 		FF220001FF220001 /* MemorizeReminderService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE220001EE220001 /* MemorizeReminderService.swift */; };
 		DD110003DD110003 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC110003CC110003 /* SettingsView.swift */; };
+		BB330001BB330001 /* ReadingPlanData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA330001AA330001 /* ReadingPlanData.swift */; };
+		BB330002BB330002 /* ReadingPlanProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA330002AA330002 /* ReadingPlanProgress.swift */; };
+		BB330003BB330003 /* ReadingPlanViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA330003AA330003 /* ReadingPlanViewModel.swift */; };
+		BB330004BB330004 /* ReadingPlanListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA330004AA330004 /* ReadingPlanListView.swift */; };
+		BB330005BB330005 /* ReadingPlanDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA330005AA330005 /* ReadingPlanDetailView.swift */; };
+		BB330006BB330006 /* ReadingDayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA330006AA330006 /* ReadingDayView.swift */; };
+		BB330007BB330007 /* ReadingPlanReminderService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA330007AA330007 /* ReadingPlanReminderService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -126,6 +133,13 @@
 		CC110002CC110002 /* VerseOfTheDayService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerseOfTheDayService.swift; sourceTree = "<group>"; };
 		EE220001EE220001 /* MemorizeReminderService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemorizeReminderService.swift; sourceTree = "<group>"; };
 		CC110003CC110003 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		AA330001AA330001 /* ReadingPlanData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingPlanData.swift; sourceTree = "<group>"; };
+		AA330002AA330002 /* ReadingPlanProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingPlanProgress.swift; sourceTree = "<group>"; };
+		AA330003AA330003 /* ReadingPlanViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingPlanViewModel.swift; sourceTree = "<group>"; };
+		AA330004AA330004 /* ReadingPlanListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingPlanListView.swift; sourceTree = "<group>"; };
+		AA330005AA330005 /* ReadingPlanDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingPlanDetailView.swift; sourceTree = "<group>"; };
+		AA330006AA330006 /* ReadingDayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingDayView.swift; sourceTree = "<group>"; };
+		AA330007AA330007 /* ReadingPlanReminderService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingPlanReminderService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXContainerItemProxy section */
@@ -164,6 +178,7 @@
 				DD220003DD220003 /* NotesViewModel.swift */,
 				BB550001BB550001 /* SearchViewModel.swift */,
 				PP220001PP220001 /* PresentationsViewModel.swift */,
+				AA330003AA330003 /* ReadingPlanViewModel.swift */,
 				NN330001NN330001 /* MemorizeViewModel.swift */,
 			);
 			path = ViewModels;
@@ -186,6 +201,7 @@
 				PP110001PP110001 /* Presentation.swift */,
 				PP110002PP110002 /* PresentationSlide.swift */,
 				NN110001NN110001 /* MemorizedVerse.swift */,
+				AA330002AA330002 /* ReadingPlanProgress.swift */,
 				NN110002NN110002 /* MemoryReviewLog.swift */,
 				NN110003NN110003 /* ExerciseState.swift */,
 			);
@@ -267,6 +283,9 @@
 				NN440003NN440003 /* FillBlankExerciseView.swift */,
 				NN440004NN440004 /* WordDragExerciseView.swift */,
 				NN440005NN440005 /* MultipleChoiceExerciseView.swift */,
+				AA330006AA330006 /* ReadingDayView.swift */,
+				AA330005AA330005 /* ReadingPlanDetailView.swift */,
+				AA330004AA330004 /* ReadingPlanListView.swift */,
 				NN440006NN440006 /* AddToMemorizeSheet.swift */,
 			);
 			path = Views;
@@ -279,6 +298,8 @@
 				99F28456EB274C33 /* LocalBibleDataService.swift */,
 				CC110001CC110001 /* VerseOfTheDayVerses.swift */,
 				CC110002CC110002 /* VerseOfTheDayService.swift */,
+				AA330007AA330007 /* ReadingPlanReminderService.swift */,
+				AA330001AA330001 /* ReadingPlanData.swift */,
 				EE220001EE220001 /* MemorizeReminderService.swift */,
 				BB110004BB110004 /* AnnotationService.swift */,
 			);
@@ -451,6 +472,13 @@
 				DD110002DD110002 /* VerseOfTheDayService.swift in Sources */,
 				FF220001FF220001 /* MemorizeReminderService.swift in Sources */,
 				DD110003DD110003 /* SettingsView.swift in Sources */,
+				BB330001BB330001 /* ReadingPlanData.swift in Sources */,
+				BB330002BB330002 /* ReadingPlanProgress.swift in Sources */,
+				BB330003BB330003 /* ReadingPlanViewModel.swift in Sources */,
+				BB330004BB330004 /* ReadingPlanListView.swift in Sources */,
+				BB330005BB330005 /* ReadingPlanDetailView.swift in Sources */,
+				BB330006BB330006 /* ReadingDayView.swift in Sources */,
+				BB330007BB330007 /* ReadingPlanReminderService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

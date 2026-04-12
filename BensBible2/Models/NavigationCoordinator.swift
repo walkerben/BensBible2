@@ -7,6 +7,7 @@ enum AppTab: Hashable {
     case notes
     case present
     case memorize
+    case readingPlan
 }
 
 @Observable
