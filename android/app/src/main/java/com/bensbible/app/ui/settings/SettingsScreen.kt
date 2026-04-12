@@ -1,15 +1,17 @@
 package com.bensbible.app.ui.settings
 
+import android.Manifest
 import android.app.TimePickerDialog
 import android.content.Context
+import android.content.pm.PackageManager
+import android.os.Build
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccessTime
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -23,10 +25,14 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.core.content.ContextCompat
 import com.bensbible.app.viewmodel.SettingsViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -36,6 +42,29 @@ fun SettingsScreen(
     modifier: Modifier = Modifier
 ) {
     val context = LocalContext.current
+
+    // Holds the action to run once the user grants the notification permission.
+    var pendingEnableAction by remember { mutableStateOf<(() -> Unit)?>(null) }
+
+    val permissionLauncher = rememberLauncherForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { isGranted ->
+        if (isGranted) pendingEnableAction?.invoke()
+        pendingEnableAction = null
+    }
+
+    // Call this before enabling any notification feature.
+    fun withNotificationPermission(context: Context, onGranted: () -> Unit) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU &&
+            ContextCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS)
+            != PackageManager.PERMISSION_GRANTED
+        ) {
+            pendingEnableAction = onGranted
+            permissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
+        } else {
+            onGranted()
+        }
+    }
 
     Scaffold(
         topBar = {
@@ -62,7 +91,15 @@ fun SettingsScreen(
                 trailingContent = {
                     Switch(
                         checked = viewModel.isVerseOfTheDayEnabled,
-                        onCheckedChange = { viewModel.setVerseOfTheDayEnabled(it, context) }
+                        onCheckedChange = { enabled ->
+                            if (enabled) {
+                                withNotificationPermission(context) {
+                                    viewModel.setVerseOfTheDayEnabled(true, context)
+                                }
+                            } else {
+                                viewModel.setVerseOfTheDayEnabled(false, context)
+                            }
+                        }
                     )
                 }
             )
@@ -117,7 +154,15 @@ fun SettingsScreen(
                 trailingContent = {
                     Switch(
                         checked = viewModel.isMemorizeReminderEnabled,
-                        onCheckedChange = { viewModel.setMemorizeReminderEnabled(it, context) }
+                        onCheckedChange = { enabled ->
+                            if (enabled) {
+                                withNotificationPermission(context) {
+                                    viewModel.setMemorizeReminderEnabled(true, context)
+                                }
+                            } else {
+                                viewModel.setMemorizeReminderEnabled(false, context)
+                            }
+                        }
                     )
                 }
             )
