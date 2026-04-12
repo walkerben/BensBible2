@@ -35,7 +35,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.bensbible.app.data.AnnotationRepository
 import com.bensbible.app.data.BibleDataService
+import com.bensbible.app.data.MemorizeRepository
+import com.bensbible.app.data.PresentationRepository
 import com.bensbible.app.data.ReadingPlan
 import com.bensbible.app.data.ReadingPlanDay
 import com.bensbible.app.viewmodel.ReadingPlanViewModel
@@ -46,6 +49,9 @@ fun ReadingPlanDetailScreen(
     plan: ReadingPlan,
     viewModel: ReadingPlanViewModel,
     bibleDataService: BibleDataService,
+    annotationRepository: AnnotationRepository,
+    presentationRepository: PresentationRepository,
+    memorizeRepository: MemorizeRepository,
     onBack: () -> Unit,
     onDaySelected: (ReadingPlanDay) -> Unit,
     modifier: Modifier = Modifier

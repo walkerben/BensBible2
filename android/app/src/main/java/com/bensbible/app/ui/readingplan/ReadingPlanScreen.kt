@@ -32,7 +32,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.bensbible.app.data.AnnotationRepository
 import com.bensbible.app.data.BibleDataService
+import com.bensbible.app.data.MemorizeRepository
+import com.bensbible.app.data.PresentationRepository
 import com.bensbible.app.data.ReadingPlan
 import com.bensbible.app.data.ReadingPlanDay
 import com.bensbible.app.viewmodel.ReadingPlanViewModel
@@ -42,6 +45,9 @@ import com.bensbible.app.viewmodel.ReadingPlanViewModel
 fun ReadingPlanScreen(
     viewModel: ReadingPlanViewModel,
     bibleDataService: BibleDataService,
+    annotationRepository: AnnotationRepository,
+    presentationRepository: PresentationRepository,
+    memorizeRepository: MemorizeRepository,
     modifier: Modifier = Modifier
 ) {
     val progressList by viewModel.progressList.collectAsState()
@@ -54,6 +60,9 @@ fun ReadingPlanScreen(
             day = day,
             viewModel = viewModel,
             bibleDataService = bibleDataService,
+            annotationRepository = annotationRepository,
+            presentationRepository = presentationRepository,
+            memorizeRepository = memorizeRepository,
             onBack = { selectedDay = null }
         )
         return
@@ -64,6 +73,9 @@ fun ReadingPlanScreen(
             plan = plan,
             viewModel = viewModel,
             bibleDataService = bibleDataService,
+            annotationRepository = annotationRepository,
+            presentationRepository = presentationRepository,
+            memorizeRepository = memorizeRepository,
             onBack = { selectedPlan = null },
             onDaySelected = { day -> selectedDay = plan to day }
         )

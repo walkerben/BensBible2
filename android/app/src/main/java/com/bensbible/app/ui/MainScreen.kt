@@ -221,6 +221,9 @@ fun MainScreen(
             AppTab.READING_PLAN -> ReadingPlanScreen(
                 viewModel = readingPlanViewModel,
                 bibleDataService = bibleDataService,
+                annotationRepository = annotationRepository,
+                presentationRepository = presentationRepository,
+                memorizeRepository = memorizeRepository,
                 modifier = Modifier.padding(innerPadding)
             )
             AppTab.SETTINGS -> SettingsScreen(
