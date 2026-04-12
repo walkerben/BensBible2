@@ -17,6 +17,9 @@ interface MemorizeDao {
     @Query("SELECT COUNT(*) FROM memorized_verses")
     suspend fun getCount(): Int
 
+    @Query("SELECT COUNT(*) FROM memorized_verses WHERE nextReviewDate <= :now")
+    suspend fun countDueVerses(now: Long): Int
+
     @Query("SELECT * FROM memorized_verses ORDER BY addedAt ASC")
     suspend fun getAllVersesSnapshot(): List<MemorizedVerseEntity>
 

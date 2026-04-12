@@ -32,6 +32,7 @@ import com.bensbible.app.data.BibleDataService
 import com.bensbible.app.data.LocationPreferences
 import com.bensbible.app.data.MemorizeRepository
 import com.bensbible.app.data.PresentationRepository
+import com.bensbible.app.data.MemorizeReminderPreferences
 import com.bensbible.app.data.VerseOfTheDayPreferences
 import com.bensbible.app.model.AppTab
 import com.bensbible.app.model.BibleLocation
@@ -60,6 +61,7 @@ fun MainScreen(
     memorizeRepository: MemorizeRepository,
     locationPreferences: LocationPreferences,
     verseOfTheDayPreferences: VerseOfTheDayPreferences,
+    memorizeReminderPreferences: MemorizeReminderPreferences,
     initialNavigation: BibleLocation? = null,
     onInitialNavigationConsumed: () -> Unit = {}
 ) {
@@ -70,7 +72,7 @@ fun MainScreen(
     val notesViewModel = remember { NotesViewModel(annotationRepository) }
     val presentationsViewModel = remember { PresentationsViewModel(presentationRepository) }
     val memorizeViewModel = remember { MemorizeViewModel(memorizeRepository) }
-    val settingsViewModel = remember { SettingsViewModel(verseOfTheDayPreferences) }
+    val settingsViewModel = remember { SettingsViewModel(verseOfTheDayPreferences, memorizeReminderPreferences) }
 
     // Navigate to a verse when arriving from a Verse of the Day notification.
     LaunchedEffect(initialNavigation) {

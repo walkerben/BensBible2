@@ -10,7 +10,9 @@ import com.bensbible.app.data.BibleDataService
 import com.bensbible.app.data.LocationPreferences
 import com.bensbible.app.data.MemorizeRepository
 import com.bensbible.app.data.PresentationRepository
+import com.bensbible.app.data.MemorizeReminderPreferences
 import com.bensbible.app.data.VerseOfTheDayPreferences
+import com.bensbible.app.workers.MemorizeReminderWorker
 import com.bensbible.app.workers.VerseOfTheDayWorker
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -42,6 +44,9 @@ class BensBibleApp : Application() {
     lateinit var verseOfTheDayPreferences: VerseOfTheDayPreferences
         private set
 
+    lateinit var memorizeReminderPreferences: MemorizeReminderPreferences
+        private set
+
     override fun onCreate() {
         super.onCreate()
         database = AppDatabase.create(this)
@@ -51,6 +56,7 @@ class BensBibleApp : Application() {
         bibleDataService = BibleDataService(assets)
         locationPreferences = LocationPreferences(this)
         verseOfTheDayPreferences = VerseOfTheDayPreferences(this)
+        memorizeReminderPreferences = MemorizeReminderPreferences(this)
 
         createNotificationChannels()
 
@@ -61,14 +67,20 @@ class BensBibleApp : Application() {
     }
 
     private fun createNotificationChannels() {
-        val channel = NotificationChannel(
-            VerseOfTheDayWorker.CHANNEL_ID,
-            "Verse of the Day",
-            NotificationManager.IMPORTANCE_DEFAULT
-        ).apply {
-            description = "Daily scripture verse notifications"
-        }
         val manager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        manager.createNotificationChannel(channel)
+        manager.createNotificationChannel(
+            NotificationChannel(
+                VerseOfTheDayWorker.CHANNEL_ID,
+                "Verse of the Day",
+                NotificationManager.IMPORTANCE_DEFAULT
+            ).apply { description = "Daily scripture verse notifications" }
+        )
+        manager.createNotificationChannel(
+            NotificationChannel(
+                MemorizeReminderWorker.CHANNEL_ID,
+                "Memorization Reminder",
+                NotificationManager.IMPORTANCE_DEFAULT
+            ).apply { description = "Daily reminder to review memorization verses" }
+        )
     }
 }

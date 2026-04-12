@@ -39,6 +39,35 @@ final class NotificationHandler: NSObject, UNUserNotificationCenterDelegate {
     }
 }
 
+// Embedded in the WindowGroup ZStack to reactively reschedule the memorize
+// reminder whenever the due-verse count or user preferences change.
+private struct MemorizeReminderScheduler: View {
+    @Query private var allVerses: [MemorizedVerse]
+    @AppStorage("memorize_reminder_enabled") private var enabled = false
+    @AppStorage("memorize_reminder_hour") private var hour = 20
+    @AppStorage("memorize_reminder_minute") private var minute = 0
+
+    private var dueCount: Int { allVerses.filter(\.isDue).count }
+
+    var body: some View {
+        Color.clear
+            .onAppear { refresh() }
+            .onChange(of: dueCount) { _, _ in refresh() }
+            .onChange(of: enabled) { _, _ in refresh() }
+            .onChange(of: hour) { _, _ in refresh() }
+            .onChange(of: minute) { _, _ in refresh() }
+    }
+
+    private func refresh() {
+        let service = MemorizeReminderService()
+        guard enabled else {
+            service.cancelNotification()
+            return
+        }
+        service.refreshSchedule(dueCount: dueCount, hour: hour, minute: minute)
+    }
+}
+
 @main
 struct BensBible2App: App {
     @State private var coordinator = NavigationCoordinator()
@@ -92,6 +121,8 @@ struct BensBible2App: App {
                         .tag(AppTab.memorize)
                 }
                 .environment(coordinator)
+
+                MemorizeReminderScheduler()
 
                 if showSplash {
                     SplashScreenView()

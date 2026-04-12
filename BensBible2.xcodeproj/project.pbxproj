@@ -62,6 +62,7 @@
 		MM440006MM440006 /* AddToMemorizeSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = NN440006NN440006 /* AddToMemorizeSheet.swift */; };
 		DD110001DD110001 /* VerseOfTheDayVerses.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC110001CC110001 /* VerseOfTheDayVerses.swift */; };
 		DD110002DD110002 /* VerseOfTheDayService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC110002CC110002 /* VerseOfTheDayService.swift */; };
+		FF220001FF220001 /* MemorizeReminderService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE220001EE220001 /* MemorizeReminderService.swift */; };
 		DD110003DD110003 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC110003CC110003 /* SettingsView.swift */; };
 /* End PBXBuildFile section */
 
@@ -123,6 +124,7 @@
 		NN440006NN440006 /* AddToMemorizeSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddToMemorizeSheet.swift; sourceTree = "<group>"; };
 		CC110001CC110001 /* VerseOfTheDayVerses.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerseOfTheDayVerses.swift; sourceTree = "<group>"; };
 		CC110002CC110002 /* VerseOfTheDayService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerseOfTheDayService.swift; sourceTree = "<group>"; };
+		EE220001EE220001 /* MemorizeReminderService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemorizeReminderService.swift; sourceTree = "<group>"; };
 		CC110003CC110003 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -277,6 +279,7 @@
 				99F28456EB274C33 /* LocalBibleDataService.swift */,
 				CC110001CC110001 /* VerseOfTheDayVerses.swift */,
 				CC110002CC110002 /* VerseOfTheDayService.swift */,
+				EE220001EE220001 /* MemorizeReminderService.swift */,
 				BB110004BB110004 /* AnnotationService.swift */,
 			);
 			path = Services;
@@ -446,6 +449,7 @@
 				MM440006MM440006 /* AddToMemorizeSheet.swift in Sources */,
 				DD110001DD110001 /* VerseOfTheDayVerses.swift in Sources */,
 				DD110002DD110002 /* VerseOfTheDayService.swift in Sources */,
+				FF220001FF220001 /* MemorizeReminderService.swift in Sources */,
 				DD110003DD110003 /* SettingsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

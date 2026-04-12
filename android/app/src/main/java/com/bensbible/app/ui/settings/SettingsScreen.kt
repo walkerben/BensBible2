@@ -101,6 +101,61 @@ fun SettingsScreen(
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 modifier = Modifier.padding(horizontal = 16.dp)
             )
+
+            Spacer(modifier = Modifier.height(24.dp))
+            Text(
+                text = "Memorization",
+                style = MaterialTheme.typography.labelMedium,
+                color = MaterialTheme.colorScheme.primary,
+                modifier = Modifier.padding(start = 16.dp, bottom = 4.dp)
+            )
+            HorizontalDivider()
+
+            ListItem(
+                headlineContent = { Text("Memorization Reminder") },
+                supportingContent = { Text("Daily reminder to review your memorization verses") },
+                trailingContent = {
+                    Switch(
+                        checked = viewModel.isMemorizeReminderEnabled,
+                        onCheckedChange = { viewModel.setMemorizeReminderEnabled(it, context) }
+                    )
+                }
+            )
+
+            if (viewModel.isMemorizeReminderEnabled) {
+                HorizontalDivider(modifier = Modifier.padding(horizontal = 16.dp))
+                ListItem(
+                    headlineContent = { Text("Reminder Time") },
+                    supportingContent = {
+                        Text(formatTime(viewModel.memorizeReminderHour, viewModel.memorizeReminderMinute))
+                    },
+                    leadingContent = {
+                        Icon(Icons.Default.AccessTime, contentDescription = null)
+                    },
+                    trailingContent = {
+                        TextButton(onClick = {
+                            showTimePicker(
+                                context = context,
+                                hour = viewModel.memorizeReminderHour,
+                                minute = viewModel.memorizeReminderMinute
+                            ) { h, m ->
+                                viewModel.setMemorizeReminderTime(h, m, context)
+                            }
+                        }) {
+                            Text("Change")
+                        }
+                    }
+                )
+            }
+
+            HorizontalDivider()
+            Spacer(modifier = Modifier.height(8.dp))
+            Text(
+                text = "Only sent when you have verses due for review.",
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                modifier = Modifier.padding(horizontal = 16.dp)
+            )
         }
     }
 }

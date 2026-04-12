@@ -6,6 +6,10 @@ struct SettingsView: View {
     @AppStorage("verse_of_the_day_hour") private var notificationHour = 8
     @AppStorage("verse_of_the_day_minute") private var notificationMinute = 0
 
+    @AppStorage("memorize_reminder_enabled") private var memorizeEnabled = false
+    @AppStorage("memorize_reminder_hour") private var memorizeHour = 20
+    @AppStorage("memorize_reminder_minute") private var memorizeMinute = 0
+
     @State private var showPermissionDeniedAlert = false
 
     private let service = VerseOfTheDayService()
@@ -26,6 +30,23 @@ struct SettingsView: View {
                 if isEnabled {
                     service.scheduleNotifications(hour: notificationHour, minute: notificationMinute)
                 }
+            }
+        )
+    }
+
+    private var memorizeReminderTime: Binding<Date> {
+        Binding(
+            get: {
+                var components = Calendar.current.dateComponents([.year, .month, .day], from: Date())
+                components.hour = memorizeHour
+                components.minute = memorizeMinute
+                return Calendar.current.date(from: components) ?? Date()
+            },
+            set: { newDate in
+                let components = Calendar.current.dateComponents([.hour, .minute], from: newDate)
+                memorizeHour = components.hour ?? 20
+                memorizeMinute = components.minute ?? 0
+                // MemorizeReminderScheduler in BensBible2App reacts to @AppStorage changes.
             }
         )
     }
@@ -57,6 +78,31 @@ struct SettingsView: View {
                     Text("Notifications")
                 } footer: {
                     Text("Receive a daily scripture verse as a notification. Tap the notification to open the verse in the reader.")
+                }
+
+                Section {
+                    Toggle("Memorization Reminder", isOn: Binding(
+                        get: { memorizeEnabled },
+                        set: { newValue in
+                            memorizeEnabled = newValue
+                            if !newValue {
+                                MemorizeReminderService().cancelNotification()
+                            }
+                            // When enabled, MemorizeReminderScheduler handles scheduling reactively.
+                        }
+                    ))
+
+                    if memorizeEnabled {
+                        DatePicker(
+                            "Reminder Time",
+                            selection: memorizeReminderTime,
+                            displayedComponents: .hourAndMinute
+                        )
+                    }
+                } header: {
+                    Text("Memorization")
+                } footer: {
+                    Text("Receive a daily reminder to review your memorization verses. Only sent when verses are due.")
                 }
             }
             .navigationTitle("Settings")

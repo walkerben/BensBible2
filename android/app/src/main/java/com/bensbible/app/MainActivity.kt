@@ -30,6 +30,7 @@ class MainActivity : ComponentActivity() {
                     memorizeRepository = app.memorizeRepository,
                     locationPreferences = app.locationPreferences,
                     verseOfTheDayPreferences = app.verseOfTheDayPreferences,
+                    memorizeReminderPreferences = app.memorizeReminderPreferences,
                     initialNavigation = pendingVerseNavigation,
                     onInitialNavigationConsumed = { pendingVerseNavigation = null }
                 )
