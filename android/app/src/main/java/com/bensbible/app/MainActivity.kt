@@ -8,6 +8,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import com.bensbible.app.model.AppTab
 import com.bensbible.app.model.BibleLocation
 import com.bensbible.app.ui.MainScreen
 import com.bensbible.app.ui.theme.BensBibleTheme
@@ -15,11 +16,12 @@ import com.bensbible.app.ui.theme.BensBibleTheme
 class MainActivity : ComponentActivity() {
 
     private var pendingVerseNavigation by mutableStateOf<BibleLocation?>(null)
+    private var pendingTabNavigation by mutableStateOf<AppTab?>(null)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        pendingVerseNavigation = extractVerseFromIntent(intent)
+        applyIntent(intent)
         val app = application as BensBibleApp
         setContent {
             BensBibleTheme {
@@ -32,7 +34,9 @@ class MainActivity : ComponentActivity() {
                     verseOfTheDayPreferences = app.verseOfTheDayPreferences,
                     memorizeReminderPreferences = app.memorizeReminderPreferences,
                     initialNavigation = pendingVerseNavigation,
-                    onInitialNavigationConsumed = { pendingVerseNavigation = null }
+                    onInitialNavigationConsumed = { pendingVerseNavigation = null },
+                    initialTabNavigation = pendingTabNavigation,
+                    onInitialTabNavigationConsumed = { pendingTabNavigation = null }
                 )
             }
         }
@@ -40,7 +44,15 @@ class MainActivity : ComponentActivity() {
 
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
-        pendingVerseNavigation = extractVerseFromIntent(intent)
+        applyIntent(intent)
+    }
+
+    private fun applyIntent(intent: Intent?) {
+        if (intent?.getBooleanExtra("navigate_to_memorize", false) == true) {
+            pendingTabNavigation = AppTab.MEMORIZE
+        } else {
+            pendingVerseNavigation = extractVerseFromIntent(intent)
+        }
     }
 
     private fun extractVerseFromIntent(intent: Intent?): BibleLocation? {

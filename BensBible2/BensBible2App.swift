@@ -7,6 +7,7 @@ import UserNotifications
 @Observable
 final class NotificationHandler: NSObject, UNUserNotificationCenterDelegate {
     var pendingVerseNavigation: BibleLocation?
+    var pendingMemorizeNavigation = false
 
     // Called when the user taps a notification (foreground or background).
     func userNotificationCenter(
@@ -14,10 +15,14 @@ final class NotificationHandler: NSObject, UNUserNotificationCenterDelegate {
         didReceive response: UNNotificationResponse,
         withCompletionHandler completionHandler: @escaping () -> Void
     ) {
+        let identifier = response.notification.request.identifier
         let info = response.notification.request.content.userInfo
-        if let book = info["book"] as? String,
-           let chapter = info["chapter"] as? Int,
-           let verse = info["verse"] as? Int {
+
+        if identifier == "memorize_reminder" {
+            DispatchQueue.main.async { self.pendingMemorizeNavigation = true }
+        } else if let book = info["book"] as? String,
+                  let chapter = info["chapter"] as? Int,
+                  let verse = info["verse"] as? Int {
             DispatchQueue.main.async {
                 self.pendingVerseNavigation = BibleLocation(
                     bookName: book,
@@ -150,6 +155,13 @@ struct BensBible2App: App {
                 if let location {
                     coordinator.navigateToReader(location: location)
                     notificationHandler.pendingVerseNavigation = nil
+                }
+            }
+            // Switch to Memorize tab when the user taps a memorization reminder.
+            .onChange(of: notificationHandler.pendingMemorizeNavigation) { _, pending in
+                if pending {
+                    coordinator.selectedTab = .memorize
+                    notificationHandler.pendingMemorizeNavigation = false
                 }
             }
         }

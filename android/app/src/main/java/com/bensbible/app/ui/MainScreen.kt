@@ -63,7 +63,9 @@ fun MainScreen(
     verseOfTheDayPreferences: VerseOfTheDayPreferences,
     memorizeReminderPreferences: MemorizeReminderPreferences,
     initialNavigation: BibleLocation? = null,
-    onInitialNavigationConsumed: () -> Unit = {}
+    onInitialNavigationConsumed: () -> Unit = {},
+    initialTabNavigation: AppTab? = null,
+    onInitialTabNavigationConsumed: () -> Unit = {}
 ) {
     val coordinator = remember { NavigationCoordinator() }
     val readerViewModel = remember { ReaderViewModel(bibleDataService, annotationRepository, locationPreferences) }
@@ -79,6 +81,14 @@ fun MainScreen(
         if (initialNavigation != null) {
             coordinator.navigateToReader(initialNavigation)
             onInitialNavigationConsumed()
+        }
+    }
+
+    // Switch to the requested tab when arriving from a notification deep-link.
+    LaunchedEffect(initialTabNavigation) {
+        if (initialTabNavigation != null) {
+            coordinator.selectedTab = initialTabNavigation
+            onInitialTabNavigationConsumed()
         }
     }
 
