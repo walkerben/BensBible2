@@ -80,6 +80,7 @@ final class MemorizeViewModel {
         verse.nextReviewDate = result.nextReviewDate
         verse.lastReviewedAt = Date()
         verse.totalReviews += 1
+        try? modelContext?.save()
 
         lastExerciseType = exercise.exerciseType
         showingResult = true

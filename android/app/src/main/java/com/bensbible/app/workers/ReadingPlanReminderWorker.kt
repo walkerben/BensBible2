@@ -20,8 +20,8 @@ class ReadingPlanReminderWorker(
         val prefs = ReadingPlanReminderPreferences(context)
         if (!prefs.isEnabled) return Result.success()
 
-        val activePlans = (context.applicationContext as BensBibleApp)
-            .readingPlanRepository.countActivePlans()
+        val app = context.applicationContext as? BensBibleApp ?: return Result.failure()
+        val activePlans = app.readingPlanRepository.countActivePlans()
         if (activePlans == 0) return Result.success()
 
         val intent = Intent(context, MainActivity::class.java).apply {

@@ -13,9 +13,6 @@ class MemorizeRepository(private val dao: MemorizeDao) {
         verseNumber: Int,
         verseText: String
     ) {
-        val key = "$bookName $chapterNumber:$verseNumber"
-        val existing = dao.getAllVersesSnapshot()
-        if (existing.any { it.verseKey == key }) return
         dao.insertVerse(
             MemorizedVerseEntity(
                 bookName = bookName,

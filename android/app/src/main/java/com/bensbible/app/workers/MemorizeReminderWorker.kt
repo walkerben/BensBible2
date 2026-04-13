@@ -20,8 +20,8 @@ class MemorizeReminderWorker(
         val prefs = MemorizeReminderPreferences(context)
         if (!prefs.isEnabled) return Result.success()
 
-        val dueCount = (context.applicationContext as BensBibleApp)
-            .database.memorizeDao().countDueVerses(System.currentTimeMillis())
+        val app = context.applicationContext as? BensBibleApp ?: return Result.failure()
+        val dueCount = app.database.memorizeDao().countDueVerses(System.currentTimeMillis())
         if (dueCount == 0) return Result.success()
 
         val intent = Intent(context, MainActivity::class.java).apply {

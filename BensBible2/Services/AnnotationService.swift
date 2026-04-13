@@ -24,7 +24,13 @@ final class SwiftDataAnnotationService: AnnotationService {
             $0.bookName == book && $0.chapterNumber == chapter
         }
         let descriptor = FetchDescriptor<VerseAnnotation>(predicate: predicate)
-        let results = (try? modelContext.fetch(descriptor)) ?? []
+        let results: [VerseAnnotation]
+        do {
+            results = try modelContext.fetch(descriptor)
+        } catch {
+            print("AnnotationService fetchAnnotations error: \(error)")
+            return [:]
+        }
         var dict: [String: VerseAnnotation] = [:]
         for annotation in results {
             dict[annotation.verseKey] = annotation
@@ -37,7 +43,12 @@ final class SwiftDataAnnotationService: AnnotationService {
         let predicate = #Predicate<VerseAnnotation> { $0.verseKey == key }
         var descriptor = FetchDescriptor<VerseAnnotation>(predicate: predicate)
         descriptor.fetchLimit = 1
-        return try? modelContext.fetch(descriptor).first
+        do {
+            return try modelContext.fetch(descriptor).first
+        } catch {
+            print("AnnotationService annotationFor error: \(error)")
+            return nil
+        }
     }
 
     func setHighlight(color: HighlightColor?, for verseIDs: [VerseID]) {
@@ -82,7 +93,12 @@ final class SwiftDataAnnotationService: AnnotationService {
                 SortDescriptor(\.verseNumber)
             ]
         )
-        return (try? modelContext.fetch(descriptor)) ?? []
+        do {
+            return try modelContext.fetch(descriptor)
+        } catch {
+            print("AnnotationService fetchAllBookmarks error: \(error)")
+            return []
+        }
     }
 
     func fetchAllNotes() -> [VerseAnnotation] {
@@ -95,7 +111,12 @@ final class SwiftDataAnnotationService: AnnotationService {
                 SortDescriptor(\.verseNumber)
             ]
         )
-        return (try? modelContext.fetch(descriptor)) ?? []
+        do {
+            return try modelContext.fetch(descriptor)
+        } catch {
+            print("AnnotationService fetchAllNotes error: \(error)")
+            return []
+        }
     }
 
     // MARK: - Private
@@ -110,6 +131,10 @@ final class SwiftDataAnnotationService: AnnotationService {
     }
 
     private func save() {
-        try? modelContext.save()
+        do {
+            try modelContext.save()
+        } catch {
+            print("AnnotationService save error: \(error)")
+        }
     }
 }

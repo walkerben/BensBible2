@@ -83,16 +83,12 @@ class MemorizeViewModel(
         sessionTotal++
         if (quality >= 4) sessionCorrect++
 
-        val exerciseTypeName = when (exercise) {
-            is ExerciseState.FillBlank -> ExerciseType.FILL_BLANK.name
-            is ExerciseState.WordDrag -> ExerciseType.WORD_DRAG.name
-            is ExerciseState.MultipleChoice -> ExerciseType.MULTIPLE_CHOICE.name
+        val (exerciseTypeName, exerciseTypeEnum) = when (exercise) {
+            is ExerciseState.FillBlank -> ExerciseType.FILL_BLANK.name to ExerciseType.FILL_BLANK
+            is ExerciseState.WordDrag -> ExerciseType.WORD_DRAG.name to ExerciseType.WORD_DRAG
+            is ExerciseState.MultipleChoice -> ExerciseType.MULTIPLE_CHOICE.name to ExerciseType.MULTIPLE_CHOICE
         }
-        lastExerciseType = when (exercise) {
-            is ExerciseState.FillBlank -> ExerciseType.FILL_BLANK
-            is ExerciseState.WordDrag -> ExerciseType.WORD_DRAG
-            is ExerciseState.MultipleChoice -> ExerciseType.MULTIPLE_CHOICE
-        }
+        lastExerciseType = exerciseTypeEnum
 
         viewModelScope.launch {
             repository.applyReview(verse, quality, exerciseTypeName)

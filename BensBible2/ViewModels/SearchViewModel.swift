@@ -77,6 +77,7 @@ final class SearchViewModel {
     }
 
     private func performSearch(query: String) async {
+        await MainActor.run { self.results = [] }
         do {
             let allBooks = try dataService.loadBookNames()
             let navTarget = parseNavigationTarget(query: query, allBooks: allBooks)
@@ -116,6 +117,7 @@ final class SearchViewModel {
                 self.isSearching = false
             }
         } catch {
+            print("SearchViewModel search error: \(error)")
             await MainActor.run {
                 self.results = []
                 self.navigationTarget = nil

@@ -1,10 +1,14 @@
 package com.bensbible.app.data
 
 import androidx.room.Entity
+import androidx.room.Index
 import androidx.room.PrimaryKey
 import java.util.UUID
 
-@Entity(tableName = "memorized_verses")
+@Entity(
+    tableName = "memorized_verses",
+    indices = [Index(value = ["bookName", "chapterNumber", "verseNumber"], unique = true)]
+)
 data class MemorizedVerseEntity(
     @PrimaryKey val id: String = UUID.randomUUID().toString(),
     val bookName: String,
