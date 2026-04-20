@@ -1,6 +1,13 @@
 import SwiftUI
 import SwiftData
 
+private struct ChapterSection: Identifiable {
+    let bookName: String
+    let chapter: Int
+    let verses: [Verse]
+    var id: String { "\(bookName)-\(chapter)" }
+}
+
 struct ReadingDayView: View {
     let plan: ReadingPlan
     let day: ReadingPlanDay
@@ -8,7 +15,7 @@ struct ReadingDayView: View {
     let bibleDataService: any BibleDataService
 
     @State private var isComplete: Bool = false
-    @State private var chapterSections: [(bookName: String, chapter: Int, verses: [Verse])] = []
+    @State private var chapterSections: [ChapterSection] = []
     @State private var isLoading = true
     @State private var annotations: [String: VerseAnnotation] = [:]
 
@@ -59,7 +66,7 @@ struct ReadingDayView: View {
                                 .frame(maxWidth: .infinity, alignment: .center)
                                 .padding(.top, 40)
                         } else {
-                            ForEach(chapterSections, id: \.chapter) { section in
+                            ForEach(chapterSections) { section in
                                 Text("\(section.bookName) \(section.chapter)")
                                     .font(.title3)
                                     .fontWeight(.bold)
@@ -233,10 +240,10 @@ struct ReadingDayView: View {
     private func loadChapters() {
         isLoading = true
         Task {
-            var sections: [(bookName: String, chapter: Int, verses: [Verse])] = []
+            var sections: [ChapterSection] = []
             for entry in day.readings {
                 if let chapter = try? bibleDataService.loadChapter(bookName: entry.bookName, chapter: entry.chapter) {
-                    sections.append((bookName: entry.bookName, chapter: entry.chapter, verses: chapter.verses))
+                    sections.append(ChapterSection(bookName: entry.bookName, chapter: entry.chapter, verses: chapter.verses))
                 }
             }
             await MainActor.run {
