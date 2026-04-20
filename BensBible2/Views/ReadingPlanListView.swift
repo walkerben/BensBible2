@@ -4,6 +4,7 @@ import SwiftData
 struct ReadingPlanListView: View {
     @Environment(\.modelContext) private var modelContext
     @State private var viewModel: ReadingPlanViewModel?
+    @State private var selectedPlan: ReadingPlan?
 
     private let bibleDataService: any BibleDataService
 
@@ -22,6 +23,17 @@ struct ReadingPlanListView: View {
             }
             .navigationTitle("Reading Plans")
         }
+        .sheet(item: $selectedPlan) { plan in
+            if let vm = viewModel {
+                NavigationStack {
+                    ReadingPlanDetailView(
+                        plan: plan,
+                        viewModel: vm,
+                        bibleDataService: bibleDataService
+                    )
+                }
+            }
+        }
         .onAppear {
             if viewModel == nil {
                 viewModel = ReadingPlanViewModel(modelContext: modelContext)
@@ -36,13 +48,12 @@ struct ReadingPlanListView: View {
             ForEach(categories, id: \.self) { category in
                 Section(header: Text(category)) {
                     ForEach(allReadingPlans.filter { $0.category == category }, id: \.id) { plan in
-                        NavigationLink(destination: ReadingPlanDetailView(
-                            plan: plan,
-                            viewModel: viewModel,
-                            bibleDataService: bibleDataService
-                        )) {
+                        Button {
+                            selectedPlan = plan
+                        } label: {
                             PlanRowView(plan: plan, viewModel: viewModel)
                         }
+                        .foregroundStyle(.primary)
                     }
                 }
             }

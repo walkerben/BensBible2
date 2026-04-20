@@ -34,7 +34,7 @@ struct ReadingPlanDay {
     }
 }
 
-struct ReadingPlan {
+struct ReadingPlan: Identifiable {
     let id: String
     let title: String
     let description: String

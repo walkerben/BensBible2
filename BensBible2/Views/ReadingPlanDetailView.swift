@@ -5,6 +5,8 @@ struct ReadingPlanDetailView: View {
     let viewModel: ReadingPlanViewModel
     let bibleDataService: any BibleDataService
 
+    @Environment(\.dismiss) private var dismiss
+
     var body: some View {
         let progress = viewModel.progress(for: plan)
 
@@ -94,6 +96,11 @@ struct ReadingPlanDetailView: View {
         }
         .navigationTitle(plan.title)
         .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .cancellationAction) {
+                Button("Done") { dismiss() }
+            }
+        }
     }
 }
 
