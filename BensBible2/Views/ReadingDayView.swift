@@ -60,7 +60,7 @@ struct ReadingDayView: View {
         ZStack(alignment: .bottom) {
             VStack(spacing: 0) {
                 ScrollView {
-                    LazyVStack(alignment: .leading, spacing: 0) {
+                    VStack(alignment: .leading, spacing: 0) {
                         if isLoading {
                             ProgressView()
                                 .frame(maxWidth: .infinity, alignment: .center)
