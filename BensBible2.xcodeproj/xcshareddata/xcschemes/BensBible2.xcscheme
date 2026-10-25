@@ -34,6 +34,20 @@
                ReferencedContainer = "container:BensBible2.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "NO"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "UT11000AUT11000A"
+               BuildableName = "BensBible2Tests.xctest"
+               BlueprintName = "BensBible2Tests"
+               ReferencedContainer = "container:BensBible2.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
@@ -50,6 +64,16 @@
                BlueprintIdentifier = "SC11000ASC11000A"
                BuildableName = "BensBible2UITests.xctest"
                BlueprintName = "BensBible2UITests"
+               ReferencedContainer = "container:BensBible2.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "UT11000AUT11000A"
+               BuildableName = "BensBible2Tests.xctest"
+               BlueprintName = "BensBible2Tests"
                ReferencedContainer = "container:BensBible2.xcodeproj">
             </BuildableReference>
          </TestableReference>
