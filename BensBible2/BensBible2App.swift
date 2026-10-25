@@ -104,11 +104,23 @@ private struct MemorizeReminderScheduler: View {
     }
 }
 
+final class AppDelegate: NSObject, UIApplicationDelegate {
+    let notificationHandler = NotificationHandler()
+
+    func application(
+        _ application: UIApplication,
+        didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
+    ) -> Bool {
+        UNUserNotificationCenter.current().delegate = notificationHandler
+        return true
+    }
+}
+
 @main
 struct BensBible2App: App {
+    @UIApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
     @State private var coordinator = NavigationCoordinator()
     @State private var showSplash = true
-    @State private var notificationHandler = NotificationHandler()
     @State private var bibleDataService = LocalBibleDataService()
     @AppStorage("verse_of_the_day_enabled") private var votdEnabled = false
     @AppStorage("verse_of_the_day_hour") private var votdHour = 8
@@ -175,9 +187,6 @@ struct BensBible2App: App {
                 }
             }
             .onAppear {
-                // Register notification delegate.
-                UNUserNotificationCenter.current().delegate = notificationHandler
-
                 // Refresh the rolling 60-day notification window each time the app launches.
                 if votdEnabled {
                     VerseOfTheDayService().scheduleNotifications(hour: votdHour, minute: votdMinute)
@@ -190,24 +199,24 @@ struct BensBible2App: App {
                 }
             }
             // Navigate to verse when the user taps a Verse of the Day notification.
-            .onChange(of: notificationHandler.pendingVerseNavigation) { _, location in
+            .onChange(of: appDelegate.notificationHandler.pendingVerseNavigation) { _, location in
                 if let location {
                     coordinator.navigateToReader(location: location)
-                    notificationHandler.pendingVerseNavigation = nil
+                    appDelegate.notificationHandler.pendingVerseNavigation = nil
                 }
             }
             // Switch to Memorize tab when the user taps a memorization reminder.
-            .onChange(of: notificationHandler.pendingMemorizeNavigation) { _, pending in
+            .onChange(of: appDelegate.notificationHandler.pendingMemorizeNavigation) { _, pending in
                 if pending {
                     coordinator.selectedTab = .memorize
-                    notificationHandler.pendingMemorizeNavigation = false
+                    appDelegate.notificationHandler.pendingMemorizeNavigation = false
                 }
             }
             // Switch to Reading Plans tab when the user taps a reading plan reminder.
-            .onChange(of: notificationHandler.pendingReadingPlanNavigation) { _, pending in
+            .onChange(of: appDelegate.notificationHandler.pendingReadingPlanNavigation) { _, pending in
                 if pending {
                     coordinator.selectedTab = .readingPlan
-                    notificationHandler.pendingReadingPlanNavigation = false
+                    appDelegate.notificationHandler.pendingReadingPlanNavigation = false
                 }
             }
         }
