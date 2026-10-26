@@ -1,8 +1,32 @@
+import java.util.Properties
+import org.gradle.api.GradleException
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("com.google.devtools.ksp")
     id("org.jetbrains.kotlin.plugin.serialization")
+}
+
+// android/local.properties is gitignored and is not a Gradle project-property file.
+// Read the release signing values here so they are never stored in android/gradle.properties.
+val releaseSigning = run {
+    val props = Properties()
+    val localProperties = rootProject.file("local.properties")
+    if (localProperties.isFile) {
+        localProperties.inputStream().use { props.load(it) }
+    }
+    fun value(name: String): String? = props.getProperty(name)?.trim()?.takeIf { it.isNotEmpty() }
+    val storeFile = value("RELEASE_STORE_FILE") ?: return@run null
+    val storePassword = value("RELEASE_STORE_PASSWORD") ?: return@run null
+    val keyAlias = value("RELEASE_KEY_ALIAS") ?: return@run null
+    val keyPassword = value("RELEASE_KEY_PASSWORD") ?: return@run null
+    object {
+        val storeFile = storeFile
+        val storePassword = storePassword
+        val keyAlias = keyAlias
+        val keyPassword = keyPassword
+    }
 }
 
 android {
@@ -18,11 +42,14 @@ android {
     }
 
     signingConfigs {
-        create("release") {
-            storeFile = file(project.property("RELEASE_STORE_FILE") as String)
-            storePassword = project.property("RELEASE_STORE_PASSWORD") as String
-            keyAlias = project.property("RELEASE_KEY_ALIAS") as String
-            keyPassword = project.property("RELEASE_KEY_PASSWORD") as String
+        val signing = releaseSigning
+        if (signing != null) {
+            create("release") {
+                storeFile = file(signing.storeFile)
+                storePassword = signing.storePassword
+                keyAlias = signing.keyAlias
+                keyPassword = signing.keyPassword
+            }
         }
     }
 
@@ -34,7 +61,10 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-            signingConfig = signingConfigs.getByName("release")
+            val signing = releaseSigning
+            if (signing != null) {
+                signingConfig = signingConfigs.getByName("release")
+            }
         }
     }
 
@@ -80,4 +110,15 @@ dependencies {
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.work:work-runtime-ktx:2.9.0")
     implementation("sh.calvin.reorderable:reorderable:2.1.0")
+}
+
+if (releaseSigning == null) {
+    gradle.taskGraph.whenReady {
+        val signsRelease = allTasks.any { it.name == "bundleRelease" || it.name == "assembleRelease" }
+        if (signsRelease) {
+            throw GradleException(
+                "Release signing is not configured. Add RELEASE_STORE_FILE, RELEASE_STORE_PASSWORD, RELEASE_KEY_ALIAS, and RELEASE_KEY_PASSWORD to android/local.properties."
+            )
+        }
+    }
 }
