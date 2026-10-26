@@ -1,5 +1,6 @@
 package com.bensbible.app.ui.presentations
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -48,6 +49,9 @@ fun PresentationDetailScreen(
     val viewModel = remember { PresentationDetailViewModel(repository, presentation.id) }
     val slides by viewModel.slides.collectAsState()
     var showSlideshow by remember { mutableStateOf(false) }
+    // The slideshow Dialog has its own window and consumes back. While it is
+    // showing, leave this callback disabled so one gesture only dismisses it.
+    BackHandler(enabled = !showSlideshow, onBack = onBack)
 
     if (showSlideshow) {
         Dialog(
