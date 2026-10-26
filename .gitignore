@@ -31,7 +31,6 @@ android/captures
 android/.externalNativeBuild
 android/.cxx
 android/keystore/
-android/gradle.properties
 *.iml
 
 # Claude Code

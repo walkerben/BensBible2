@@ -119,18 +119,20 @@ grep -n -E 'versionCode|versionName' android/app/build.gradle.kts
 
 ### Signing
 
-The `release` signing config in `android/app/build.gradle.kts` reads four Gradle project properties:
+The `release` signing config in `android/app/build.gradle.kts` reads four values from `android/local.properties`:
 
 - `RELEASE_STORE_FILE`
 - `RELEASE_STORE_PASSWORD`
 - `RELEASE_KEY_ALIAS`
 - `RELEASE_KEY_PASSWORD`
 
-On this machine they are defined in `android/gradle.properties`. That file is tracked. `.gitignore` also lists `android/gradle.properties`, which has no effect on a file that is already tracked. `RELEASE_STORE_FILE` is `../keystore/release.jks`, relative to `android/app`, so the keystore is `android/keystore/release.jks`. That file is present locally. `android/keystore/` is gitignored, and the keystore is not in git.
+`android/local.properties` is gitignored. Gradle does not load that file as project properties, so the app module reads it with `java.util.Properties`. Put the four values there on any machine that builds a signed release bundle. This checklist does not repeat them.
 
-`android/local.properties` is gitignored and, on this machine, only sets `sdk.dir`. The signing block does not read it.
+`android/gradle.properties` stays tracked. It holds non-secret Gradle settings only (`org.gradle.jvmargs`, `android.useAndroidX`, and the other flags in that file). It is not listed in `.gitignore`.
 
-Leave the passwords in that properties file. This checklist does not repeat them.
+`RELEASE_STORE_FILE` is a path relative to `android/app`. On this machine that path is `../keystore/release.jks`, so the keystore is `android/keystore/release.jks`. That file is present locally. `android/keystore/` is gitignored, and the keystore is not in git.
+
+If any of the four values is missing or blank, debug builds do not need them and `assembleDebug` still configures. `bundleRelease` and `assembleRelease` fail before signing, with an error that names those keys and `android/local.properties`.
 
 The release build type sets `isMinifyEnabled` and `isShrinkResources` and uses the default optimized ProGuard file plus `android/app/proguard-rules.pro`.
 
@@ -169,14 +171,12 @@ Stop when `app-release.aab` is on disk. Uploading it to Play Console and sending
 
 2. Store export on this Mac depends on Xcode cloud signing. The keychain has the Apple Development identity above and no Apple Distribution private key. The Apple ID signed into Xcode is not written down here. If that session is missing, export fails.
 
-3. Release keystore passwords are in the tracked file `android/gradle.properties`. The keystore file is only on disk. This checklist does not move or rotate them.
+3. The four `RELEASE_*` signing values are no longer in tracked files. They are still in this repository's git history. Removing them from history, and resetting the Play upload key, are separate decisions and were not done from this checklist.
 
-4. `CLAUDE.md` says those four properties belong in `android/local.properties`. The Gradle signing block reads project properties, and the values that exist are in `android/gradle.properties`.
+4. iOS build `4` and Android `versionCode` `6` are independent. Both user-facing versions happen to be 1.4.
 
-5. iOS build `4` and Android `versionCode` `6` are independent. Both user-facing versions happen to be 1.4.
+5. No public URL is recorded for `docs/privacy-policy.html` or `docs/support.html`.
 
-6. No public URL is recorded for `docs/privacy-policy.html` or `docs/support.html`.
+6. No file in the repo holds App Store or Play release notes.
 
-7. No file in the repo holds App Store or Play release notes.
-
-8. iPad screenshots, Android screenshots, and the two Play images have no generator. The iPhone screenshot test writes only to `/Users/benjaminwalker/Developer/BensBible2/screenshots`.
+7. iPad screenshots, Android screenshots, and the two Play images have no generator. The iPhone screenshot test writes only to `/Users/benjaminwalker/Developer/BensBible2/screenshots`.
