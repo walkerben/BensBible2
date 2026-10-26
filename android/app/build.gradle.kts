@@ -8,9 +8,17 @@ plugins {
     id("org.jetbrains.kotlin.plugin.serialization")
 }
 
+// Not a data class: the default toString would include the keystore passwords.
+class ReleaseSigningCredentials(
+    val storeFile: String,
+    val storePassword: String,
+    val keyAlias: String,
+    val keyPassword: String,
+)
+
 // android/local.properties is gitignored and is not a Gradle project-property file.
 // Read the release signing values here so they are never stored in android/gradle.properties.
-val releaseSigning = run {
+val releaseSigning: ReleaseSigningCredentials? = run {
     val props = Properties()
     val localProperties = rootProject.file("local.properties")
     if (localProperties.isFile) {
@@ -21,12 +29,7 @@ val releaseSigning = run {
     val storePassword = value("RELEASE_STORE_PASSWORD") ?: return@run null
     val keyAlias = value("RELEASE_KEY_ALIAS") ?: return@run null
     val keyPassword = value("RELEASE_KEY_PASSWORD") ?: return@run null
-    object {
-        val storeFile = storeFile
-        val storePassword = storePassword
-        val keyAlias = keyAlias
-        val keyPassword = keyPassword
-    }
+    ReleaseSigningCredentials(storeFile, storePassword, keyAlias, keyPassword)
 }
 
 android {
