@@ -1,5 +1,6 @@
 package com.bensbible.app.ui.readingplan
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -56,6 +57,7 @@ fun ReadingPlanDetailScreen(
     onDaySelected: (ReadingPlanDay) -> Unit,
     modifier: Modifier = Modifier
 ) {
+    BackHandler(onBack = onBack)
     val progressList by viewModel.progressList.collectAsState()
     val progress = progressList.find { it.planId == plan.id }
     val completedDays = progress?.completedDays ?: emptySet()
