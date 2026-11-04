@@ -1,5 +1,6 @@
 package com.bensbible.app.ui.memorize
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
@@ -37,6 +38,7 @@ fun MemorizeSessionScreen(
     viewModel: MemorizeViewModel,
     modifier: Modifier = Modifier
 ) {
+    BackHandler { viewModel.endSession() }
     Scaffold(
         topBar = {
             TopAppBar(
